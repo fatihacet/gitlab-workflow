@@ -19,11 +19,11 @@
     "commands": [
       {
         "command": "gl.showIssuesAssigedToMe",
-        "title": "GitLab: Shows issues assigned to me"
+        "title": "GitLab: Show issues assigned to me"
       },
       {
         "command": "gl.showMergeRequestsAssigedToMe",
-        "title": "GitLab: Shows merge requests assigned to me"
+        "title": "GitLab: Show merge requests assigned to me"
       }
     ],
     "configuration": {
