@@ -1,59 +1,59 @@
 {
-  "name": "gitlab-workflow",
-  "displayName": "GitLab Workflow",
-  "description": "GitLab VSCode integration",
-  "version": "0.0.1",
-  "publisher": "fatihacet",
-  "engines": {
-    "vscode": "^1.19.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [
-    "*"
-  ],
-  "main": "./src/extension",
-  "icon": "src/assets/gitlab-logo.png",
-  "contributes": {
-    "commands": [
-      {
-        "command": "gl.showIssuesAssigedToMe",
-        "title": "GitLab: Show issues assigned to me"
-      },
-      {
-        "command": "gl.showMergeRequestsAssigedToMe",
-        "title": "GitLab: Show merge requests assigned to me"
-      }
+    "name": "gitlab-workflow",
+    "displayName": "GitLab Workflow",
+    "description": "GitLab VSCode integration",
+    "version": "0.1.1",
+    "publisher": "fatihacet",
+    "engines": {
+        "vscode": "^1.19.0"
+    },
+    "categories": [
+        "Other"
     ],
-    "configuration": {
-      "title": "Your GitLab config",
-      "properties": {
-        "gitlab.instanceUrl": {
-          "type": "string",
-          "default": "https://gitlab.com",
-          "description": "Your GitLab instance URL"
-        },
-        "gitlab.userId": {
-          "type": "string",
-          "default": null,
-          "description": "Your GitLab User ID"
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./src/extension",
+    "icon": "src/assets/gitlab-logo.png",
+    "contributes": {
+        "commands": [
+            {
+                "command": "gl.showIssuesAssigedToMe",
+                "title": "GitLab: Show issues assigned to me"
+            },
+            {
+                "command": "gl.showMergeRequestsAssigedToMe",
+                "title": "GitLab: Show merge requests assigned to me"
+            }
+        ],
+        "configuration": {
+            "title": "Your GitLab config",
+            "properties": {
+                "gitlab.instanceUrl": {
+                    "type": "string",
+                    "default": "https://gitlab.com",
+                    "description": "Your GitLab instance URL"
+                },
+                "gitlab.userId": {
+                    "type": "string",
+                    "default": null,
+                    "description": "Your GitLab User ID"
+                }
+            }
         }
-      }
+    },
+    "scripts": {
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "@types/mocha": "^2.2.42",
+        "@types/node": "^7.0.43",
+        "eslint": "^4.6.1",
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6"
+    },
+    "dependencies": {
+        "opn": "^5.2.0"
     }
-  },
-  "scripts": {
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "node ./node_modules/vscode/bin/test"
-  },
-  "devDependencies": {
-    "@types/mocha": "^2.2.42",
-    "@types/node": "^7.0.43",
-    "eslint": "^4.6.1",
-    "typescript": "^2.6.1",
-    "vscode": "^1.1.6"
-  },
-  "dependencies": {
-    "opn": "^5.2.0"
-  }
 }
