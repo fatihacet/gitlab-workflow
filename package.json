@@ -3,7 +3,7 @@
   "displayName": "GitLab Workflow",
   "description": "GitLab VSCode integration",
   "version": "0.0.1",
-  "publisher": "Fatih Acet <fatih@gitlab.com>",
+  "publisher": "fatihacet",
   "engines": {
     "vscode": "^1.19.0"
   },
