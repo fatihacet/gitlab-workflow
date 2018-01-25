@@ -14,7 +14,7 @@
     "*"
   ],
   "main": "./src/extension",
-  "icon": "./src/assets/gitlab-logo.png",
+  "icon": "src/assets/gitlab-logo.png",
   "contributes": {
     "commands": [
       {
