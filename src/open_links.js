@@ -1,6 +1,5 @@
 const vscode = require('vscode');
 const opn = require('opn');
-
 const { instanceUrl, userId } = vscode.workspace.getConfiguration('gitlab');
 
 const showIssues = () => {
