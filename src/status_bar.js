@@ -1,19 +1,14 @@
 const vscode = require('vscode');
-const gitService = require('./git_service');
 const gitLabService = require('./gitlab_service');
 
 let context = null;
 let pipelineStatusBarItem = null;
 let mrStatusBarItem = null;
 
-const createStatusBarItem = (text, show = false) => {
+const createStatusBarItem = (text) => {
   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
   statusBarItem.text = text;
   context.subscriptions.push(statusBarItem);
-
-  if (show) {
-    statusBarItem.show();
-  }
 
   return statusBarItem;
 }
@@ -47,7 +42,7 @@ const initPipelineStatus = () => {
 }
 
 const initMrStatus = () => {
-  mrStatusBarItem = createStatusBarItem('GitLab: Fetching MR...', true);
+  mrStatusBarItem = createStatusBarItem('GitLab: Fetching MR...');
 
   fetchBranchMr();
 }
