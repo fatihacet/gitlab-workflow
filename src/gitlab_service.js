@@ -6,7 +6,7 @@ async function fetch(path) {
   const config = {
     url: `${apiRoot}${path}`,
     headers: {
-      'PRIVATE-TOKEN': 'TOKEN', // FIXME
+      'PRIVATE-TOKEN': 'f9vX_GfmWc_SLzz7Siaq', // FIXME: Make token UI
     }
   };
 
@@ -19,15 +19,21 @@ async function fetch(path) {
   }
 }
 
-// FIXME: Don't rely created-by-me
-// FIXME: Fix project id
+// FIXME: Don't rely on `created-by-me`. It doesn't have to be my own MR.
+// Currently GL API doesn't support finding MR by branch name or commit id.
 async function fetchMyOpenMergeRequests() {
-  return await fetch('/projects/13083/merge_requests?scope=created-by-me&state=opened');
+  const project = await fetchCurrentProject();
+
+  if (project) {
+    return await fetch(`/projects/${project.id}/merge_requests?scope=created-by-me&state=opened`);
+  }
+
+  return null;
 }
 
 async function fetchOpenMergeRequestForCurrentBranch() {
   const branchName = await gitService.fetchBranchName();
-  const mrs = await fetchMyOpenMergeRequests(); // FIXME: I doesn't have to be my MR
+  const mrs = await fetchMyOpenMergeRequests();
 
   return mrs.filter(mr => mr.source_branch === branchName)[0];
 }
@@ -50,6 +56,20 @@ async function fetchLastPipelineForCurrentBranch() {
   return null;
 }
 
+async function fetchCurrentProject() {
+  const remote = await gitService.fetchGitRemote();
+
+  if (remote) {
+    const { namespace, project } = remote;
+    const projectData = await fetch(`/projects/${namespace}%2F${project}`);
+
+    return projectData || null;
+  }
+
+  return null;
+}
+
 exports.fetchMyOpenMergeRequests = fetchMyOpenMergeRequests;
 exports.fetchOpenMergeRequestForCurrentBranch = fetchOpenMergeRequestForCurrentBranch;
 exports.fetchLastPipelineForCurrentBranch = fetchLastPipelineForCurrentBranch;
+exports.fetchCurrentProject = fetchCurrentProject;
