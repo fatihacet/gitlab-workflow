@@ -18,6 +18,10 @@
     "contributes": {
         "commands": [
             {
+                "command": "gl.setToken",
+                "title": "Set GitLab Personal Access Token"
+            },
+            {
                 "command": "gl.showIssuesAssigedToMe",
                 "title": "GitLab: Show issues assigned to me"
             },
@@ -33,16 +37,6 @@
                     "type": "string",
                     "default": "https://gitlab.com",
                     "description": "Your GitLab instance URL (default is https://gitlab.com)"
-                },
-                "gitlab.userId": {
-                    "type": "string",
-                    "default": null,
-                    "description": "Your GitLab User ID"
-                },
-                "gitlab.remoteName": {
-                    "type": "string",
-                    "default": "origin",
-                    "description": "Change this you rename your remote name. (default is origin)"
                 }
             }
         }
