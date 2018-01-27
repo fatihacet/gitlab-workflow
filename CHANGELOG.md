@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## [0.2.0] - 2018-01-27
+## [0.2.0] - 2018-01-28
 ### Added
 - Added a new service layer to opearate git commands.
 - Added a new service layer to talk with GitLab API.
@@ -18,8 +18,8 @@
 - Show project specific assigned issues and merge requests.
 
 ### Fixed
-- [#7](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/7)
-- [#3](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/3)
+- [#7](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/7) Remove hardcoded origin in fetchGitRemote method.
+- [#3](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/3) Assigned MR and issues openers should be project specific
 
 
 ## [0.1.1] - 2018-01-25
