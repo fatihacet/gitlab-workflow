@@ -4,7 +4,15 @@ const statusBar = require('./status_bar');
 const tokenInput = require('./token_input');
 const gitLabService = require('./gitlab_service');
 
-const activate = (context) => {
+let context = null;
+
+const activate = (ctx) => {
+  context = ctx;
+  registerCommands();
+  init();
+};
+
+const registerCommands = () => {
   const commands = {
     'gl.showIssuesAssigedToMe': openLinks.showIssues,
     'gl.showMergeRequestsAssigedToMe': openLinks.showMergeRequests,
@@ -15,19 +23,21 @@ const activate = (context) => {
     context.subscriptions.push(
       vscode.commands.registerCommand(cmd, commands[cmd])
     );
-  })
+  });
+};
 
+const init = () => {
   const token = context.globalState.get('glToken');
 
   if (token) {
     gitLabService._setGLToken(token);
     statusBar.init(context);
   } else {
-    askForToken(context);
+    askForToken();
   }
-};
+}
 
-const askForToken = (context) => {
+const askForToken = () => {
   const gs = context.globalState;
 
   if (!gs.get('glToken') && !gs.get('askedForToken')) {
@@ -38,5 +48,6 @@ const askForToken = (context) => {
 
 const deactivate = () => {};
 
+exports.init = init;
 exports.activate = activate;
 exports.deactivate = deactivate;

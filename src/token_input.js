@@ -1,4 +1,5 @@
 const vscode = require('vscode');
+const extension = require('./extension');
 
 // TODO: Provide user an option to delete PAT
 async function showInput(context) {
@@ -10,6 +11,7 @@ async function showInput(context) {
 
   if (token) {
     context.globalState.update('glToken', token);
+    extension.init();
   }
 }
 
