@@ -7,7 +7,7 @@
 - Added new methods to get info from Git and GitLab.
 - Implemented MR link on status bar.
 - Implemented pipeline status on status bar.
-- Implemented UI flow to ask and store GitLab Personal Access Token.
+- Added Personal Access Token flow providing menu options to save and delete GitLab PAT.
 
 ### Changed
 - Removed `gitlab.userId` necessity.

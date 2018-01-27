@@ -19,7 +19,11 @@
         "commands": [
             {
                 "command": "gl.setToken",
-                "title": "Set GitLab Personal Access Token"
+                "title": "GitLab: Set GitLab Personal Access Token"
+            },
+            {
+                "command": "gl.removeToken",
+                "title": "GitLab: Remove your GitLab Personal Access Token"
             },
             {
                 "command": "gl.showIssuesAssigedToMe",

@@ -1,7 +1,6 @@
 const vscode = require('vscode');
 const extension = require('./extension');
 
-// TODO: Provide user an option to delete PAT
 async function showInput(context) {
   const token = await vscode.window.showInputBox({
     ignoreFocusOut: true,
@@ -15,4 +14,10 @@ async function showInput(context) {
   }
 }
 
+const removeToken = (context) => {
+  context.globalState.update('glToken', null);
+  extension.deactivate();
+};
+
 exports.showInput = showInput;
+exports.removeToken = removeToken;
