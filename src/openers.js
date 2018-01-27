@@ -75,8 +75,9 @@ async function openCreateNewMr() {
   const project = await gitLabService.fetchCurrentProject();
 
   if (project) {
-    // TODO: Auto select current branch name as source branch on GL UI.
-    opn(`${project.web_url}/merge_requests/new`);
+    const branchName = await gitService.fetchBranchName();
+
+    opn(`${project.web_url}/merge_requests/new?merge_request%5Bsource_branch%5D=${branchName}`);
   } else {
     vscode.window.showInformationMessage('GitLab Workflow: Failed to open file on web. No GitLab project.');
   }
