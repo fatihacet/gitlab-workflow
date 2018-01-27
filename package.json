@@ -47,7 +47,8 @@
     },
     "scripts": {
         "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "node ./node_modules/vscode/bin/test"
+        "test": "node ./node_modules/vscode/bin/test",
+        "eslint": "eslint --max-warnings 0 --ext .js ."
     },
     "devDependencies": {
         "@types/mocha": "^2.2.42",
