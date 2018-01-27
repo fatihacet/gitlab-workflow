@@ -61,7 +61,30 @@ async function openCurrentMergeRequest() {
   }
 }
 
+async function openCreateNewIssue() {
+  const project = await gitLabService.fetchCurrentProject();
+
+  if (project) {
+    opn(`${project.web_url}/issues/new`);
+  } else {
+    vscode.window.showInformationMessage('GitLab Workflow: Failed to open file on web. No GitLab project.');
+  }
+};
+
+async function openCreateNewMr() {
+  const project = await gitLabService.fetchCurrentProject();
+
+  if (project) {
+    // TODO: Auto select current branch name as source branch on GL UI.
+    opn(`${project.web_url}/merge_requests/new`);
+  } else {
+    vscode.window.showInformationMessage('GitLab Workflow: Failed to open file on web. No GitLab project.');
+  }
+};
+
 exports.showIssues = showIssues;
 exports.showMergeRequests = showMergeRequests;
 exports.openActiveFile = openActiveFile;
 exports.openCurrentMergeRequest = openCurrentMergeRequest;
+exports.openCreateNewIssue = openCreateNewIssue;
+exports.openCreateNewMr = openCreateNewMr;

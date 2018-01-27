@@ -39,8 +39,15 @@
             },
             {
                 "command": "gl.openCurrentMergeRequest",
-                "title": "GitLab: Open current merge request"
+                "title": "GitLab: Open merge request for current branch"
             },
+            {
+                "command": "gl.openCreateNewIssue",
+                "title": "GitLab: Create new issue on current project"
+            },
+            {
+                "command": "gl.openCreateNewMR",
+                "title": "GitLab: Create new merge request on current project"
             }
         ],
         "configuration": {

@@ -20,6 +20,8 @@ const registerCommands = () => {
     'gl.removeToken': tokenInput.removeToken.bind(null, context),
     'gl.openActiveFile': openers.openActiveFile,
     'gl.openCurrentMergeRequest': openers.openCurrentMergeRequest,
+    'gl.openCreateNewIssue': openers.openCreateNewIssue,
+    'gl.openCreateNewMR': openers.openCreateNewMr,
   }
 
   Object.keys(commands).forEach((cmd) => {
