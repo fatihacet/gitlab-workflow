@@ -83,9 +83,20 @@ async function openCreateNewMr() {
   }
 };
 
+async function openProjectPage() {
+  const project = await gitLabService.fetchCurrentProject();
+
+  if (project) {
+    opn(project.web_url);
+  } else {
+    vscode.window.showInformationMessage('GitLab Workflow: Failed to open file on web. No GitLab project.');
+  }
+}
+
 exports.showIssues = showIssues;
 exports.showMergeRequests = showMergeRequests;
 exports.openActiveFile = openActiveFile;
 exports.openCurrentMergeRequest = openCurrentMergeRequest;
 exports.openCreateNewIssue = openCreateNewIssue;
 exports.openCreateNewMr = openCreateNewMr;
+exports.openProjectPage = openProjectPage;

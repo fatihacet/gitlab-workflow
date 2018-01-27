@@ -48,6 +48,10 @@
             {
                 "command": "gl.openCreateNewMR",
                 "title": "GitLab: Create new merge request on current project"
+            },
+            {
+                "command": "gl.openProjectPage",
+                "title": "GitLab: Open current project on GitLab"
             }
         ],
         "configuration": {
