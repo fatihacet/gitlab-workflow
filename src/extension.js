@@ -1,5 +1,5 @@
 const vscode = require('vscode');
-const openLinks = require('./open_links');
+const openers = require('./openers');
 const statusBar = require('./status_bar');
 const tokenInput = require('./token_input');
 const gitLabService = require('./gitlab_service');
@@ -14,11 +14,11 @@ const activate = (ctx) => {
 
 const registerCommands = () => {
   const commands = {
-    'gl.showIssuesAssigedToMe': openLinks.showIssues,
-    'gl.showMergeRequestsAssigedToMe': openLinks.showMergeRequests,
+    'gl.showIssuesAssigedToMe': openers.showIssues,
+    'gl.showMergeRequestsAssigedToMe': openers.showMergeRequests,
     'gl.setToken': tokenInput.showInput.bind(null, context),
     'gl.removeToken': tokenInput.removeToken.bind(null, context),
-    'gl.openActiveFileOnWeb': openLinks.openActiveFileOnWeb,
+    'gl.openActiveFileOnWeb': openers.openActiveFileOnWeb,
   }
 
   Object.keys(commands).forEach((cmd) => {
