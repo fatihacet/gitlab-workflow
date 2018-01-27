@@ -3,8 +3,6 @@ const opn = require('opn');
 const gitService = require('./git_service');
 const gitLabService = require('./gitlab_service');
 
-const { instanceUrl } = vscode.workspace.getConfiguration('gitlab');
-
 async function openLink(link) {
   const user = await gitLabService.fetchUser();
 
@@ -16,11 +14,23 @@ async function openLink(link) {
 };
 
 async function showIssues() {
-  await openLink(`${instanceUrl}/dashboard/issues?assignee_id=$userId`);
+  const project = await gitLabService.fetchCurrentProject();
+
+  if (project) {
+    await openLink(`${project.web_url}/issues?assignee_id=$userId`);
+  } else {
+    vscode.window.showInformationMessage('GitLab Workflow: Failed to open file on web. No GitLab project.');
+  }
 }
 
 async function showMergeRequests() {
-  await openLink(`${instanceUrl}/dashboard/merge_requests?assignee_id=$userId`);
+  const project = await gitLabService.fetchCurrentProject();
+
+  if (project) {
+    await openLink(`${project.web_url}/merge_requests?assignee_id=$userId`);
+  } else {
+    vscode.window.showInformationMessage('GitLab Workflow: Failed to open file on web. No GitLab project.');
+  }
 };
 
 async function openActiveFile() {

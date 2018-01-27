@@ -28,7 +28,7 @@ async function fetchLastCommitId() {
 
 async function fetchGitRemote() {
   const branchName = await fetchBranchName();
-  const remoteName = await fetch(`git config --get branch.${branchName}.remote`)
+  const remoteName = await fetch(`git config --get branch.${branchName}.remote`);
   const url = await fetch(`git ls-remote --get-url ${remoteName} | cut -f 2 -d @ | cut -f 1 -d "/"`);
 
   if (url) {

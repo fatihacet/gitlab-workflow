@@ -14,7 +14,13 @@
 - Implemented open GitLab to create new issue.
 
 ### Changed
-- Removed `gitlab.userId` necessity.
+- Deprecated `gitlab.userId`.
+- Show project specific assigned issues and merge requests.
+
+### Fixed
+- [#7](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/7)
+- [#3](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/3)
+
 
 ## [0.1.1] - 2018-01-25
 ### Added
