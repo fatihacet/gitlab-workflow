@@ -1,3 +1,4 @@
+const vscode = require('vscode');
 const request = require('request-promise');
 const gitService = require('./git_service');
 const apiRoot = 'https://gitlab.com/api/v4'; // FIXME: Get domain dynamically
@@ -5,8 +6,7 @@ let glToken = null;
 
 async function fetch(path) {
   if (!glToken) {
-    console.log('GitLab Workflow: Cannot make request. No token found.');
-    return;
+    return vscode.window.showInformationMessage('GitLab Workflow: Cannot make request. No token found.');
   }
 
   const config = {
@@ -21,7 +21,16 @@ async function fetch(path) {
   try {
     return JSON.parse(response);
   } catch (e) {
+    vscode.window.showInformationMessage('GitLab Workflow: Failed to perform your operation.');
     return { error: e };
+  }
+}
+
+async function fetchUser() {
+  try {
+    return await fetch('/user');
+  } catch (e) {
+    vscode.window.showInformationMessage('GitLab Workflow: GitLab user not found. Check your Personal Access Token.');
   }
 }
 
@@ -79,6 +88,7 @@ const _setGLToken = (token) => {
   glToken = token;
 }
 
+exports.fetchUser = fetchUser;
 exports.fetchMyOpenMergeRequests = fetchMyOpenMergeRequests;
 exports.fetchOpenMergeRequestForCurrentBranch = fetchOpenMergeRequestForCurrentBranch;
 exports.fetchLastPipelineForCurrentBranch = fetchLastPipelineForCurrentBranch;
