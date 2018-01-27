@@ -63,6 +63,12 @@ const init = (ctx) => {
 
   initPipelineStatus();
   initMrStatus();
+const dispose = () => {
+  mrStatusBarItem.hide();
+  pipelineStatusBarItem.hide();
+}
+
 }
 
 exports.init = init;
+exports.dispose = dispose;
