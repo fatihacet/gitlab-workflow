@@ -3,34 +3,41 @@ const opn = require('opn');
 const gitService = require('./git_service');
 const gitLabService = require('./gitlab_service');
 
+/**
+ * Fetches user and project before opening a link.
+ * Link can contain some placeholders which will be replaced by this method
+ * with relevant information. Implemented placeholders below.
+ *
+ * $projectUrl
+ * $userId
+ *
+ * An example link is `$projectUrl/issues?assignee_id=$userId` which will be
+ * `gitlab.com/gitlab-org/gitlab-ce/issues?assignee_id=502136`.
+ *
+ * @param {string} link
+ */
 async function openLink(link) {
   const user = await gitLabService.fetchUser();
 
   if (user) {
-    opn(link.replace('$userId', user.id));
+    const project = await gitLabService.fetchCurrentProject();
+
+    if (project) {
+      opn(link.replace('$userId', user.id).replace('$projectUrl', project.web_url));
+    } else {
+      vscode.window.showInformationMessage('GitLab Workflow: Failed to open file on web. No GitLab project.');
+    }
   } else {
     vscode.window.showInformationMessage('GitLab Workflow: GitLab user not found. Check your Personal Access Token.');
   }
 };
 
 async function showIssues() {
-  const project = await gitLabService.fetchCurrentProject();
-
-  if (project) {
-    await openLink(`${project.web_url}/issues?assignee_id=$userId`);
-  } else {
-    vscode.window.showInformationMessage('GitLab Workflow: Failed to open file on web. No GitLab project.');
-  }
+  openLink('$projectUrl/issues?assignee_id=$userId');
 }
 
 async function showMergeRequests() {
-  const project = await gitLabService.fetchCurrentProject();
-
-  if (project) {
-    await openLink(`${project.web_url}/merge_requests?assignee_id=$userId`);
-  } else {
-    vscode.window.showInformationMessage('GitLab Workflow: Failed to open file on web. No GitLab project.');
-  }
+  openLink('$projectUrl/merge_requests?assignee_id=$userId');
 };
 
 async function openActiveFile() {
@@ -72,13 +79,7 @@ async function openCurrentMergeRequest() {
 }
 
 async function openCreateNewIssue() {
-  const project = await gitLabService.fetchCurrentProject();
-
-  if (project) {
-    opn(`${project.web_url}/issues/new`);
-  } else {
-    vscode.window.showInformationMessage('GitLab Workflow: Failed to open file on web. No GitLab project.');
-  }
+  openLink('$projectUrl/issues/new');
 };
 
 async function openCreateNewMr() {
@@ -94,13 +95,7 @@ async function openCreateNewMr() {
 };
 
 async function openProjectPage() {
-  const project = await gitLabService.fetchCurrentProject();
-
-  if (project) {
-    opn(project.web_url);
-  } else {
-    vscode.window.showInformationMessage('GitLab Workflow: Failed to open file on web. No GitLab project.');
-  }
+  openLink('$projectUrl');
 }
 
 exports.showIssues = showIssues;
