@@ -2,6 +2,7 @@ const vscode = require('vscode');
 const openLinks = require('./open_links');
 const statusBar = require('./status_bar');
 const tokenInput = require('./token_input');
+const gitLabService = require('./gitlab_service');
 
 const activate = (context) => {
   const commands = {
@@ -16,8 +17,14 @@ const activate = (context) => {
     );
   })
 
-  statusBar.init(context);
-  askForToken(context);
+  const token = context.globalState.get('glToken');
+
+  if (token) {
+    gitLabService._setGLToken(token);
+    statusBar.init(context);
+  } else {
+    askForToken(context);
+  }
 };
 
 const askForToken = (context) => {

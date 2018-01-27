@@ -1,12 +1,18 @@
 const request = require('request-promise');
 const gitService = require('./git_service');
 const apiRoot = 'https://gitlab.com/api/v4'; // FIXME: Get domain dynamically
+let glToken = null;
 
 async function fetch(path) {
+  if (!glToken) {
+    console.log('GitLab Workflow: Cannot make request. No token found.');
+    return;
+  }
+
   const config = {
     url: `${apiRoot}${path}`,
     headers: {
-      'PRIVATE-TOKEN': 'f9vX_GfmWc_SLzz7Siaq', // FIXME: Make token UI
+      'PRIVATE-TOKEN': glToken,
     }
   };
 
@@ -69,7 +75,12 @@ async function fetchCurrentProject() {
   return null;
 }
 
+const _setGLToken = (token) => {
+  glToken = token;
+}
+
 exports.fetchMyOpenMergeRequests = fetchMyOpenMergeRequests;
 exports.fetchOpenMergeRequestForCurrentBranch = fetchOpenMergeRequestForCurrentBranch;
 exports.fetchLastPipelineForCurrentBranch = fetchLastPipelineForCurrentBranch;
 exports.fetchCurrentProject = fetchCurrentProject;
+exports._setGLToken = _setGLToken;
