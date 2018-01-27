@@ -46,7 +46,9 @@ const askForToken = () => {
   }
 }
 
-const deactivate = () => {};
+const deactivate = () => {
+  statusBar.dispose();
+};
 
 exports.init = init;
 exports.activate = activate;
