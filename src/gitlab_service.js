@@ -43,7 +43,7 @@ async function fetchMyOpenMergeRequests() {
     return await fetch(`/projects/${project.id}/merge_requests?scope=created-by-me&state=opened`);
   }
 
-  return null;
+  return [];
 }
 
 async function fetchOpenMergeRequestForCurrentBranch() {

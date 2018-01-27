@@ -36,6 +36,10 @@
             {
                 "command": "gl.openActiveFileOnWeb",
                 "title": "GitLab: Open active file on GitLab"
+            },
+            {
+                "command": "gl.openCurrentMergeRequestOnWeb",
+                "title": "GitLab: Open current merge request on GitLab"
             }
         ],
         "configuration": {

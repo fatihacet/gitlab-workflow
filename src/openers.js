@@ -53,6 +53,15 @@ async function openActiveFileOnWeb() {
   }
 }
 
+async function openCurrentMergeRequestOnWeb() {
+  const mr = await gitLabService.fetchOpenMergeRequestForCurrentBranch();
+
+  if (mr) {
+    opn(mr.web_url);
+  }
+}
+
 exports.showIssues = showIssues;
 exports.showMergeRequests = showMergeRequests;
 exports.openActiveFileOnWeb = openActiveFileOnWeb;
+exports.openCurrentMergeRequestOnWeb = openCurrentMergeRequestOnWeb;

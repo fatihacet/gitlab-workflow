@@ -9,6 +9,7 @@
 - Implemented MR link on status bar.
 - Implemented pipeline status on status bar.
 - Implemented open active file on GitLab including active line number and selection.
+- Implemented open current MR on GitLab.
 
 ### Changed
 - Removed `gitlab.userId` necessity.
