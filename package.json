@@ -34,12 +34,13 @@
                 "title": "GitLab: Show merge requests assigned to me"
             },
             {
-                "command": "gl.openActiveFileOnWeb",
+                "command": "gl.openActiveFile",
                 "title": "GitLab: Open active file on GitLab"
             },
             {
-                "command": "gl.openCurrentMergeRequestOnWeb",
-                "title": "GitLab: Open current merge request on GitLab"
+                "command": "gl.openCurrentMergeRequest",
+                "title": "GitLab: Open current merge request"
+            },
             }
         ],
         "configuration": {

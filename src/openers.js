@@ -23,7 +23,7 @@ async function showMergeRequests() {
   await openLink(`${instanceUrl}/dashboard/merge_requests?assignee_id=$userId`);
 };
 
-async function openActiveFileOnWeb() {
+async function openActiveFile() {
   const editor = vscode.window.activeTextEditor;
 
   if (editor) {
@@ -53,7 +53,7 @@ async function openActiveFileOnWeb() {
   }
 }
 
-async function openCurrentMergeRequestOnWeb() {
+async function openCurrentMergeRequest() {
   const mr = await gitLabService.fetchOpenMergeRequestForCurrentBranch();
 
   if (mr) {
@@ -63,5 +63,5 @@ async function openCurrentMergeRequestOnWeb() {
 
 exports.showIssues = showIssues;
 exports.showMergeRequests = showMergeRequests;
-exports.openActiveFileOnWeb = openActiveFileOnWeb;
-exports.openCurrentMergeRequestOnWeb = openCurrentMergeRequestOnWeb;
+exports.openActiveFile = openActiveFile;
+exports.openCurrentMergeRequest = openCurrentMergeRequest;
