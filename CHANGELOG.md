@@ -8,6 +8,7 @@
 - Added Personal Access Token flow providing menu options to save and delete GitLab PAT.
 - Implemented MR link on status bar.
 - Implemented pipeline status on status bar.
+- Implemented open active file on GitLab including active line number and selection.
 
 ### Changed
 - Removed `gitlab.userId` necessity.

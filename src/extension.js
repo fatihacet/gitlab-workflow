@@ -18,6 +18,7 @@ const registerCommands = () => {
     'gl.showMergeRequestsAssigedToMe': openLinks.showMergeRequests,
     'gl.setToken': tokenInput.showInput.bind(null, context),
     'gl.removeToken': tokenInput.removeToken.bind(null, context),
+    'gl.openActiveFileOnWeb': openLinks.openActiveFileOnWeb,
   }
 
   Object.keys(commands).forEach((cmd) => {
