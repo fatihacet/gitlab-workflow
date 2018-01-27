@@ -1,87 +1,86 @@
 {
-    "name": "gitlab-workflow",
-    "displayName": "GitLab Workflow",
-    "description": "GitLab VSCode integration",
-    "version": "0.1.1",
-    "publisher": "fatihacet",
-    "engines": {
-        "vscode": "^1.19.0"
-    },
-    "categories": [
-        "Other"
+  "name": "gitlab-workflow",
+  "displayName": "GitLab Workflow",
+  "description": "GitLab VSCode integration",
+  "version": "0.1.1",
+  "publisher": "fatihacet",
+  "engines": {
+    "vscode": "^1.19.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./src/extension",
+  "icon": "src/assets/gitlab-logo.png",
+  "contributes": {
+    "commands": [
+      {
+        "command": "gl.setToken",
+        "title": "GitLab: Set GitLab Personal Access Token"
+      },
+      {
+        "command": "gl.removeToken",
+        "title": "GitLab: Remove your GitLab Personal Access Token"
+      },
+      {
+        "command": "gl.showIssuesAssigedToMe",
+        "title": "GitLab: Show issues assigned to me"
+      },
+      {
+        "command": "gl.showMergeRequestsAssigedToMe",
+        "title": "GitLab: Show merge requests assigned to me"
+      },
+      {
+        "command": "gl.openActiveFile",
+        "title": "GitLab: Open active file on GitLab"
+      },
+      {
+        "command": "gl.openCurrentMergeRequest",
+        "title": "GitLab: Open merge request for current branch"
+      },
+      {
+        "command": "gl.openCreateNewIssue",
+        "title": "GitLab: Create new issue on current project"
+      },
+      {
+        "command": "gl.openCreateNewMR",
+        "title": "GitLab: Create new merge request on current project"
+      },
+      {
+        "command": "gl.openProjectPage",
+        "title": "GitLab: Open current project on GitLab"
+      }
     ],
-    "activationEvents": [
-        "*"
-    ],
-    "main": "./src/extension",
-    "icon": "src/assets/gitlab-logo.png",
-    "contributes": {
-        "commands": [
-            {
-                "command": "gl.setToken",
-                "title": "GitLab: Set GitLab Personal Access Token"
-            },
-            {
-                "command": "gl.removeToken",
-                "title": "GitLab: Remove your GitLab Personal Access Token"
-            },
-            {
-                "command": "gl.showIssuesAssigedToMe",
-                "title": "GitLab: Show issues assigned to me"
-            },
-            {
-                "command": "gl.showMergeRequestsAssigedToMe",
-                "title": "GitLab: Show merge requests assigned to me"
-            },
-            {
-                "command": "gl.openActiveFile",
-                "title": "GitLab: Open active file on GitLab"
-            },
-            {
-                "command": "gl.openCurrentMergeRequest",
-                "title": "GitLab: Open merge request for current branch"
-            },
-            {
-                "command": "gl.openCreateNewIssue",
-                "title": "GitLab: Create new issue on current project"
-            },
-            {
-                "command": "gl.openCreateNewMR",
-                "title": "GitLab: Create new merge request on current project"
-            },
-            {
-                "command": "gl.openProjectPage",
-                "title": "GitLab: Open current project on GitLab"
-            }
-        ],
-        "configuration": {
-            "title": "GitLab Workflow config",
-            "properties": {
-                "gitlab.instanceUrl": {
-                    "type": "string",
-                    "default": "https://gitlab.com",
-                    "description": "Your GitLab instance URL (default is https://gitlab.com)"
-                }
-            }
+    "configuration": {
+      "title": "GitLab Workflow config",
+      "properties": {
+        "gitlab.instanceUrl": {
+          "type": "string",
+          "default": "https://gitlab.com",
+          "description": "Your GitLab instance URL (default is https://gitlab.com)"
         }
-    },
-    "scripts": {
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "node ./node_modules/vscode/bin/test",
-        "eslint": "eslint --max-warnings 0 --ext .js ."
-    },
-    "devDependencies": {
-        "@types/mocha": "^2.2.42",
-        "@types/node": "^7.0.43",
-        "eslint": "^4.16.0",
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.6"
-    },
-    "dependencies": {
-        "execa": "^0.9.0",
-        "opn": "^5.2.0",
-        "request": "^2.83.0",
-        "request-promise": "^4.2.2",
-        "url": "^0.11.0"
+      }
     }
+  },
+  "scripts": {
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test",
+    "eslint": "eslint --max-warnings 0 --ext .js ."
+  },
+  "devDependencies": {
+    "eslint": "^4.16.0",
+    "typescript": "^2.6.1",
+    "@types/mocha": "^2.2.42"
+  },
+  "dependencies": {
+    "execa": "^0.9.0",
+    "opn": "^5.2.0",
+    "request-promise": "^4.2.2",
+    "url": "^0.11.0",
+    "@types/node": "^7.0.43",
+    "vscode": "^1.1.6"
+  }
 }
