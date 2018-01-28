@@ -48,13 +48,6 @@ async function fetchMyOpenMergeRequests() {
   return [];
 }
 
-async function fetchOpenMergeRequestForCurrentBranch() {
-  const branchName = await gitService.fetchBranchName();
-  const mrs = await fetchMyOpenMergeRequests();
-
-  return mrs.filter(mr => mr.source_branch === branchName)[0];
-}
-
 async function fetchLastPipelineForCurrentBranch() {
   const project = await fetchCurrentProject();
 
@@ -84,6 +77,32 @@ async function fetchCurrentProject() {
   }
 
   return null;
+}
+
+async function fetchOpenMergeRequestForCurrentBranch() {
+  const project = await fetchCurrentProject();
+  const branchName = await gitService.fetchTrackingBranchName();
+  let page = 1;
+
+  async function fetcher() {
+    const mrs = await fetch(`/projects/${project.id}/merge_requests?state=opened&per_page=100&page=${page}`);
+
+    const [mr] = mrs.filter((mr) => {
+      return mr.source_branch === branchName;
+    });
+
+    if (mr) {
+      return mr;
+    }
+
+    if (page <= 5) {
+      console.log(`Couldn't find on page ${page}. Fetching ${page + 1}`);
+      page = page + 1;
+      return await fetcher();
+    }
+  }
+
+  return project ? await fetcher() : null;
 }
 
 const _setGLToken = (token) => {

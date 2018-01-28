@@ -7,8 +7,9 @@ let mrStatusBarItem = null;
 
 const createStatusBarItem = (text) => {
   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
-  statusBarItem.text = text;
   context.subscriptions.push(statusBarItem);
+  statusBarItem.text = text;
+  statusBarItem.show();
 
   return statusBarItem;
 }
@@ -35,27 +36,27 @@ async function refreshPipelines() {
 }
 
 const initPipelineStatus = () => {
-  pipelineStatusBarItem = createStatusBarItem('GitLab: Fetching pipeline...');
+  pipelineStatusBarItem = createStatusBarItem('$(info) GitLab: Fetching pipeline...');
   setTimeout(() => { refreshPipelines() }, 25000);
 
   refreshPipelines();
 }
 
 const initMrStatus = () => {
-  mrStatusBarItem = createStatusBarItem('GitLab: Fetching MR...');
+  mrStatusBarItem = createStatusBarItem('$(info) GitLab: Finding MR...');
 
   fetchBranchMr();
 }
 
 async function fetchBranchMr() {
   const mr = await gitLabService.fetchOpenMergeRequestForCurrentBranch();
+  let text = '$(git-pull-request) GitLab: MR not found.';
 
   if (mr) {
-    mrStatusBarItem.text = `GitLab: MR !${mr.iid}`;
-    mrStatusBarItem.show();
-  } else {
-    mrStatusBarItem.hide();
+    text = `$(git-pull-request) GitLab: MR !${mr.iid}`;
   }
+
+  mrStatusBarItem.text = text;
 }
 
 const init = (ctx) => {
