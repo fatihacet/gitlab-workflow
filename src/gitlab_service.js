@@ -56,15 +56,15 @@ async function fetchOpenMergeRequestForCurrentBranch() {
 }
 
 async function fetchLastPipelineForCurrentBranch() {
-  const mr = await fetchOpenMergeRequestForCurrentBranch();
+  const project = await fetchCurrentProject();
 
-  if (mr) {
-    const path = `/projects/${mr.target_project_id}/pipelines`;
-    const branchName = await gitService.fetchBranchName();
-    const pipelines = await fetch(`${path}?ref=${branchName}`);
+  if (project) {
+    const branchName = await gitService.fetchTrackingBranchName();
+    const pipelinesRootPath = `/projects/${project.id}/pipelines`;
+    const pipelines = await fetch(`${pipelinesRootPath}?ref=${branchName}`);
 
     if (pipelines.length) {
-      return await fetch(`${path}/${pipelines[0].id}`);
+      return await fetch(`${pipelinesRootPath}/${pipelines[0].id}`);
     }
 
     return null;

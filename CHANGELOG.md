@@ -15,7 +15,7 @@
 
 ### Changed
 - Deprecated `gitlab.userId`.
-- Show assinged Issues and MRs commands now works project specific.
+- Show assigned Issues and MRs now work project specific.
 
 ### Fixed
 - [#7](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/7) Remove hardcoded origin in fetchGitRemote method.
@@ -23,6 +23,8 @@
 - [#1](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/1) Local branch name and tracking remote branch name may not be the same
 - [#8](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/8) API URL is hardcoded
 - [#4](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/4) Remove pipes `|` from git commands
+- [#5](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/5) Pipeline info won't be visible in status bar if there is no MR
+
 
 ## [0.1.1] - 2018-01-25
 ### Added
