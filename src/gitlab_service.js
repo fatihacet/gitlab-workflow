@@ -1,10 +1,12 @@
 const vscode = require('vscode');
 const request = require('request-promise');
 const gitService = require('./git_service');
-const apiRoot = 'https://gitlab.com/api/v4'; // FIXME: Get domain dynamically
 let glToken = null;
 
 async function fetch(path) {
+  const { instanceUrl } = vscode.workspace.getConfiguration('gitlab');
+  const apiRoot = `${instanceUrl}/api/v4`;
+
   if (!glToken) {
     return vscode.window.showInformationMessage('GitLab Workflow: Cannot make request. No token found.');
   }
