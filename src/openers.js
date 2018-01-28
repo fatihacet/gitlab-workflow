@@ -47,7 +47,7 @@ async function openActiveFile() {
     const currentProject = await gitLabService.fetchCurrentProject();
 
     if (currentProject) {
-      const branchName = await gitService.fetchBranchName();
+      const branchName = await gitService.fetchTrackingBranchName();
       const filePath = editor.document.uri.path.replace(vscode.workspace.rootPath, '');
       let fileUrl = `${currentProject.web_url}/blob/${branchName}/${filePath}`;
       let anchor = '';
@@ -86,7 +86,7 @@ async function openCreateNewMr() {
   const project = await gitLabService.fetchCurrentProject();
 
   if (project) {
-    const branchName = await gitService.fetchBranchName();
+    const branchName = await gitService.fetchTrackingBranchName();
 
     opn(`${project.web_url}/merge_requests/new?merge_request%5Bsource_branch%5D=${branchName}`);
   } else {

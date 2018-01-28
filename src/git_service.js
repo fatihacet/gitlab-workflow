@@ -20,6 +20,25 @@ async function fetchBranchName() {
   return await fetch(cmd);
 }
 
+/**
+ * Fetches remote tracking branch name of current branch.
+ * This should be used in link openers.
+ *
+ * Fixes #1 where local branch name is renamed and doesn't exists on remote but
+ * local branch still tracks another branch on remote.
+*/
+async function fetchTrackingBranchName() {
+  const branchName = await fetchBranchName();
+  const cmd = `git config --get branch.${branchName}.merge`;
+  const ref = await fetch(cmd);
+
+  if (ref) {
+    return ref.split('/')[2];
+  }
+
+  return branchName;
+}
+
 async function fetchLastCommitId() {
   const cmd = 'git log --format=%H -n 1';
 
@@ -66,5 +85,6 @@ const parseGitRemote = (remote) => {
 }
 
 exports.fetchBranchName = fetchBranchName;
+exports.fetchTrackingBranchName = fetchTrackingBranchName;
 exports.fetchLastCommitId = fetchLastCommitId;
 exports.fetchGitRemote = fetchGitRemote;
