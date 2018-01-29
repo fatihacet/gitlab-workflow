@@ -6,6 +6,9 @@
 - Added click handler to pipeline status text on status bar to open pipeline on GitLab.
 - Added refresh interval for MR link on status bar.
 
+### Fixed
+- [#9](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/9) Branch names with slashes appear to break URL generation
+
 
 ## [0.2.1] - 2018-01-28
 ### Fixed

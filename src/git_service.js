@@ -33,7 +33,7 @@ async function fetchTrackingBranchName() {
   const ref = await fetch(cmd);
 
   if (ref) {
-    return ref.split('/')[2];
+    return ref.replace('refs/heads/', '');
   }
 
   return branchName;
