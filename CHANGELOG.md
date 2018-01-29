@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [0.2.1] - 2018-01-28
+### Fixed
+- Update pipeline status on status bar.
+
 ## [0.2.0] - 2018-01-28
 ### Added
 - Added a new service layer to opearate git commands.
