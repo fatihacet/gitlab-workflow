@@ -41,13 +41,14 @@ async function refreshPipelines() {
 
 const initPipelineStatus = () => {
   pipelineStatusBarItem = createStatusBarItem('$(info) GitLab: Fetching pipeline...');
-  setInterval(() => { refreshPipelines() }, 25000);
+  setInterval(() => { refreshPipelines() }, 30000);
 
   refreshPipelines();
 }
 
 const initMrStatus = () => {
   mrStatusBarItem = createStatusBarItem('$(info) GitLab: Finding MR...', 'gl.openCurrentMergeRequest');
+  setInterval(() => { fetchBranchMr() }, 60000);
 
   fetchBranchMr();
 }
