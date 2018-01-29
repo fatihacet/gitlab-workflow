@@ -15,6 +15,8 @@ This extension adds GitLab specific options to VSCode command pallette and statu
 - Open new MR page for your current project.
 - Ability to add and remove your GitLab Personal Access Token.
 
+**Curious to know what's next?** [See here](#whats-next)
+
 
 ### Setup
 
@@ -39,6 +41,7 @@ That's it. 🏁
 
 You can start using this extension right away. If your project has a pipeline for last commit and a MR from your current branch, you should see them on VSCode status bar. 🎉
 
+
 ### Usage
 - Open up Command Palette by pressing `Cmd+Shift+P`.
 - Search for GitLab
@@ -52,6 +55,16 @@ You can start using this extension right away. If your project has a pipeline fo
 If you are using GitLab on a custom domain, you should add this to your user settings file. Example: `"gitlab.instanceUrl": "https://my-gitlab-domain.com"`
 
 > You can open User Settings file by pressing `Cmd+,` on Mac OS or following `Code > Preferences > User Settings`. You can simply add extension configuration values to you User Settings file. This won't break or change anything on your VSCode.
+
+
+### What's next?
+- Pipeline link to pipeline status bar item.
+- View last pipeline on GitLab
+- Pipeline actions menu to quickly retry or cancel a pipeline.
+- Issue and MR search
+- Detailed issue and MR search
+  - `title:MR discussions refactor label:frontend label:discussions assignee:fatihacet`
+- Compare your changes with master on GitLab
 
 
 ### Contribution
