@@ -5,11 +5,15 @@ let context = null;
 let pipelineStatusBarItem = null;
 let mrStatusBarItem = null;
 
-const createStatusBarItem = (text) => {
+const createStatusBarItem = (text, command) => {
   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
   context.subscriptions.push(statusBarItem);
   statusBarItem.text = text;
   statusBarItem.show();
+
+  if (command) {
+    statusBarItem.command = command;
+  }
 
   return statusBarItem;
 }
@@ -43,7 +47,7 @@ const initPipelineStatus = () => {
 }
 
 const initMrStatus = () => {
-  mrStatusBarItem = createStatusBarItem('$(info) GitLab: Finding MR...');
+  mrStatusBarItem = createStatusBarItem('$(info) GitLab: Finding MR...', 'gl.openCurrentMergeRequest');
 
   fetchBranchMr();
 }

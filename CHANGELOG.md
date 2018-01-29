@@ -6,7 +6,7 @@
 - Added a new service layer to talk with GitLab API.
 - Added new methods to get info from Git and GitLab.
 - Added Personal Access Token flow providing menu options to save and delete GitLab PAT.
-- Implemented MR link on status bar.
+- Implemented MR link on status bar and add click handler to open MR on GitLab.
 - Implemented pipeline status on status bar.
 - Implemented open active file on GitLab including active line number and selection.
 - Implemented open current MR on GitLab.
