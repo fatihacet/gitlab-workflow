@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.3.0] - 2018-01-30
+### Added
+- Pipeline actions picker
+  - View latest pipeline on GitLab.com
+  - Create a new pipeline for your current branch
+  - Retry last pipeline
+  - Cancel last pipeline
+
 ## [0.2.2] - 2018-01-29
 ### Added
 - Added a new command to open current pipeline on GitLab.

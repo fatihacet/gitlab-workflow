@@ -60,6 +60,10 @@
       {
         "command": "gl.openCurrentPipeline",
         "title": "GitLab: Open current pipeline on GitLab"
+      },
+      {
+        "command": "gl.pipelineActions",
+        "title": "GitLab: Pipeline actions - View, Create, Retry or Cancel"
       }
     ],
     "configuration": {

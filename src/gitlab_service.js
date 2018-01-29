@@ -1,11 +1,13 @@
 const vscode = require('vscode');
+const opn = require('opn');
 const request = require('request-promise');
 const gitService = require('./git_service');
+const statusBar = require('./status_bar');
 
 let glToken = null;
 let branchMR = null;
 
-async function fetch(path) {
+async function fetch(path, method = 'GET') {
   const { instanceUrl } = vscode.workspace.getConfiguration('gitlab');
   const apiRoot = `${instanceUrl}/api/v4`;
 
@@ -15,6 +17,7 @@ async function fetch(path) {
 
   const config = {
     url: `${apiRoot}${path}`,
+    method,
     headers: {
       'PRIVATE-TOKEN': glToken,
     }
@@ -119,6 +122,39 @@ async function fetchOpenMergeRequestForCurrentBranch() {
 }
 
 /**
+ * Cancels or retries last pipeline or creates a new pipeline for current branch.
+ *
+ * @param {string} action create|retry|cancel
+ */
+async function handlePipelineAction(action) {
+  const pipeline = await fetchLastPipelineForCurrentBranch();
+  const project = await fetchCurrentProject();
+
+  if (pipeline && project) {
+    let endpoint = `/projects/${project.id}/pipelines/${pipeline.id}/${action}`;
+    let newPipeline = null;
+
+    if (action === 'create') {
+      const branchName = await gitService.fetchTrackingBranchName();
+      endpoint = `/projects/${project.id}/pipeline?ref=${branchName}`;
+    }
+
+    try {
+      newPipeline = await fetch(endpoint, 'POST');
+    } catch (e) {
+      vscode.window.showErrorMessage(`GitLab Workflow: Failed to ${action} pipeline.`);
+    }
+
+    if (newPipeline) {
+      opn(`${project.web_url}/pipelines/${newPipeline.id}`);
+      statusBar.refreshPipelines();
+    }
+  } else {
+    vscode.window.showErrorMessage('GitLab Workflow: No project or pipeline found.');
+  }
+}
+
+/**
  * @private
  * @param {string} token GL PAT
  */
@@ -131,4 +167,5 @@ exports.fetchMyOpenMergeRequests = fetchMyOpenMergeRequests;
 exports.fetchOpenMergeRequestForCurrentBranch = fetchOpenMergeRequestForCurrentBranch;
 exports.fetchLastPipelineForCurrentBranch = fetchLastPipelineForCurrentBranch;
 exports.fetchCurrentProject = fetchCurrentProject;
+exports.handlePipelineAction = handlePipelineAction;
 exports._setGLToken = _setGLToken;

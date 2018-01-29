@@ -78,3 +78,4 @@ const dispose = () => {
 
 exports.init = init;
 exports.dispose = dispose;
+exports.refreshPipelines = refreshPipelines;

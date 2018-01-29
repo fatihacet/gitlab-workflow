@@ -6,6 +6,11 @@ This extension adds GitLab specific options to VSCode command pallette and statu
 
 - Shows pipeline status for current branch on VSCode status bar and click it to open pipeline on GitLab.
 - Shows MR id of your current branch on VSCode status bar and click it to view on GitLab.
+- Advanced pipeline actions menu
+  - View latest pipeline on GitLab.com
+  - Create a new pipeline for your current branch
+  - Retry last pipeline
+  - Cancel last pipeline
 - View current file on GitLab, including active line number and range selection.
 - View MR of current branch on GitLab.
 - View issues assigned to you on GitLab.
@@ -49,6 +54,8 @@ You can start using this extension right away. If your project has a pipeline fo
 
 ![https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/gitlab-vscode.png](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/gitlab-vscode.png)
 
+![https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/pipeline-actions.png](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/pipeline-actions.png)
+
 
 ### Configuration options
 
@@ -59,9 +66,9 @@ If you are using GitLab on a custom domain, you should add this to your user set
 
 
 ### What's next?
-- Pipeline link to pipeline status bar item.
-- View last pipeline on GitLab
-- Pipeline actions menu to quickly retry or cancel a pipeline.
+- `[Shipped in 0.2.2]` Pipeline link to pipeline status bar item.
+- `[Shipped in 0.2.2]` View last pipeline on GitLab.
+- `[Shipped in 0.3.0]` Pipeline actions menu to quickly view, retry, cancel or create a new pipeline.
 - Issue and MR search
 - Detailed issue and MR search
   - `title:MR discussions refactor label:frontend label:discussions assignee:fatihacet`

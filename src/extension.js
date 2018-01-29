@@ -3,6 +3,7 @@ const openers = require('./openers');
 const statusBar = require('./status_bar');
 const tokenInput = require('./token_input');
 const gitLabService = require('./gitlab_service');
+const pipelineActionsPicker = require('./pipeline_actions_picker');
 
 let context = null;
 
@@ -24,6 +25,7 @@ const registerCommands = () => {
     'gl.openCreateNewMR': openers.openCreateNewMr,
     'gl.openProjectPage': openers.openProjectPage,
     'gl.openCurrentPipeline': openers.openCurrentPipeline,
+    'gl.pipelineActions': pipelineActionsPicker.showPicker,
   }
 
   Object.keys(commands).forEach((cmd) => {
