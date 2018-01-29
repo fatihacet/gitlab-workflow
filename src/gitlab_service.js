@@ -1,7 +1,9 @@
 const vscode = require('vscode');
 const request = require('request-promise');
 const gitService = require('./git_service');
+
 let glToken = null;
+let branchMR = null;
 
 async function fetch(path) {
   const { instanceUrl } = vscode.workspace.getConfiguration('gitlab');
@@ -83,6 +85,10 @@ async function fetchCurrentProject() {
  * until we find the MR for current branch. This method will retry max 5 times.
  */
 async function fetchOpenMergeRequestForCurrentBranch() {
+  if (branchMR) {
+    return branchMR;
+  }
+
   const project = await fetchCurrentProject();
   const branchName = await gitService.fetchTrackingBranchName();
   let page = 1;
@@ -96,6 +102,10 @@ async function fetchOpenMergeRequestForCurrentBranch() {
     });
 
     if (mr) {
+      if (page > 1) {  // Cache only if we need to do pagination.
+        branchMR = mr;
+      }
+
       return mr;
     }
 
