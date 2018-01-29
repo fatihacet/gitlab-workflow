@@ -1,24 +1,58 @@
-# GitLab VSCode Extension
+# [GitLab VSCode Extension](https://gitlab.com/fatihacet/gitlab-vscode-extension)
 
-GitLab integration for VSCode.
+This extension adds GitLab specific options to VSCode command pallette and status bar like showing pipeline status or opening active file on GitLab and much more.
 
 ### Features
 
-Current version can open issues and MRs assigned to you. This is just the beginning and more to come.
+- Shows pipeline status for last commit on VSCode status bar.
+- Shows MR id of your current branch on VSCode status bar.
+- View current file on GitLab, including active line number and range selection.
+- View MR of current branch on GitLab.
+- View issues assigned to you on GitLab.
+- View MRs assigned to you on GitLab.
+- View current project on GitLab.
+- Open new issue page for your current project.
+- Open new MR page for your current project.
+- Ability to add and remove your GitLab Personal Access Token.
+
 
 ### Setup
 
-Extension needs your GitLab `userId`. set in the User Settings file. You can simply add it with the line below.
+To use this extension, you need to create a GitLab Personal Access Token and give it to the extension.
 
-`"gitlab.userId": "GITLAB_USER_ID",`
+##### Step 1: Create your Personal Access Token
+- Go to "Settings" page on GitLab.com or your self hosted GitLab instance.
+- On the left navigation menu, click "Access Tokens".
+- On "Add a personal access token" form
+  - Give a name to your token.
+  - Select and expiry date.
+  - Select "api" and "read_user" permissions.
+  - Hit "Create personal access token" button.
+- Copy the token. _Remember you won't be able to see value of this token ever again for security reasons._
 
-If you are using GitLab on a custom domain, you should also set `gitlab.instanceUrl`. Default is `https://gitlab.com`.
+##### Step 2: Add token to GitLab Workflow Extension
+- Open up Command Palette by pressing `Cmd+Shift+P`.
+- Search for "GitLab: Set GitLab Personal Access Token" and hit Enter.
+- Extension will ask your PAT. Paste your PAT and hit Enter. _It won't be visible and accessible to others._
 
-You can open User Settings file pressing `Cmd+,` on Mac OS or go to `Code > Preferences > User Settings`.
+That's it. 🏁
+
+You can start using this extension right away. If your project has a pipeline for last commit and a MR from your current branch, you should see them on VSCode status bar. 🎉
 
 ### Usage
-
 - Open up Command Palette by pressing `Cmd+Shift+P`.
 - Search for GitLab
 
 ![https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/gitlab-vscode.png](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/gitlab-vscode.png)
+
+
+### Configuration options
+
+##### `gitlab.instanceUrl` (required: false, default: 'https://gitlab.com')
+If you are using GitLab on a custom domain, you should add this to your user settings file. Example: `"gitlab.instanceUrl": "https://my-gitlab-domain.com"`
+
+> You can open User Settings file by pressing `Cmd+,` on Mac OS or following `Code > Preferences > User Settings`. You can simply add extension configuration values to you User Settings file. This won't break or change anything on your VSCode.
+
+
+### Contribution
+This extension is open source and [hosted on GitLab](https://gitlab.com/fatihacet/gitlab-vscode-extension). Contributions are more than welcome. Feel free to fork and add new features or submit bug reports.
