@@ -36,8 +36,6 @@ async function fetchUser() {
   }
 }
 
-// FIXME: Don't rely on `created-by-me`. It doesn't have to be my own MR.
-// Currently GL API doesn't support finding MR by branch name or commit id.
 async function fetchMyOpenMergeRequests() {
   const project = await fetchCurrentProject();
 
@@ -79,11 +77,17 @@ async function fetchCurrentProject() {
   return null;
 }
 
+/**
+ * GitLab API doesn't support getting open MR by commit ID or branch name.
+ * Using this recursive fetcher method, we fetch 100 MRs at a time and do pagination
+ * until we find the MR for current branch. This method will retry max 5 times.
+ */
 async function fetchOpenMergeRequestForCurrentBranch() {
   const project = await fetchCurrentProject();
   const branchName = await gitService.fetchTrackingBranchName();
   let page = 1;
 
+  // Recursive fetcher method to find the branch MR in MR list.
   async function fetcher() {
     const mrs = await fetch(`/projects/${project.id}/merge_requests?state=opened&per_page=100&page=${page}`);
 
@@ -95,8 +99,7 @@ async function fetchOpenMergeRequestForCurrentBranch() {
       return mr;
     }
 
-    if (page <= 5) {
-      console.log(`Couldn't find on page ${page}. Fetching ${page + 1}`);
+    if (page <= 5) { // Retry max 5 times.
       page = page + 1;
       return await fetcher();
     }
@@ -105,6 +108,10 @@ async function fetchOpenMergeRequestForCurrentBranch() {
   return project ? await fetcher() : null;
 }
 
+/**
+ * @private
+ * @param {string} token GL PAT
+ */
 const _setGLToken = (token) => {
   glToken = token;
 }
