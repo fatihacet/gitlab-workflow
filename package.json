@@ -2,7 +2,7 @@
   "name": "gitlab-workflow",
   "displayName": "GitLab Workflow",
   "description": "GitLab VSCode integration",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "publisher": "fatihacet",
   "repository": {
     "type": "git",
