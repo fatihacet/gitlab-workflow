@@ -4,12 +4,13 @@ This extension adds GitLab specific options to VSCode command pallette and statu
 
 ### Features
 
-- Shows pipeline status for last commit on VSCode status bar.
+- Shows pipeline status for current branch on VSCode status bar and click it to open pipeline on GitLab.
 - Shows MR id of your current branch on VSCode status bar and click it to view on GitLab.
 - View current file on GitLab, including active line number and range selection.
 - View MR of current branch on GitLab.
 - View issues assigned to you on GitLab.
 - View MRs assigned to you on GitLab.
+- View current pipeline on GitLab.
 - View current project on GitLab.
 - Open new issue page for your current project.
 - Open new MR page for your current project.

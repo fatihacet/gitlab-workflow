@@ -1,10 +1,18 @@
 # CHANGELOG
 
+## [0.2.2] - 2018-01-29
+### Added
+- Added a new command to open current pipeline on GitLab.
+- Added click handler to pipeline status text on status bar to open pipeline on GitLab.
+- Added refresh interval for MR link on status bar.
+
+
 ## [0.2.1] - 2018-01-28
 ### Fixed
 - Update pipeline status on status bar.
 
-## [0.2.0] - 2018-01-28
+
+## [0.2.0] - 2018-01-27
 ### Added
 - Added a new service layer to opearate git commands.
 - Added a new service layer to talk with GitLab API.

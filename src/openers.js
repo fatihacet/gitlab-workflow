@@ -98,6 +98,18 @@ async function openProjectPage() {
   openLink('$projectUrl');
 }
 
+async function openCurrentPipeline() {
+  const project = await gitLabService.fetchCurrentProject();
+
+  if (project) {
+    const pipeline = await gitLabService.fetchLastPipelineForCurrentBranch();
+
+    if (pipeline) {
+      opn(`${project.web_url}/pipelines/${pipeline.id}`);
+    }
+  }
+}
+
 exports.showIssues = showIssues;
 exports.showMergeRequests = showMergeRequests;
 exports.openActiveFile = openActiveFile;
@@ -105,3 +117,4 @@ exports.openCurrentMergeRequest = openCurrentMergeRequest;
 exports.openCreateNewIssue = openCreateNewIssue;
 exports.openCreateNewMr = openCreateNewMr;
 exports.openProjectPage = openProjectPage;
+exports.openCurrentPipeline = openCurrentPipeline;

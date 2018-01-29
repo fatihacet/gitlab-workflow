@@ -40,7 +40,7 @@ async function refreshPipelines() {
 }
 
 const initPipelineStatus = () => {
-  pipelineStatusBarItem = createStatusBarItem('$(info) GitLab: Fetching pipeline...');
+  pipelineStatusBarItem = createStatusBarItem('$(info) GitLab: Fetching pipeline...', 'gl.openCurrentPipeline');
   setInterval(() => { refreshPipelines() }, 30000);
 
   refreshPipelines();

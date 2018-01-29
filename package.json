@@ -56,6 +56,10 @@
       {
         "command": "gl.openProjectPage",
         "title": "GitLab: Open current project on GitLab"
+      },
+      {
+        "command": "gl.openCurrentPipeline",
+        "title": "GitLab: Open current pipeline on GitLab"
       }
     ],
     "configuration": {

@@ -23,6 +23,7 @@ const registerCommands = () => {
     'gl.openCreateNewIssue': openers.openCreateNewIssue,
     'gl.openCreateNewMR': openers.openCreateNewMr,
     'gl.openProjectPage': openers.openProjectPage,
+    'gl.openCurrentPipeline': openers.openCurrentPipeline,
   }
 
   Object.keys(commands).forEach((cmd) => {
