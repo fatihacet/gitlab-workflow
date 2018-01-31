@@ -46,9 +46,15 @@ async function fetchLastCommitId() {
 }
 
 async function fetchGitRemote() {
-  const branchName = await fetchBranchName();
-  const remoteName = await fetch(`git config --get branch.${branchName}.remote`);
-  const url = await fetch(`git ls-remote --get-url ${remoteName}`);
+  let url = null;
+
+  try {
+    const branchName = await fetchBranchName();
+    const remoteName = await fetch(`git config --get branch.${branchName}.remote`);
+    url = await fetch(`git ls-remote --get-url ${remoteName}`);
+  } catch(e) {
+    url = await fetch(`git ls-remote --get-url`);
+  }
 
   if (url) {
     const [schema, domain, namespace, project] = parseGitRemote(url);

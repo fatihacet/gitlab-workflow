@@ -1,8 +1,14 @@
 # CHANGELOG
 
+## [0.3.2] - 2018-01-31
+### Changed
+- Fixed fetching remote url. Thanks to @kushalpandya.
+
+
 ## [0.3.1] - 2018-01-30
 ### Changed
 - Clicking the pipeline status text on status bar now opens Pipeline action picker.
+
 
 ## [0.3.0] - 2018-01-30
 ### Added
