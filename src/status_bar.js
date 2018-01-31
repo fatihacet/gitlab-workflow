@@ -19,7 +19,7 @@ const createStatusBarItem = (text, command) => {
 }
 
 async function refreshPipelines() {
-  const pipeline = await gitLabService.fetchLastPipelineForCurrentBranch();
+  let pipeline = null;
   const statuses = {
     running: { icon: 'pulse' },
     pending: { icon: 'clock' },
@@ -27,6 +27,12 @@ async function refreshPipelines() {
     failed: { icon: 'x' },
     canceled: { icon: 'circle-slash' },
     skipped: { icon: 'diff-renamed' },
+  }
+
+  try {
+    pipeline = await gitLabService.fetchLastPipelineForCurrentBranch();
+  } catch (e) {
+    return pipelineStatusBarItem.hide();
   }
 
   if (pipeline) {
@@ -54,8 +60,14 @@ const initMrStatus = () => {
 }
 
 async function fetchBranchMr() {
-  const mr = await gitLabService.fetchOpenMergeRequestForCurrentBranch();
+  let mr = null;
   let text = '$(git-pull-request) GitLab: MR not found.';
+
+  try {
+    mr = await gitLabService.fetchOpenMergeRequestForCurrentBranch();
+  } catch (e) {
+    mrStatusBarItem.hide();
+  }
 
   if (mr) {
     text = `$(git-pull-request) GitLab: MR !${mr.iid}`;

@@ -1,7 +1,12 @@
 # CHANGELOG
 
+## [0.3.3] - 2018-02-01
+### Fixed
+- Fixed slient failing of status bar items and hide them on error.
+
+
 ## [0.3.2] - 2018-01-31
-### Changed
+### Fixed
 - Fixed fetching remote url. Thanks to @kushalpandya.
 
 
@@ -17,6 +22,7 @@
   - Create a new pipeline for your current branch
   - Retry last pipeline
   - Cancel last pipeline
+
 
 ## [0.2.2] - 2018-01-29
 ### Added
