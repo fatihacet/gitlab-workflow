@@ -19,6 +19,7 @@ const createStatusBarItem = (text, command) => {
 }
 
 async function refreshPipelines() {
+  let project = null;
   let pipeline = null;
   const statuses = {
     running: { icon: 'pulse' },
@@ -30,9 +31,12 @@ async function refreshPipelines() {
   }
 
   try {
+    project = await gitLabService.fetchCurrentProject();
     pipeline = await gitLabService.fetchLastPipelineForCurrentBranch();
   } catch (e) {
-    return pipelineStatusBarItem.hide();
+    if (!project) {
+      return pipelineStatusBarItem.hide();
+    }
   }
 
   if (pipeline) {
@@ -71,6 +75,7 @@ async function fetchBranchMr() {
 
   if (mr) {
     text = `$(git-pull-request) GitLab: MR !${mr.iid}`;
+    console.log(mr);
   }
 
   mrStatusBarItem.text = text;
