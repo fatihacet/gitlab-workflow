@@ -79,6 +79,14 @@
       {
         "command": "gl.pipelineActions",
         "title": "GitLab: Pipeline actions - View, Create, Retry or Cancel"
+      },
+      {
+        "command": "gl.issueSearch",
+        "title": "GitLab: Search project issues - (Supports advanced usage)"
+      },
+      {
+        "command": "gl.mergeRequestSearch",
+        "title": "GitLab: Search project merge requests - (Supports advanced usage)"
       }
     ],
     "configuration": {

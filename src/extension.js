@@ -4,6 +4,7 @@ const statusBar = require('./status_bar');
 const tokenInput = require('./token_input');
 const gitLabService = require('./gitlab_service');
 const pipelineActionsPicker = require('./pipeline_actions_picker');
+const searchInput = require('./search_input');
 
 let context = null;
 
@@ -26,6 +27,8 @@ const registerCommands = () => {
     'gl.openProjectPage': openers.openProjectPage,
     'gl.openCurrentPipeline': openers.openCurrentPipeline,
     'gl.pipelineActions': pipelineActionsPicker.showPicker,
+    'gl.issueSearch': searchInput.showIssueSearchInput,
+    'gl.mergeRequestSearch': searchInput.showMergeRequestSearchInput,
   }
 
   Object.keys(commands).forEach((cmd) => {

@@ -33,11 +33,19 @@ async function fetch(path, method = 'GET') {
   }
 }
 
-async function fetchUser() {
+async function fetchUser(userName) {
   try {
-    return await fetch('/user');
+    const path = userName ? `/user?search=${userName}`: '/user';
+
+    return await fetch(path);
   } catch (e) {
-    vscode.window.showInformationMessage('GitLab Workflow: GitLab user not found. Check your Personal Access Token.');
+    let message = 'GitLab Workflow: GitLab user not found.'
+
+    if (!userName) {
+      message += ' Check your Personal Access Token.';
+    }
+
+    vscode.window.showInformationMessage(message);
   }
 }
 
