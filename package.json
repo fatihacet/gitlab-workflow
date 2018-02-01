@@ -14,6 +14,13 @@
   "categories": [
     "Other"
   ],
+  "keywords": [
+    "git",
+    "gitlab",
+    "merge request",
+    "pipeline",
+    "ci cd"
+  ],
   "activationEvents": [
     "*"
   ],
