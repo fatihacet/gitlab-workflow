@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [0.3.4] - 2018-02-01
+### Fixed
+- [#12](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/12) Fix fetching git remote and tracking branch names.
+
+
 ## [0.3.3] - 2018-02-01
 ### Fixed
 - Fixed slient failing of status bar items and hide them on error.

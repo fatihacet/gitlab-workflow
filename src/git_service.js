@@ -29,12 +29,15 @@ async function fetchBranchName() {
 */
 async function fetchTrackingBranchName() {
   const branchName = await fetchBranchName();
-  const cmd = `git config --get branch.${branchName}.merge`;
-  const ref = await fetch(cmd);
 
-  if (ref) {
-    return ref.replace('refs/heads/', '');
-  }
+  try {
+    const cmd = `git config --get branch.${branchName}.merge`;
+    const ref = await fetch(cmd);
+
+    if (ref) {
+      return ref.replace('refs/heads/', '');
+    }
+  } catch (e) {} // No need to anything. We will fallback to branchName in next line.
 
   return branchName;
 }
@@ -53,7 +56,13 @@ async function fetchGitRemote() {
     const remoteName = await fetch(`git config --get branch.${branchName}.remote`);
     url = await fetch(`git ls-remote --get-url ${remoteName}`);
   } catch(e) {
-    url = await fetch(`git ls-remote --get-url`);
+    try {
+      url = await fetch('git ls-remote --get-url');
+    } catch (e) {
+      const remote = await fetch('git remote');
+
+      url = await fetch(`git ls-remote --get-url ${remote}`);
+    }
   }
 
   if (url) {
