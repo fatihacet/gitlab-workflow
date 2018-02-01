@@ -17,6 +17,14 @@
   "activationEvents": [
     "*"
   ],
+  "bugs": {
+    "url": "https://gitlab.com/fatihacet/gitlab-vscode-extension/issues",
+    "email": "acetfatih@gmail.com"
+  },
+  "galleryBanner": {
+    "color": "#805DE7",
+    "theme": "dark"
+  },
   "main": "./src/extension",
   "icon": "src/assets/gitlab-logo.png",
   "contributes": {
