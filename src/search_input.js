@@ -53,13 +53,19 @@ const parseQuery = (query, noteableType) => {
           params.labels.push(value);
           break;
 
-        // GitLab API requires Title and Description in `search` query param.
+        // GitLab requires Title and Description in `search` query param.
         // Since we are passing this as search query, GL will also search in issue descriptions too.
         case 'title':
           params.search = value;
           break;
 
-        // GitLab UI requires author name as author_username.
+        // GitLab UI requires milestone as milestone_title.
+        case 'milestone':
+          delete params.milestone;
+          params.milestone_title = value;
+          break;
+
+        // GitLab requires author name as author_username.
         // `author` is syntatic sugar of extension.
         case 'author':
           delete params.author;
@@ -71,7 +77,7 @@ const parseQuery = (query, noteableType) => {
           }
           break;
 
-        // GitLab UI requires assignee name as assignee_username[] for issues.
+        // GitLab requires assignee name as assignee_username[] for issues.
         // and as assignee_username for merge requests `assignee` is syntatic sugar of extension.
         // We currently don't support multiple assignees for issues.
         case 'assignee':
