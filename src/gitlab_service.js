@@ -162,6 +162,21 @@ async function handlePipelineAction(action) {
   }
 }
 
+async function fetchMRIssues(mrId) {
+  const project = await fetchCurrentProject();
+  let issues = [];
+
+  if (project) {
+    try {
+      issues = await fetch(`/projects/${project.id}/merge_requests/${mrId}/closes_issues`);
+    } catch (e) {
+      console.log('Failed to fetchMRIssue', e);
+    }
+  }
+
+  return issues;
+};
+
 /**
  * @private
  * @param {string} token GL PAT
@@ -176,4 +191,5 @@ exports.fetchOpenMergeRequestForCurrentBranch = fetchOpenMergeRequestForCurrentB
 exports.fetchLastPipelineForCurrentBranch = fetchLastPipelineForCurrentBranch;
 exports.fetchCurrentProject = fetchCurrentProject;
 exports.handlePipelineAction = handlePipelineAction;
+exports.fetchMRIssues = fetchMRIssues;
 exports._setGLToken = _setGLToken;

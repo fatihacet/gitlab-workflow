@@ -1,9 +1,14 @@
 const vscode = require('vscode');
+const opn = require('opn');
 const gitLabService = require('./gitlab_service');
 
 let context = null;
 let pipelineStatusBarItem = null;
 let mrStatusBarItem = null;
+let mrIssueStatusBarItem = null;
+let issueId = null;
+let projectPath = null;
+let mr = null;
 
 const createStatusBarItem = (text, command) => {
   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
@@ -16,6 +21,10 @@ const createStatusBarItem = (text, command) => {
   }
 
   return statusBarItem;
+}
+
+const commandRegisterHelper = (cmdName, callback) => {
+  vscode.commands.registerCommand(cmdName, callback);
 }
 
 async function refreshPipelines() {
@@ -41,11 +50,10 @@ async function refreshPipelines() {
 
   if (pipeline) {
     const { status } = pipeline;
-    pipelineStatusBarItem.text = `$(${statuses[status].icon}) GitLab: Pipeline ${statuses[status].text || status}`;
+    pipelineStatusBarItem.text = `$(${statuses[status].icon}) GitLab: Pipeline ${statuses[status].text || status}.`;
     pipelineStatusBarItem.show();
   } else {
-    pipelineStatusBarItem.text = 'GitLab: No pipeline';
-    pipelineStatusBarItem.hide();
+    pipelineStatusBarItem.text = 'GitLab: No pipeline.';
   }
 }
 
@@ -57,17 +65,27 @@ const initPipelineStatus = () => {
 }
 
 const initMrStatus = () => {
-  mrStatusBarItem = createStatusBarItem('$(info) GitLab: Finding MR...', 'gl.openCurrentMergeRequest');
+  const cmdName = 'gl.mrOpener';
+  commandRegisterHelper(cmdName, () => {
+    if (mr) {
+      opn(mr.web_url);
+    } else {
+      vscode.window.showInformationMessage('GitLab Workflow: No MR found for this branch.');
+    }
+  });
+
+  mrStatusBarItem = createStatusBarItem('$(info) GitLab: Finding MR...', cmdName);
   setInterval(() => { fetchBranchMr() }, 60000);
 
   fetchBranchMr();
 }
 
 async function fetchBranchMr() {
-  let mr = null;
-  let text = '$(git-pull-request) GitLab: MR not found.';
+  let text = '$(git-pull-request) GitLab: No MR.';
 
   try {
+    const project = await gitLabService.fetchCurrentProject();
+    projectPath = project.web_url;
     mr = await gitLabService.fetchOpenMergeRequestForCurrentBranch();
   } catch (e) {
     mrStatusBarItem.hide();
@@ -75,10 +93,37 @@ async function fetchBranchMr() {
 
   if (mr) {
     text = `$(git-pull-request) GitLab: MR !${mr.iid}`;
-    console.log(mr);
+    fetchMRIssues();
+  } else {
+    mrIssueStatusBarItem.text = `$(code) GitLab: No issue.`;
   }
 
   mrStatusBarItem.text = text;
+}
+
+async function fetchMRIssues() {
+  const issues = await gitLabService.fetchMRIssues(mr.iid);
+  let text = `$(code) GitLab: No issue.`;
+
+  if (issues[0]) {
+    issueId = issues[0].iid;
+    text = `$(code) GitLab: Issue #${issueId}`;
+  }
+
+  mrIssueStatusBarItem.text = text;
+}
+
+const initMrIssueStatus = () => {
+  const cmdName = `gl.mrIssueOpener`;
+  commandRegisterHelper(cmdName, () => {
+    if (issueId) {
+      opn(`${projectPath}/issues/${issueId}`);
+    } else {
+      vscode.window.showInformationMessage('GitLab Workflow: No closing issue found for this MR.');
+    }
+  });
+
+  mrIssueStatusBarItem = createStatusBarItem('$(info) GitLab: Fetching closing issue...', cmdName);
 }
 
 const init = (ctx) => {
@@ -86,11 +131,13 @@ const init = (ctx) => {
 
   initPipelineStatus();
   initMrStatus();
+  initMrIssueStatus();
 }
 
 const dispose = () => {
-  mrStatusBarItem.hide();
-  pipelineStatusBarItem.hide();
+  mrStatusBarItem.dispose();
+  pipelineStatusBarItem.dispose();
+  mrIssueStatusBarItem.dispose();
 }
 
 exports.init = init;
