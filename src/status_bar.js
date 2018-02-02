@@ -82,10 +82,11 @@ const initMrStatus = () => {
 }
 
 async function fetchBranchMr() {
+  let project = null;
   let text = '$(git-pull-request) GitLab: No MR.';
 
   try {
-    const project = await gitLabService.fetchCurrentProject();
+    project = await gitLabService.fetchCurrentProject();
     projectPath = project.web_url;
     mr = await gitLabService.fetchOpenMergeRequestForCurrentBranch();
   } catch (e) {
@@ -96,7 +97,11 @@ async function fetchBranchMr() {
     text = `$(git-pull-request) GitLab: MR !${mr.iid}`;
     fetchMRIssues();
   } else {
-    mrIssueStatusBarItem.text = `$(code) GitLab: No issue.`;
+    if (project) {
+      mrIssueStatusBarItem.text = `$(code) GitLab: No issue.`;
+    } else {
+      mrIssueStatusBarItem.hide();
+    }
   }
 
   mrStatusBarItem.text = text;
