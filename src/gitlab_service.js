@@ -121,7 +121,7 @@ async function fetchOpenMergeRequestForCurrentBranch() {
       return mr;
     }
 
-    if (page <= 5) { // Retry max 5 times.
+    if (page <= 5 && mrs.length === 100) { // Retry max 5 times.
       page = page + 1;
       return await fetcher();
     }
