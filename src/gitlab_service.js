@@ -29,6 +29,7 @@ async function fetch(path, method = 'GET') {
     return JSON.parse(response);
   } catch (e) {
     vscode.window.showInformationMessage('GitLab Workflow: Failed to perform your operation.');
+    console.log('Failed to execute fetch', e);
     return { error: e };
   }
 }
@@ -170,7 +171,7 @@ async function fetchMRIssues(mrId) {
     try {
       issues = await fetch(`/projects/${project.id}/merge_requests/${mrId}/closes_issues`);
     } catch (e) {
-      console.log('Failed to fetchMRIssue', e);
+      console.log('Failed to execute fetchMRIssue', e);
     }
   }
 

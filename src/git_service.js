@@ -37,7 +37,9 @@ async function fetchTrackingBranchName() {
     if (ref) {
       return ref.replace('refs/heads/', '');
     }
-  } catch (e) {} // No need to anything. We will fallback to branchName in next line.
+  } catch (e) {
+    console.log('Failed to fetchTrackingBranchName', e);
+  }
 
   return branchName;
 }

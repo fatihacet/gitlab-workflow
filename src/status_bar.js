@@ -46,6 +46,7 @@ async function refreshPipelines() {
     if (!project) {
       return pipelineStatusBarItem.hide();
     }
+    console.log('Failed to execute refreshPipelines.', e);
   }
 
   if (pipeline) {
