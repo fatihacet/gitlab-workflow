@@ -38,7 +38,7 @@ async function fetchTrackingBranchName() {
       return ref.replace('refs/heads/', '');
     }
   } catch (e) {
-    console.log('Failed to fetchTrackingBranchName', e);
+    console.log(`Couldn't find tracking branch. Extension will fallback to branch name ${branchName}`);
   }
 
   return branchName;
