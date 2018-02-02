@@ -29,6 +29,7 @@ const registerCommands = () => {
     'gl.pipelineActions': pipelineActionsPicker.showPicker,
     'gl.issueSearch': searchInput.showIssueSearchInput,
     'gl.mergeRequestSearch': searchInput.showMergeRequestSearchInput,
+    'gl.compareCurrentBranch': openers.compareCurrentBranch,
   }
 
   Object.keys(commands).forEach((cmd) => {

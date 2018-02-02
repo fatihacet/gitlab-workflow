@@ -2,13 +2,14 @@
 
 ## [0.4.0] - 2018-02-02
 ### Added
-- Search for MRs and Issues. Supports basic and advanced search.
+- Added search feature for MRs and Issues. Supports basic and advanced search.
   - For basic search, just type anything and hit Enter. Extension will search in title and description fields of MRs and issues.
   - For advanced search, you can use multiple tokens to search issues and MRs where tokens can be `title`, `author`, `assignee`, `labels`, `label`, `milestone`, `state`, `scope`. Some example usages:
     - discussions refactor
     - title: discussions refactor author: fatihacet labels: frontend, performance milestone: 10.5
     - title: group labels author: annabeldunstone assignee: timzallmann label: frontend
 - Added closing issue link of current MR to status bar and clicking it will open related issue on GitLab.
+- Added compare current branch with master feature.
 - Added MIT License
 
 ### Changed

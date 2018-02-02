@@ -87,6 +87,10 @@
       {
         "command": "gl.mergeRequestSearch",
         "title": "GitLab: Search project merge requests - (Supports advanced usage)"
+      },
+      {
+        "command": "gl.compareCurrentBranch",
+        "title": "GitLab: Compare current branch with master"
       }
     ],
     "configuration": {

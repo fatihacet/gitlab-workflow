@@ -110,6 +110,23 @@ async function openCurrentPipeline() {
   }
 }
 
+async function compareCurrentBranch() {
+  let project = null;
+  let lastCommitId = null;
+
+  try {
+    project = await gitLabService.fetchCurrentProject();
+    lastCommitId = await gitService.fetchLastCommitId();
+  }
+  catch(e) {
+    console.log('Failed to run compareCurrentBranch command', e);
+  }
+
+  if (project && lastCommitId) {
+    opn(`${project.web_url}/compare/master...${lastCommitId}`);
+  }
+}
+
 exports.showIssues = showIssues;
 exports.showMergeRequests = showMergeRequests;
 exports.openActiveFile = openActiveFile;
@@ -118,3 +135,4 @@ exports.openCreateNewIssue = openCreateNewIssue;
 exports.openCreateNewMr = openCreateNewMr;
 exports.openProjectPage = openProjectPage;
 exports.openCurrentPipeline = openCurrentPipeline;
+exports.compareCurrentBranch = compareCurrentBranch;
