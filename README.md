@@ -2,7 +2,7 @@
 
 [![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/fatihacet.gitlab-workflow.svg)](https://marketplace.visualstudio.com/items?itemName=fatihacet.gitlab-workflow) [![Installs](https://vsmarketplacebadge.apphb.com/installs/fatihacet.gitlab-workflow.svg)](https://marketplace.visualstudio.com/items?itemName=fatihacet.gitlab-workflow)
 
-This extension is integrates GitLab to your VSCode by adding GitLab specific options to VSCode command pallette and status bar.
+This extension integrates GitLab to VSCode by adding GitLab specific options to VSCode command palette and status bar.
 
 
 ## Features
@@ -19,7 +19,6 @@ This extension is integrates GitLab to your VSCode by adding GitLab specific opt
 - Open MRs assigned to you on GitLab.
 - Open pipeline on GitLab.
 - Open project on GitLab.
-- Open project new issue page to create a new issue.
 - Open project new issue page to create a new issue.
 - Set and remove your GitLab Personal Access Token. _Required, see Setup section below._
 
@@ -43,7 +42,7 @@ To use this extension, you need to create a GitLab Personal Access Token and giv
 ##### Step 2: Add token to GitLab Workflow Extension
 - Open up Command Palette by pressing `Cmd+Shift+P`.
 - Search for "GitLab: Set GitLab Personal Access Token" and hit Enter.
-- Extension will ask your PAT. Paste your PAT and hit Enter. _It won't be visible and accessible to others._
+- Extension will ask for your PAT. Paste your PAT and hit Enter. _It won't be visible and accessible to others._
 
 That's it. 🏁
 
@@ -93,7 +92,7 @@ You can perform advanced issue/MR search by using some predefined tokens. Full l
 ### Pipeline actions
 One of the real power features of this extension is pipeline actions. This feature can be accessible from status bar by clicking the pipeline status text or command palette and allows you to,
 
-- View latest pipeline on GitLab.
+- View latest pipeline on GitLab
 - Create a new pipeline for your current branch
 - Retry last pipeline
 - Cancel last pipeline
@@ -102,7 +101,7 @@ One of the real power features of this extension is pipeline actions. This featu
 
 
 ### Status bar
-If your current project is a GitLab project, extension will do the following things,
+If your current project is a GitLab project, extension will do the following things:
 
 - Fetch pipeline of last commit and show it on the status bar. Clicking this item will open pipeline actions menu.
 - Show open MR for current branch and show it on the status bar. Clicking this item will open MR on GitLab.
