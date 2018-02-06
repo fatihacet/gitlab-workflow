@@ -3,7 +3,7 @@ const execa = require('execa');
 const url = require('url');
 
 const getWorkspaceRootPath = () => {
-  return vscode.workspace.rootPath;
+  return vscode.workspace.workspaceFolders[0].uri.fsPath;
 }
 
 async function fetch(cmd) {
@@ -57,7 +57,7 @@ async function fetchGitRemote() {
     const branchName = await fetchBranchName();
     const remoteName = await fetch(`git config --get branch.${branchName}.remote`);
     url = await fetch(`git ls-remote --get-url ${remoteName}`);
-  } catch(e) {
+  } catch (e) {
     try {
       url = await fetch('git ls-remote --get-url');
     } catch (e) {
