@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [0.4.1] - 2018-02-10
+### Fixed
+- [#17](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/17) Cross project closing issue goes to wrong URL.
+
 ## [0.4.0] - 2018-02-02
 ### Added
 - Added search feature for MRs and Issues. Supports basic and advanced search.

@@ -6,8 +6,7 @@ let context = null;
 let pipelineStatusBarItem = null;
 let mrStatusBarItem = null;
 let mrIssueStatusBarItem = null;
-let issueId = null;
-let projectPath = null;
+let issue = null;
 let mr = null;
 
 const createStatusBarItem = (text, command) => {
@@ -87,7 +86,6 @@ async function fetchBranchMr() {
 
   try {
     project = await gitLabService.fetchCurrentProject();
-    projectPath = project.web_url;
     mr = await gitLabService.fetchOpenMergeRequestForCurrentBranch();
   } catch (e) {
     mrStatusBarItem.hide();
@@ -112,8 +110,8 @@ async function fetchMRIssues() {
   let text = `$(code) GitLab: No issue.`;
 
   if (issues[0]) {
-    issueId = issues[0].iid;
-    text = `$(code) GitLab: Issue #${issueId}`;
+    issue = issues[0];
+    text = `$(code) GitLab: Issue #${issue.iid}`;
   }
 
   mrIssueStatusBarItem.text = text;
@@ -122,8 +120,8 @@ async function fetchMRIssues() {
 const initMrIssueStatus = () => {
   const cmdName = `gl.mrIssueOpener`;
   commandRegisterHelper(cmdName, () => {
-    if (issueId) {
-      opn(`${projectPath}/issues/${issueId}`);
+    if (issue) {
+      opn(issue.web_url);
     } else {
       vscode.window.showInformationMessage('GitLab Workflow: No closing issue found for this MR.');
     }
