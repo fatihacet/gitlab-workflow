@@ -83,7 +83,7 @@ async function fetchCurrentProject() {
 
   if (remote) {
     const { namespace, project } = remote;
-    const projectData = await fetch(`/projects/${namespace}%2F${project}`);
+    const projectData = await fetch(`/projects/${namespace.replace(/\//g, "%2F")}%2F${project}`);
 
     return projectData || null;
   }
