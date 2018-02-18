@@ -78,7 +78,7 @@ async function fetchGitRemote() {
 
 const parseGitRemote = (remote) => {
   if (remote.startsWith('git@') || remote.startsWith('git://')) {
-    const match = new RegExp('^git(?:@|://)([^:/]+)(?::|:/|/)([^/]+)/(.+?)(?:.git)?$', 'i').exec(remote);
+    const match = new RegExp('^git(?:@|://)([^:/]+)(?::|:/|/)(.+)/(.+?)(?:.git)?$', 'i').exec(remote);
 
     if (!match) {
       return null;
@@ -92,7 +92,7 @@ const parseGitRemote = (remote) => {
       return null;
     }
 
-    const match = pathname.match(/\/(.*?)\/(.*?)(?:.git)?$/);
+    const match = pathname.match(/\/(.+)\/(.*?)(?:.git)?$/);
     if (!match) {
       return null;
     }
