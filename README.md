@@ -2,7 +2,7 @@
 
 [![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/fatihacet.gitlab-workflow.svg)](https://marketplace.visualstudio.com/items?itemName=fatihacet.gitlab-workflow) [![Installs](https://vsmarketplacebadge.apphb.com/installs/fatihacet.gitlab-workflow.svg)](https://marketplace.visualstudio.com/items?itemName=fatihacet.gitlab-workflow)
 
-This extension is integrates GitLab to your VSCode by adding GitLab specific options to VSCode command pallette and status bar.
+This extension integrates GitLab to your VSCode by adding GitLab specific options to VSCode command palette and status bar.
 
 
 ## Features
