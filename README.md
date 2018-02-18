@@ -1,4 +1,4 @@
-# [GitLab VSCode Extension](https://gitlab.com/fatihacet/gitlab-vscode-extension)
+# <img src="https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/logo.png" width="64" /> [GitLab VSCode Extension](https://gitlab.com/fatihacet/gitlab-vscode-extension)
 
 [![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/fatihacet.gitlab-workflow.svg)](https://marketplace.visualstudio.com/items?itemName=fatihacet.gitlab-workflow) [![Installs](https://vsmarketplacebadge.apphb.com/installs/fatihacet.gitlab-workflow.svg)](https://marketplace.visualstudio.com/items?itemName=fatihacet.gitlab-workflow)
 
