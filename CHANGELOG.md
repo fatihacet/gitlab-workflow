@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [0.4.2] - 2018-02-18
+### Fixed
+- [#16](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/16) Does not work witch projects in subgroup
+  - Fixed by [@AmandaCameron](https://gitlab.com/AmandaCameron) with [MR !3](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/3) 👍
+
+### Added
+- 🎉 [New logo](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/logo.png) _Special thanks to [@ademilter](https://twitter.com/ademilter) for his amazing work 👍_
+
+
 ## [0.4.1] - 2018-02-10
 ### Fixed
 - [#17](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/17) Cross project closing issue goes to wrong URL.
