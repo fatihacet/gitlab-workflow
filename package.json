@@ -33,7 +33,7 @@
     "theme": "dark"
   },
   "main": "./src/extension",
-  "icon": "src/assets/gitlab-logo.png",
+  "icon": "src/assets/logo.png",
   "contributes": {
     "commands": [
       {
