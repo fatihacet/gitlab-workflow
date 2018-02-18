@@ -48,7 +48,8 @@ async function openActiveFile() {
 
     if (currentProject) {
       const branchName = await gitService.fetchTrackingBranchName();
-      const filePath = editor.document.uri.path.replace(vscode.workspace.rootPath, '');
+      const workspaceFolder = vscode.workspace.getWorkspaceFolder(editor.document.uri);
+      const filePath = editor.document.uri.path.replace(`${workspaceFolder.uri.path}/`, '');
       let fileUrl = `${currentProject.web_url}/blob/${branchName}/${filePath}`;
       let anchor = '';
 

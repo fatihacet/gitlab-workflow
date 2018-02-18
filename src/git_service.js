@@ -3,7 +3,7 @@ const execa = require('execa');
 const url = require('url');
 
 const getWorkspaceRootPath = () => {
-  return vscode.workspace.rootPath;
+  return vscode.workspace.workspaceFolders[0].uri.fsPath;
 }
 
 async function fetch(cmd) {
