@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [0.4.3] - 2018-02-19
+### Fixed
+- [#19](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/19) Can't add token
+
+
 ## [0.4.2] - 2018-02-18
 ### Fixed
 - [#14](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/14) GitLab: Open active file on GitLab - workspace path not filtered out

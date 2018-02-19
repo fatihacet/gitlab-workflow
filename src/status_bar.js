@@ -65,7 +65,7 @@ const initPipelineStatus = () => {
 }
 
 const initMrStatus = () => {
-  const cmdName = 'gl.mrOpener';
+  const cmdName = `gl.mrOpener${Date.now()}`;
   commandRegisterHelper(cmdName, () => {
     if (mr) {
       opn(mr.web_url);
@@ -118,7 +118,7 @@ async function fetchMRIssues() {
 }
 
 const initMrIssueStatus = () => {
-  const cmdName = `gl.mrIssueOpener`;
+  const cmdName = `gl.mrIssueOpener${Date.now()}`;
   commandRegisterHelper(cmdName, () => {
     if (issue) {
       opn(issue.web_url);
