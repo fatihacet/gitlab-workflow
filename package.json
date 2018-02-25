@@ -95,6 +95,10 @@
       {
         "command": "gl.createSnippet",
         "title": "GitLab: Create snippet"
+      },
+      {
+        "command": "gl.validateCIConfig",
+        "title": "GitLab: Validate GitLab CI config"
       }
     ],
     "configuration": {

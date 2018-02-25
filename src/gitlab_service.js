@@ -194,6 +194,18 @@ async function createSnippet(data) {
   return snippet;
 };
 
+async function validateCIConfig(content) {
+  let response = null;
+
+  try {
+    response = await fetch('/ci/lint', 'POST', { content });
+  } catch (e) {
+    vscode.window.showInformationMessage('GitLab Workflow: Failed to validate CI configuration.');
+  }
+
+  return response;
+}
+
 /**
  * @private
  * @param {string} token GL PAT
@@ -210,4 +222,5 @@ exports.fetchCurrentProject = fetchCurrentProject;
 exports.handlePipelineAction = handlePipelineAction;
 exports.fetchMRIssues = fetchMRIssues;
 exports.createSnippet = createSnippet;
+exports.validateCIConfig = validateCIConfig;
 exports._setGLToken = _setGLToken;

@@ -7,6 +7,7 @@ const gitLabService = require('./gitlab_service');
 const pipelineActionsPicker = require('./pipeline_actions_picker');
 const searchInput = require('./search_input');
 const snippetInput = require('./snippet_input');
+const ciConfigValidator = require('./ci_config_validator');
 
 let context = null;
 
@@ -33,6 +34,7 @@ const registerCommands = () => {
     'gl.mergeRequestSearch': searchInput.showMergeRequestSearchInput,
     'gl.compareCurrentBranch': openers.compareCurrentBranch,
     'gl.createSnippet': snippetInput.show,
+    'gl.validateCIConfig': ciConfigValidator.validate,
   }
 
   Object.keys(commands).forEach((cmd) => {

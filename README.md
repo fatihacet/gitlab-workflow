@@ -15,6 +15,7 @@ This extension integrates GitLab to VSCode by adding GitLab specific options to 
 - Create public, internal or private snippet from entire file or selection. [Read more](#create-snippet).
 - Compare your branch with master and view changes on GitLab. [Read more](#compare-with-master).
 - View active file on GitLab with highlighting active line number and selected text block. [Read more](#open-active-file).
+- Validate GitLab CI configuration file `.gitlab-ci.yml`. [Read more](#validate-gitlab-ci-configuration).
 - Open MR of current branch on GitLab.
 - Open issues assigned to you on GitLab.
 - Open MRs assigned to you on GitLab.
@@ -133,6 +134,12 @@ This command allows you to see active file on GitLab. Extension sends active lin
 ![_open_active_file.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_open_active_file.gif)
 
 
+### Validate GitLab CI Configuration
+Using this command, you can quickly validate GitLab CI configuration.
+
+![_validate-ci-config.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_validate-ci-config.gif)
+
+
 -----
 
 
@@ -147,21 +154,22 @@ If you are using GitLab on a custom domain, you should add this to your user set
 
 ## What's next?
 - Open last commit on GitLab.
-- GitLab CI config file `(.gitlab-ci.yml)` validation
 - MR actions picker which will allow you to
   - Go to specific MR tab, Discussions, Commits, Pipelines, Changes.
   - Assign MR to user.
   - View last commit.
-- [moonshot] GitLab Dashboard tab where you can see your issues, MRs, Todos all in one place in VSCode.
-- [moonshot] MR diff discussions on VSCode gutter with user avatars like we have in GitLab Changes tab.
-- `[Shipped in v0.2.2]` Pipeline link to pipeline status bar item.
-- `[Shipped in v0.2.2]` View last pipeline on GitLab.
-- `[Shipped in v0.3.0]` Pipeline actions menu to quickly view, retry, cancel or create a new pipeline.
-- `[Shipped in v0.4.0]` Issue and MR search.
-- `[Shipped in v0.4.0]` Detailed issue and MR search.
+- **[moonshot]** GitLab Dashboard tab where you can see your issues, MRs, Todos all in one place in VSCode.
+- **[moonshot]** MR diff discussions on VSCode gutter with user avatars like we have in GitLab Changes tab.
+- **Already Shipped**
+  - `[v0.2.2]` Pipeline link to pipeline status bar item.
+  - `[v0.2.2]` View last pipeline on GitLab.
+  - `[v0.3.0]` Pipeline actions menu to quickly view, retry, cancel or create a new pipeline.
+  - `[v0.4.0]` Issue and MR search.
+  - `[v0.4.0]` Detailed issue and MR search.
   - `title:MR discussions refactor labels:frontend, discussions assignee:fatihacet`
-- `[Shipped in v0.4.0]` Compare your changes with master on GitLab.
-- `[Shipped in v0.5.0]`Create snippet from selected text
+  - `[v0.4.0]` Compare your changes with master on GitLab.
+  - `[v0.5.0]` Create snippet from selected text
+  - `[v0.5.0]` GitLab CI config file `(.gitlab-ci.yml)` validation
 
 
 ## Contribution
