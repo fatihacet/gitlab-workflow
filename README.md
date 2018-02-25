@@ -32,8 +32,9 @@ This extension integrates GitLab to VSCode by adding GitLab specific options to 
 To use this extension, you need to create a GitLab Personal Access Token and give it to the extension.
 
 ##### Step 1: Create your Personal Access Token
-- Go to "Settings" page on GitLab.com or your self hosted GitLab instance.
-- On the left navigation menu, click "Access Tokens".
+- If you are using
+  - GitLab.com [click to open Personal Access Tokens page](https://gitlab.com/profile/personal_access_tokens).
+  - Self hosted GitLab instance go to "Settings" and click "Access Tokens" on the left navigation menu
 - On "Add a personal access token" form
   - Give a name to your token.
   - Select and expiry date.
