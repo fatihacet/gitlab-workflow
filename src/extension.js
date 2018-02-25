@@ -1,4 +1,5 @@
 const vscode = require('vscode');
+const opn = require('opn');
 const openers = require('./openers');
 const statusBar = require('./status_bar');
 const tokenInput = require('./token_input');
@@ -56,8 +57,23 @@ const askForToken = () => {
   const gs = context.globalState;
 
   if (!gs.get('glToken') && !gs.get('askedForToken')) {
-    vscode.window.showInformationMessage('GitLab Workflow: Please set GitLab Personal Access Token to setup this extension.');
+    const message = 'GitLab Workflow: Please set GitLab Personal Access Token to setup this extension.';
+    const setButton = { title: 'Set Token Now', action: 'set' };
+    const readMore = { title: 'Read More', action: 'more' };
+
     gs.update('askedForToken', true);
+    vscode.window.showInformationMessage(message, readMore, setButton)
+      .then((item) => {
+        if (item) {
+          const { action } = item;
+
+          if (action === 'set') {
+            vscode.commands.executeCommand('gl.setToken');
+          } else {
+            opn('https://gitlab.com/fatihacet/gitlab-vscode-extension#setup');
+          }
+        }
+      });
   }
 }
 

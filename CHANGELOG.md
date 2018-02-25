@@ -3,6 +3,8 @@
 ## [0.5.0] - 2018-02-25
 ### Added
 - [#25](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/25) Create snippet from selection or entire file.
+- [#20](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/20) Added Read more and Set token now buttons to token ask notification.
+
 
 ## [0.4.3] - 2018-02-19
 ### Fixed
