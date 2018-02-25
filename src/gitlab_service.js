@@ -7,7 +7,7 @@ const statusBar = require('./status_bar');
 let glToken = null;
 let branchMR = null;
 
-async function fetch(path, method = 'GET') {
+async function fetch(path, method = 'GET', data = null) {
   const { instanceUrl } = vscode.workspace.getConfiguration('gitlab');
   const apiRoot = `${instanceUrl}/api/v4`;
 
@@ -20,8 +20,12 @@ async function fetch(path, method = 'GET') {
     method,
     headers: {
       'PRIVATE-TOKEN': glToken,
-    }
+    },
   };
+
+  if (data) {
+    config.formData = data;
+  }
 
   const response = await request(config);
 
@@ -178,6 +182,18 @@ async function fetchMRIssues(mrId) {
   return issues;
 };
 
+async function createSnippet(data) {
+  let snippet;
+
+  try {
+    snippet = await fetch(`/projects/${data.id}/snippets`, 'POST', data);
+  } catch (e) {
+    vscode.window.showInformationMessage('GitLab Workflow: Failed to create your snippet.');
+  }
+
+  return snippet;
+};
+
 /**
  * @private
  * @param {string} token GL PAT
@@ -193,4 +209,5 @@ exports.fetchLastPipelineForCurrentBranch = fetchLastPipelineForCurrentBranch;
 exports.fetchCurrentProject = fetchCurrentProject;
 exports.handlePipelineAction = handlePipelineAction;
 exports.fetchMRIssues = fetchMRIssues;
+exports.createSnippet = createSnippet;
 exports._setGLToken = _setGLToken;

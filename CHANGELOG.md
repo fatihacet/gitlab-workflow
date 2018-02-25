@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [0.5.0] - 2018-02-25
+### Added
+- [#25](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/25) Create snippet from selection or entire file.
+
 ## [0.4.3] - 2018-02-19
 ### Fixed
 - [#19](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/19) Can't add token

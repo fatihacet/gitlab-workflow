@@ -12,8 +12,9 @@ This extension integrates GitLab to VSCode by adding GitLab specific options to 
 - Advanced pipeline actions allows you to view pipeline on GitLab, create new pipeline, retry or cancel current pipeline. [Read more](#pipeline-actions).
 - Issue and MR search including simple and advanced search. [Read more](#advanced-search).
 - View MR and closing issue on GitLab with a single click from your status bar.
-- View active file on GitLab with highlighting active line number and selected text block. [Read more](#open-active-file).
+- Create public, internal or private snippet from entire file or selection. [Read more](#create-snippet).
 - Compare your branch with master and view changes on GitLab. [Read more](#compare-with-master).
+- View active file on GitLab with highlighting active line number and selected text block. [Read more](#open-active-file).
 - Open MR of current branch on GitLab.
 - Open issues assigned to you on GitLab.
 - Open MRs assigned to you on GitLab.
@@ -111,6 +112,12 @@ If your current project is a GitLab project, extension will do the following thi
 ![_status_bar.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_status-bar.gif)
 
 
+### Create snippet
+You can create snippet from selection or entire file. You can also select visibility level of your snippet.
+
+![_create-snippet.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_create-snippet.gif)
+
+
 ### Compare with master
 You can see changes in your branch by comparing with `master` and see them on GitLab.
 
@@ -118,12 +125,15 @@ You can see changes in your branch by comparing with `master` and see them on Gi
 
 > Soon extension will support comparing with other branches.
 
+
 ### Open active file
 This command allows you to see active file on GitLab. Extension sends active line number and selected text block to GitLab UI so you can see them highlighted.
 
 ![_open_active_file.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_open_active_file.gif)
 
+
 -----
+
 
 ## Configuration options
 
@@ -135,6 +145,14 @@ If you are using GitLab on a custom domain, you should add this to your user set
 
 
 ## What's next?
+- Open last commit on GitLab.
+- GitLab CI config file `(.gitlab-ci.yml)` validation
+- MR actions picker which will allow you to
+  - Go to specific MR tab, Discussions, Commits, Pipelines, Changes.
+  - Assign MR to user.
+  - View last commit.
+- [moonshot] GitLab Dashboard tab where you can see your issues, MRs, Todos all in one place in VSCode.
+- [moonshot] MR diff discussions on VSCode gutter with user avatars like we have in GitLab Changes tab.
 - `[Shipped in v0.2.2]` Pipeline link to pipeline status bar item.
 - `[Shipped in v0.2.2]` View last pipeline on GitLab.
 - `[Shipped in v0.3.0]` Pipeline actions menu to quickly view, retry, cancel or create a new pipeline.
@@ -142,14 +160,7 @@ If you are using GitLab on a custom domain, you should add this to your user set
 - `[Shipped in v0.4.0]` Detailed issue and MR search.
   - `title:MR discussions refactor labels:frontend, discussions assignee:fatihacet`
 - `[Shipped in v0.4.0]` Compare your changes with master on GitLab.
-- Create snippet from selected text
-- Open last commit on GitLab.
-- MR actions picker which will allow you to
-  - Go to specific MR tab, Discussions, Commits, Pipelines, Changes.
-  - Assign MR to user.
-  - View last commit.
-- [moonshot] GitLab Dashboard tab where you can see your issues, MRs, Todos all in one place in VSCode.
-- [moonshot] MR diff discussions on VSCode gutter with user avatars like we have in GitLab Changes tab.
+- `[Shipped in v0.5.0]`Create snippet from selected text
 
 
 ## Contribution

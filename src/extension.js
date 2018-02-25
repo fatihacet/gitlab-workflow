@@ -5,6 +5,7 @@ const tokenInput = require('./token_input');
 const gitLabService = require('./gitlab_service');
 const pipelineActionsPicker = require('./pipeline_actions_picker');
 const searchInput = require('./search_input');
+const snippetInput = require('./snippet_input');
 
 let context = null;
 
@@ -30,6 +31,7 @@ const registerCommands = () => {
     'gl.issueSearch': searchInput.showIssueSearchInput,
     'gl.mergeRequestSearch': searchInput.showMergeRequestSearchInput,
     'gl.compareCurrentBranch': openers.compareCurrentBranch,
+    'gl.createSnippet': snippetInput.show,
   }
 
   Object.keys(commands).forEach((cmd) => {
