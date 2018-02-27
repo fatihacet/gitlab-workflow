@@ -145,9 +145,13 @@ Using this command, you can quickly validate GitLab CI configuration.
 
 ## Configuration options
 
-**`gitlab.instanceUrl` (required: false, default: "https://gitlab.com")**
+**`gitlab.instanceUrl`** _(required: false, default: "https://gitlab.com")_
 
 If you are using GitLab on a custom domain, you should add this to your user settings file. Example: `"gitlab.instanceUrl": "https://my-gitlab-domain.com"`
+
+**`gitlab.showIssueLinkOnStatusBar`** _(required: false, default: true)_
+
+If you are not using GitLab's issue tracker, you may want to set this `false` to remove related issue link on status bar. You should restart your VSCode after updating this option.
 
 > You can open User Settings file by pressing `Cmd+,` on Mac OS or following `Code > Preferences > User Settings`. You can simply add extension configuration values to you User Settings file. This won't break or change anything on your VSCode.
 
