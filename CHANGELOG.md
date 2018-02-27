@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [0.5.1] - 2018-02-27
+### Added
+- [!4](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/4) Add an option to turn off the issue link in the status bar
 ## [0.5.0] - 2018-02-25
 ### Added
 - [#25](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/25) Create snippet from selection or entire file.

@@ -8,6 +8,7 @@ let mrStatusBarItem = null;
 let mrIssueStatusBarItem = null;
 let issue = null;
 let mr = null;
+const { showIssueLinkOnStatusBar } = vscode.workspace.getConfiguration('gitlab');
 
 const createStatusBarItem = (text, command) => {
   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
@@ -135,13 +136,17 @@ const init = (ctx) => {
 
   initPipelineStatus();
   initMrStatus();
-  initMrIssueStatus();
+  if (showIssueLinkOnStatusBar) {
+    initMrIssueStatus();
+  }
 }
 
 const dispose = () => {
   mrStatusBarItem.dispose();
   pipelineStatusBarItem.dispose();
-  mrIssueStatusBarItem.dispose();
+  if (showIssueLinkOnStatusBar) {
+    mrIssueStatusBarItem.dispose();
+  }
 }
 
 exports.init = init;
