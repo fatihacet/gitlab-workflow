@@ -108,6 +108,11 @@
           "type": "string",
           "default": "https://gitlab.com",
           "description": "Your GitLab instance URL (default is https://gitlab.com)"
+        },
+        "gitlab.showIssueLinkOnStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to display the GitLab issue link in the status bar"
         }
       }
     }
