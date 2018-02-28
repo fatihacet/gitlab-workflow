@@ -4,8 +4,10 @@ const gitLabService = require('./gitlab_service');
 
 let context = null;
 let pipelineStatusBarItem = null;
+let pipelinesStatusTimer = null;
 let mrStatusBarItem = null;
 let mrIssueStatusBarItem = null;
+let mrStatusTimer = null;
 let issue = null;
 let mr = null;
 const { showIssueLinkOnStatusBar } = vscode.workspace.getConfiguration('gitlab');
@@ -60,7 +62,7 @@ async function refreshPipelines() {
 
 const initPipelineStatus = () => {
   pipelineStatusBarItem = createStatusBarItem('$(info) GitLab: Fetching pipeline...', 'gl.pipelineActions');
-  setInterval(() => { refreshPipelines() }, 30000);
+  pipelinesStatusTimer = setInterval(() => { refreshPipelines() }, 30000);
 
   refreshPipelines();
 }
@@ -76,7 +78,7 @@ const initMrStatus = () => {
   });
 
   mrStatusBarItem = createStatusBarItem('$(info) GitLab: Finding MR...', cmdName);
-  setInterval(() => { fetchBranchMr() }, 60000);
+  mrStatusTimer = setInterval(() => { fetchBranchMr() }, 60000);
 
   fetchBranchMr();
 }
@@ -146,6 +148,16 @@ const dispose = () => {
   pipelineStatusBarItem.dispose();
   if (showIssueLinkOnStatusBar) {
     mrIssueStatusBarItem.dispose();
+  }
+
+  if (pipelinesStatusTimer) {
+    clearInterval(pipelinesStatusTimer);
+    pipelinesStatusTimer = null;
+  }
+
+  if (mrStatusTimer) {
+    clearInterval(mrStatusTimer);
+    mrStatusTimer = null;
   }
 }
 

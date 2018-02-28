@@ -46,6 +46,7 @@ To use this extension, you need to create a GitLab Personal Access Token and giv
 ##### Step 2: Add token to GitLab Workflow Extension
 - Open up Command Palette by pressing `Cmd+Shift+P`.
 - Search for "GitLab: Set GitLab Personal Access Token" and hit Enter.
+- Enter the URL to the Gitlab instance the PAT should apply to and hit Enter.
 - Extension will ask for your PAT. Paste your PAT and hit Enter. _It won't be visible and accessible to others._
 
 That's it. 🏁
@@ -60,6 +61,10 @@ You can start using this extension right away. If your project has a pipeline fo
 ![https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/gitlab-vscode.png](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/gitlab-vscode.png)
 
 ![https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/pipeline-actions.png](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/pipeline-actions.png)
+
+
+## Multiple Gitlab instances
+To enable Gitlab Workflow extension to work with different Gitlab instances, each token is assigned to a Gitlab instance URL. For the extension to selected the correct token for a specific workspace, the option [`gitlab.instanceUrl`](#configuration-options) can be used. This option can be set in the current workspace's `.vscode/settings.json` file.
 
 
 ## Features in depth

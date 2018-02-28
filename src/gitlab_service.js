@@ -2,14 +2,15 @@ const vscode = require('vscode');
 const opn = require('opn');
 const request = require('request-promise');
 const gitService = require('./git_service');
+const tokenService = require('./token_service');
 const statusBar = require('./status_bar');
 
-let glToken = null;
 let branchMR = null;
 
 async function fetch(path, method = 'GET', data = null) {
   const { instanceUrl } = vscode.workspace.getConfiguration('gitlab');
   const apiRoot = `${instanceUrl}/api/v4`;
+  const glToken = tokenService.getToken(instanceUrl);
 
   if (!glToken) {
     return vscode.window.showInformationMessage('GitLab Workflow: Cannot make request. No token found.');
@@ -206,14 +207,6 @@ async function validateCIConfig(content) {
   return response;
 }
 
-/**
- * @private
- * @param {string} token GL PAT
- */
-const _setGLToken = (token) => {
-  glToken = token;
-}
-
 exports.fetchUser = fetchUser;
 exports.fetchMyOpenMergeRequests = fetchMyOpenMergeRequests;
 exports.fetchOpenMergeRequestForCurrentBranch = fetchOpenMergeRequestForCurrentBranch;
@@ -223,4 +216,3 @@ exports.handlePipelineAction = handlePipelineAction;
 exports.fetchMRIssues = fetchMRIssues;
 exports.createSnippet = createSnippet;
 exports.validateCIConfig = validateCIConfig;
-exports._setGLToken = _setGLToken;
