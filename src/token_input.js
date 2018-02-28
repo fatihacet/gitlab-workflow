@@ -1,23 +1,46 @@
+const { URL } = require('url');
 const vscode = require('vscode');
-const extension = require('./extension');
+const tokenService = require('./token_service');
 
-async function showInput(context) {
+async function showInput() {
+  const instance = await vscode.window.showInputBox({
+    ignoreFocusOut: true,
+    value: 'https://gitlab.com',
+    placeHolder: 'E.g. https://gitlab.com',
+    prompt: 'URL to Gitlab instance',
+    validateInput: urlValidator,
+  });
+
   const token = await vscode.window.showInputBox({
     ignoreFocusOut: true,
     password: true,
     placeHolder: 'Paste your GitLab Personal Access Token...',
   });
 
-  if (token) {
-    context.globalState.update('glToken', token);
-    extension.init();
+  if (instance && token) {
+    tokenService.setToken(instance, token);
   }
 }
 
-const removeToken = (context) => {
-  context.globalState.update('glToken', null);
-  extension.deactivate();
-};
+async function removeTokenPicker() {
+  const instanceUrls = tokenService.getInstanceUrls();
+  const selectedInstanceUrl = await vscode.window.showQuickPick(instanceUrls, {
+    ignoreFocusOut: true,
+    placeHolder: 'Select Gitlab instance for PAT removal',
+  });
+
+  if (selectedInstanceUrl) {
+    tokenService.setToken(selectedInstanceUrl, undefined);
+  }
+}
+
+const urlValidator = (value) => {
+  try {
+    new URL(value);
+  } catch (_err) {
+    return `Gitlab instance "${value}" is not a valid URL`;
+  }
+}
 
 exports.showInput = showInput;
-exports.removeToken = removeToken;
+exports.removeTokenPicker = removeTokenPicker;
