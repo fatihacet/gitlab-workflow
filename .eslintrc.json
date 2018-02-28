@@ -2,6 +2,7 @@
   "extends": ["airbnb-base", "prettier"],
   "plugins": ["import", "prettier"],
   "rules": {
+    "import/no-unresolved": [2, { "ignore": ["vscode"] }],
     "prettier/prettier": ["error"]
   }
 }
