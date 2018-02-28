@@ -44,7 +44,8 @@ async function refreshPipelines() {
     pipeline = await gitLabService.fetchLastPipelineForCurrentBranch();
   } catch (e) {
     if (!project) {
-      return pipelineStatusBarItem.hide();
+      pipelineStatusBarItem.hide();
+      return;
     }
     console.log('Failed to execute refreshPipelines.', e);
   }
@@ -57,6 +58,41 @@ async function refreshPipelines() {
   } else {
     pipelineStatusBarItem.text = 'GitLab: No pipeline.';
   }
+}
+
+async function fetchMRIssues() {
+  const issues = await gitLabService.fetchMRIssues(mr.iid);
+  let text = `$(code) GitLab: No issue.`;
+
+  if (issues[0]) {
+    [issue] = issues;
+    text = `$(code) GitLab: Issue #${issue.iid}`;
+  }
+
+  mrIssueStatusBarItem.text = text;
+}
+
+async function fetchBranchMr() {
+  let project = null;
+  let text = '$(git-pull-request) GitLab: No MR.';
+
+  try {
+    project = await gitLabService.fetchCurrentProject();
+    mr = await gitLabService.fetchOpenMergeRequestForCurrentBranch();
+  } catch (e) {
+    mrStatusBarItem.hide();
+  }
+
+  if (mr) {
+    text = `$(git-pull-request) GitLab: MR !${mr.iid}`;
+    fetchMRIssues();
+  } else if (project) {
+    mrIssueStatusBarItem.text = `$(code) GitLab: No issue.`;
+  } else {
+    mrIssueStatusBarItem.hide();
+  }
+
+  mrStatusBarItem.text = text;
 }
 
 const initPipelineStatus = () => {
@@ -88,43 +124,6 @@ const initMrStatus = () => {
 
   fetchBranchMr();
 };
-
-async function fetchBranchMr() {
-  let project = null;
-  let text = '$(git-pull-request) GitLab: No MR.';
-
-  try {
-    project = await gitLabService.fetchCurrentProject();
-    mr = await gitLabService.fetchOpenMergeRequestForCurrentBranch();
-  } catch (e) {
-    mrStatusBarItem.hide();
-  }
-
-  if (mr) {
-    text = `$(git-pull-request) GitLab: MR !${mr.iid}`;
-    fetchMRIssues();
-  } else {
-    if (project) {
-      mrIssueStatusBarItem.text = `$(code) GitLab: No issue.`;
-    } else {
-      mrIssueStatusBarItem.hide();
-    }
-  }
-
-  mrStatusBarItem.text = text;
-}
-
-async function fetchMRIssues() {
-  const issues = await gitLabService.fetchMRIssues(mr.iid);
-  let text = `$(code) GitLab: No issue.`;
-
-  if (issues[0]) {
-    issue = issues[0];
-    text = `$(code) GitLab: Issue #${issue.iid}`;
-  }
-
-  mrIssueStatusBarItem.text = text;
-}
 
 const initMrIssueStatus = () => {
   const cmdName = `gl.mrIssueOpener${Date.now()}`;

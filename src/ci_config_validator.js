@@ -7,14 +7,16 @@ async function validate() {
   const editor = vscode.window.activeTextEditor;
 
   if (!editor) {
-    return showInformationMessage('GitLab Workflow: No open file.');
+    showInformationMessage('GitLab Workflow: No open file.');
+    return;
   }
 
   const content = editor.document.getText();
   const response = await gitLabService.validateCIConfig(content);
 
   if (!response) {
-    return showInformationMessage('GitLab Workflow: Failed to validate CI configuration.');
+    showInformationMessage('GitLab Workflow: Failed to validate CI configuration.');
+    return;
   }
 
   const { status, errors, error } = response;

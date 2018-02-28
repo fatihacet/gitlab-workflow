@@ -11,12 +11,6 @@ const ciConfigValidator = require('./ci_config_validator');
 
 let context = null;
 
-const activate = ctx => {
-  context = ctx;
-  registerCommands();
-  init();
-};
-
 const registerCommands = () => {
   const commands = {
     'gl.showIssuesAssigedToMe': openers.showIssues,
@@ -42,17 +36,6 @@ const registerCommands = () => {
   });
 };
 
-const init = () => {
-  const token = context.globalState.get('glToken');
-
-  if (token) {
-    gitLabService._setGLToken(token);
-    statusBar.init(context);
-  } else {
-    askForToken();
-  }
-};
-
 const askForToken = () => {
   const gs = context.globalState;
 
@@ -75,6 +58,23 @@ const askForToken = () => {
       }
     });
   }
+};
+
+const init = () => {
+  const token = context.globalState.get('glToken');
+
+  if (token) {
+    gitLabService._setGLToken(token);
+    statusBar.init(context);
+  } else {
+    askForToken();
+  }
+};
+
+const activate = ctx => {
+  context = ctx;
+  registerCommands();
+  init();
 };
 
 const deactivate = () => {

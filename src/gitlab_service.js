@@ -53,14 +53,33 @@ async function fetchUser(userName) {
     }
 
     vscode.window.showInformationMessage(message);
+
+    // Just added for consistent return. Maybe this rule can be turned off for this function.
+    return undefined;
   }
+}
+
+async function fetchCurrentProject() {
+  const remote = await gitService.fetchGitRemote();
+
+  if (remote) {
+    const { namespace, project } = remote;
+    const projectData = await fetch(`/projects/${namespace.replace(/\//g, '%2F')}%2F${project}`);
+
+    return projectData || null;
+  }
+
+  return null;
 }
 
 async function fetchMyOpenMergeRequests() {
   const project = await fetchCurrentProject();
 
   if (project) {
-    return await fetch(`/projects/${project.id}/merge_requests?scope=created-by-me&state=opened`);
+    const response = await fetch(
+      `/projects/${project.id}/merge_requests?scope=created-by-me&state=opened`,
+    );
+    return response;
   }
 
   return [];
@@ -75,23 +94,11 @@ async function fetchLastPipelineForCurrentBranch() {
     const pipelines = await fetch(`${pipelinesRootPath}?ref=${branchName}`);
 
     if (pipelines.length) {
-      return await fetch(`${pipelinesRootPath}/${pipelines[0].id}`);
+      const response = await fetch(`${pipelinesRootPath}/${pipelines[0].id}`);
+      return response;
     }
 
     return null;
-  }
-
-  return null;
-}
-
-async function fetchCurrentProject() {
-  const remote = await gitService.fetchGitRemote();
-
-  if (remote) {
-    const { namespace, project } = remote;
-    const projectData = await fetch(`/projects/${namespace.replace(/\//g, '%2F')}%2F${project}`);
-
-    return projectData || null;
   }
 
   return null;
@@ -109,17 +116,14 @@ async function fetchOpenMergeRequestForCurrentBranch() {
 
   const project = await fetchCurrentProject();
   const branchName = await gitService.fetchTrackingBranchName();
-  let page = 1;
 
   // Recursive fetcher method to find the branch MR in MR list.
-  async function fetcher() {
+  async function fetcher(page = 1) {
     const mrs = await fetch(
       `/projects/${project.id}/merge_requests?state=opened&per_page=100&page=${page}`,
     );
 
-    const [mr] = mrs.filter(mr => {
-      return mr.source_branch === branchName;
-    });
+    const [mr] = mrs.filter(mergeRequest => mergeRequest.source_branch === branchName);
 
     if (mr) {
       if (page > 1) {
@@ -132,12 +136,20 @@ async function fetchOpenMergeRequestForCurrentBranch() {
 
     if (page <= 5 && mrs.length === 100) {
       // Retry max 5 times.
-      page = page + 1;
-      return await fetcher();
+      const data = await fetcher(page + 1);
+      return data;
     }
+
+    // Just added for consistent return. Maybe this rule can be turned off for this function.
+    return null;
   }
 
-  return project ? await fetcher() : null;
+  if (project) {
+    const data = await fetcher();
+    return data;
+  }
+
+  return null;
 }
 
 /**

@@ -26,7 +26,8 @@ async function showPicker() {
 
   if (selected) {
     if (selected.action === 'view') {
-      return openers.openCurrentPipeline();
+      openers.openCurrentPipeline();
+      return;
     }
 
     gitLabService.handlePipelineAction(selected.action);
