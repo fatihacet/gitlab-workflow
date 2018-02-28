@@ -28,16 +28,17 @@ async function showSearchInputFor(noteableType) {
 
 const parseQuery = (query, noteableType) => {
   const params = {};
-  const tokens = query.replace(/: /g, ':') // Normalize spaces after tokens.
+  const tokens = query
+    .replace(/: /g, ':') // Normalize spaces after tokens.
     .replace(/\s[a-z]*:/gi, t => `\n${t}`) // Get tokens and add new line.
     .split('\n') // Create array from tokens.
-    .map(t => t.trim().split(':')) // Return new array with token and value arrays.
+    .map(t => t.trim().split(':')); // Return new array with token and value arrays.
 
   // If there is no token it's a basic text search.
   if (tokens.length === 1 && tokens[0][1] === undefined) {
     params.search = tokens[0][0];
   } else {
-    tokens.forEach((t) => {
+    tokens.forEach(t => {
       const [token, value] = t;
 
       switch (token) {
@@ -86,7 +87,8 @@ const parseQuery = (query, noteableType) => {
           if (value === 'me') {
             params.scope = 'assigned-to-me';
           } else {
-            const key = noteableType === 'merge_requests' ? 'assignee_username' : 'assignee_username[]';
+            const key =
+              noteableType === 'merge_requests' ? 'assignee_username' : 'assignee_username[]';
             params[key] = value;
           }
           break;
@@ -100,12 +102,12 @@ const parseQuery = (query, noteableType) => {
   }
 
   // URL encode keys and values and return a new array to build actual query string.
-  const queryParams = Object.keys(params).map(k =>
-    params[k] ? `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}` : ''
+  const queryParams = Object.keys(params).map(
+    k => (params[k] ? `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}` : ''),
   );
 
   return queryParams.length ? `?${queryParams.join('&')}` : '';
-}
+};
 
 exports.showIssueSearchInput = showIssueSearchInput;
 exports.showMergeRequestSearchInput = showMergeRequestSearchInput;

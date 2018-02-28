@@ -4,7 +4,7 @@ const url = require('url');
 
 const getWorkspaceRootPath = () => {
   return vscode.workspace.workspaceFolders[0].uri.fsPath;
-}
+};
 
 async function fetch(cmd) {
   const [git, ...args] = cmd.split(' ');
@@ -26,7 +26,7 @@ async function fetchBranchName() {
  *
  * Fixes #1 where local branch name is renamed and doesn't exists on remote but
  * local branch still tracks another branch on remote.
-*/
+ */
 async function fetchTrackingBranchName() {
   const branchName = await fetchBranchName();
 
@@ -38,7 +38,9 @@ async function fetchTrackingBranchName() {
       return ref.replace('refs/heads/', '');
     }
   } catch (e) {
-    console.log(`Couldn't find tracking branch. Extension will fallback to branch name ${branchName}`);
+    console.log(
+      `Couldn't find tracking branch. Extension will fallback to branch name ${branchName}`,
+    );
   }
 
   return branchName;
@@ -57,7 +59,7 @@ async function fetchGitRemote() {
     const branchName = await fetchBranchName();
     const remoteName = await fetch(`git config --get branch.${branchName}.remote`);
     url = await fetch(`git ls-remote --get-url ${remoteName}`);
-  } catch(e) {
+  } catch (e) {
     try {
       url = await fetch('git ls-remote --get-url');
     } catch (e) {
@@ -76,9 +78,11 @@ async function fetchGitRemote() {
   return null;
 }
 
-const parseGitRemote = (remote) => {
+const parseGitRemote = remote => {
   if (remote.startsWith('git@') || remote.startsWith('git://')) {
-    const match = new RegExp('^git(?:@|://)([^:/]+)(?::|:/|/)(.+)/(.+?)(?:.git)?$', 'i').exec(remote);
+    const match = new RegExp('^git(?:@|://)([^:/]+)(?::|:/|/)(.+)/(.+?)(?:.git)?$', 'i').exec(
+      remote,
+    );
 
     if (!match) {
       return null;
@@ -99,7 +103,7 @@ const parseGitRemote = (remote) => {
 
     return [protocol, hostname, ...match.slice(1, 3)];
   }
-}
+};
 
 exports.fetchBranchName = fetchBranchName;
 exports.fetchTrackingBranchName = fetchTrackingBranchName;

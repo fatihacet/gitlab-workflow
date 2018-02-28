@@ -21,11 +21,11 @@ const createStatusBarItem = (text, command) => {
   }
 
   return statusBarItem;
-}
+};
 
 const commandRegisterHelper = (cmdName, callback) => {
   vscode.commands.registerCommand(cmdName, callback);
-}
+};
 
 async function refreshPipelines() {
   let project = null;
@@ -37,7 +37,7 @@ async function refreshPipelines() {
     failed: { icon: 'x' },
     canceled: { icon: 'circle-slash' },
     skipped: { icon: 'diff-renamed' },
-  }
+  };
 
   try {
     project = await gitLabService.fetchCurrentProject();
@@ -51,7 +51,8 @@ async function refreshPipelines() {
 
   if (pipeline) {
     const { status } = pipeline;
-    pipelineStatusBarItem.text = `$(${statuses[status].icon}) GitLab: Pipeline ${statuses[status].text || status}.`;
+    pipelineStatusBarItem.text = `$(${statuses[status].icon}) GitLab: Pipeline ${statuses[status]
+      .text || status}.`;
     pipelineStatusBarItem.show();
   } else {
     pipelineStatusBarItem.text = 'GitLab: No pipeline.';
@@ -59,11 +60,16 @@ async function refreshPipelines() {
 }
 
 const initPipelineStatus = () => {
-  pipelineStatusBarItem = createStatusBarItem('$(info) GitLab: Fetching pipeline...', 'gl.pipelineActions');
-  setInterval(() => { refreshPipelines() }, 30000);
+  pipelineStatusBarItem = createStatusBarItem(
+    '$(info) GitLab: Fetching pipeline...',
+    'gl.pipelineActions',
+  );
+  setInterval(() => {
+    refreshPipelines();
+  }, 30000);
 
   refreshPipelines();
-}
+};
 
 const initMrStatus = () => {
   const cmdName = `gl.mrOpener${Date.now()}`;
@@ -76,10 +82,12 @@ const initMrStatus = () => {
   });
 
   mrStatusBarItem = createStatusBarItem('$(info) GitLab: Finding MR...', cmdName);
-  setInterval(() => { fetchBranchMr() }, 60000);
+  setInterval(() => {
+    fetchBranchMr();
+  }, 60000);
 
   fetchBranchMr();
-}
+};
 
 async function fetchBranchMr() {
   let project = null;
@@ -129,9 +137,9 @@ const initMrIssueStatus = () => {
   });
 
   mrIssueStatusBarItem = createStatusBarItem('$(info) GitLab: Fetching closing issue...', cmdName);
-}
+};
 
-const init = (ctx) => {
+const init = ctx => {
   context = ctx;
 
   initPipelineStatus();
@@ -139,7 +147,7 @@ const init = (ctx) => {
   if (showIssueLinkOnStatusBar) {
     initMrIssueStatus();
   }
-}
+};
 
 const dispose = () => {
   mrStatusBarItem.dispose();
@@ -147,7 +155,7 @@ const dispose = () => {
   if (showIssueLinkOnStatusBar) {
     mrIssueStatusBarItem.dispose();
   }
-}
+};
 
 exports.init = init;
 exports.dispose = dispose;

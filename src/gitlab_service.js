@@ -12,7 +12,9 @@ async function fetch(path, method = 'GET', data = null) {
   const apiRoot = `${instanceUrl}/api/v4`;
 
   if (!glToken) {
-    return vscode.window.showInformationMessage('GitLab Workflow: Cannot make request. No token found.');
+    return vscode.window.showInformationMessage(
+      'GitLab Workflow: Cannot make request. No token found.',
+    );
   }
 
   const config = {
@@ -40,11 +42,11 @@ async function fetch(path, method = 'GET', data = null) {
 
 async function fetchUser(userName) {
   try {
-    const path = userName ? `/user?search=${userName}`: '/user';
+    const path = userName ? `/user?search=${userName}` : '/user';
 
     return await fetch(path);
   } catch (e) {
-    let message = 'GitLab Workflow: GitLab user not found.'
+    let message = 'GitLab Workflow: GitLab user not found.';
 
     if (!userName) {
       message += ' Check your Personal Access Token.';
@@ -87,7 +89,7 @@ async function fetchCurrentProject() {
 
   if (remote) {
     const { namespace, project } = remote;
-    const projectData = await fetch(`/projects/${namespace.replace(/\//g, "%2F")}%2F${project}`);
+    const projectData = await fetch(`/projects/${namespace.replace(/\//g, '%2F')}%2F${project}`);
 
     return projectData || null;
   }
@@ -111,21 +113,25 @@ async function fetchOpenMergeRequestForCurrentBranch() {
 
   // Recursive fetcher method to find the branch MR in MR list.
   async function fetcher() {
-    const mrs = await fetch(`/projects/${project.id}/merge_requests?state=opened&per_page=100&page=${page}`);
+    const mrs = await fetch(
+      `/projects/${project.id}/merge_requests?state=opened&per_page=100&page=${page}`,
+    );
 
-    const [mr] = mrs.filter((mr) => {
+    const [mr] = mrs.filter(mr => {
       return mr.source_branch === branchName;
     });
 
     if (mr) {
-      if (page > 1) {  // Cache only if we need to do pagination.
+      if (page > 1) {
+        // Cache only if we need to do pagination.
         branchMR = mr;
       }
 
       return mr;
     }
 
-    if (page <= 5 && mrs.length === 100) { // Retry max 5 times.
+    if (page <= 5 && mrs.length === 100) {
+      // Retry max 5 times.
       page = page + 1;
       return await fetcher();
     }
@@ -180,7 +186,7 @@ async function fetchMRIssues(mrId) {
   }
 
   return issues;
-};
+}
 
 async function createSnippet(data) {
   let snippet;
@@ -192,7 +198,7 @@ async function createSnippet(data) {
   }
 
   return snippet;
-};
+}
 
 async function validateCIConfig(content) {
   let response = null;
@@ -210,9 +216,9 @@ async function validateCIConfig(content) {
  * @private
  * @param {string} token GL PAT
  */
-const _setGLToken = (token) => {
+const _setGLToken = token => {
   glToken = token;
-}
+};
 
 exports.fetchUser = fetchUser;
 exports.fetchMyOpenMergeRequests = fetchMyOpenMergeRequests;

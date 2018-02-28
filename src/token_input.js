@@ -14,7 +14,7 @@ async function showInput(context) {
   }
 }
 
-const removeToken = (context) => {
+const removeToken = context => {
   context.globalState.update('glToken', null);
   extension.deactivate();
 };

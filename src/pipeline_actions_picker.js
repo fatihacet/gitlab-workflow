@@ -20,7 +20,7 @@ async function showPicker() {
       label: 'Cancel last pipeline',
       action: 'cancel',
     },
-  ]
+  ];
 
   const selected = await vscode.window.showQuickPick(items);
 

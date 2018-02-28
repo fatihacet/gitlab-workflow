@@ -11,19 +11,9 @@
   "engines": {
     "vscode": "^1.19.0"
   },
-  "categories": [
-    "Other"
-  ],
-  "keywords": [
-    "git",
-    "gitlab",
-    "merge request",
-    "pipeline",
-    "ci cd"
-  ],
-  "activationEvents": [
-    "*"
-  ],
+  "categories": ["Other"],
+  "keywords": ["git", "gitlab", "merge request", "pipeline", "ci cd"],
+  "activationEvents": ["*"],
   "bugs": {
     "url": "https://gitlab.com/fatihacet/gitlab-vscode-extension/issues",
     "email": "acetfatih@gmail.com"
@@ -121,6 +111,7 @@
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "node ./node_modules/vscode/bin/test",
     "eslint": "eslint --max-warnings 0 --ext .js .",
+    "format": "prettier --write '**/*.{js,json}'",
     "publish": "vsce publish"
   },
   "devDependencies": {

@@ -11,7 +11,7 @@ const ciConfigValidator = require('./ci_config_validator');
 
 let context = null;
 
-const activate = (ctx) => {
+const activate = ctx => {
   context = ctx;
   registerCommands();
   init();
@@ -35,12 +35,10 @@ const registerCommands = () => {
     'gl.compareCurrentBranch': openers.compareCurrentBranch,
     'gl.createSnippet': snippetInput.show,
     'gl.validateCIConfig': ciConfigValidator.validate,
-  }
+  };
 
-  Object.keys(commands).forEach((cmd) => {
-    context.subscriptions.push(
-      vscode.commands.registerCommand(cmd, commands[cmd])
-    );
+  Object.keys(commands).forEach(cmd => {
+    context.subscriptions.push(vscode.commands.registerCommand(cmd, commands[cmd]));
   });
 };
 
@@ -53,31 +51,31 @@ const init = () => {
   } else {
     askForToken();
   }
-}
+};
 
 const askForToken = () => {
   const gs = context.globalState;
 
   if (!gs.get('glToken') && !gs.get('askedForToken')) {
-    const message = 'GitLab Workflow: Please set GitLab Personal Access Token to setup this extension.';
+    const message =
+      'GitLab Workflow: Please set GitLab Personal Access Token to setup this extension.';
     const setButton = { title: 'Set Token Now', action: 'set' };
     const readMore = { title: 'Read More', action: 'more' };
 
     gs.update('askedForToken', true);
-    vscode.window.showInformationMessage(message, readMore, setButton)
-      .then((item) => {
-        if (item) {
-          const { action } = item;
+    vscode.window.showInformationMessage(message, readMore, setButton).then(item => {
+      if (item) {
+        const { action } = item;
 
-          if (action === 'set') {
-            vscode.commands.executeCommand('gl.setToken');
-          } else {
-            opn('https://gitlab.com/fatihacet/gitlab-vscode-extension#setup');
-          }
+        if (action === 'set') {
+          vscode.commands.executeCommand('gl.setToken');
+        } else {
+          opn('https://gitlab.com/fatihacet/gitlab-vscode-extension#setup');
         }
-      });
+      }
+    });
   }
-}
+};
 
 const deactivate = () => {
   statusBar.dispose();
