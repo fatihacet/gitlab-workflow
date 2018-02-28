@@ -2,6 +2,14 @@ const { URL } = require('url');
 const vscode = require('vscode');
 const tokenService = require('./token_service');
 
+const urlValidator = url => {
+  try {
+    new URL(url); // eslint-disable-line
+  } catch (_err) {
+    vscode.window.showInformationMessage(`Gitlab instance "${url}" is not a valid URL`);
+  }
+};
+
 async function showInput() {
   const instance = await vscode.window.showInputBox({
     ignoreFocusOut: true,
@@ -31,14 +39,6 @@ async function removeTokenPicker() {
 
   if (selectedInstanceUrl) {
     tokenService.setToken(selectedInstanceUrl, undefined);
-  }
-}
-
-const urlValidator = (value) => {
-  try {
-    new URL(value);
-  } catch (_err) {
-    return `Gitlab instance "${value}" is not a valid URL`;
   }
 }
 

@@ -23,11 +23,11 @@ const createStatusBarItem = (text, command) => {
   }
 
   return statusBarItem;
-}
+};
 
 const commandRegisterHelper = (cmdName, callback) => {
   vscode.commands.registerCommand(cmdName, callback);
-}
+};
 
 async function refreshPipelines() {
   let project = null;
@@ -39,21 +39,24 @@ async function refreshPipelines() {
     failed: { icon: 'x' },
     canceled: { icon: 'circle-slash' },
     skipped: { icon: 'diff-renamed' },
-  }
+  };
 
   try {
     project = await gitLabService.fetchCurrentProject();
     pipeline = await gitLabService.fetchLastPipelineForCurrentBranch();
   } catch (e) {
     if (!project) {
-      return pipelineStatusBarItem.hide();
+      pipelineStatusBarItem.hide();
+      return;
     }
+
     console.log('Failed to execute refreshPipelines.', e);
   }
 
   if (pipeline) {
     const { status } = pipeline;
-    pipelineStatusBarItem.text = `$(${statuses[status].icon}) GitLab: Pipeline ${statuses[status].text || status}.`;
+    const msg = `$(${statuses[status].icon}) GitLab: Pipeline ${statuses[status].text || status}.`;
+    pipelineStatusBarItem.text = msg;
     pipelineStatusBarItem.show();
   } else {
     pipelineStatusBarItem.text = 'GitLab: No pipeline.';
@@ -61,26 +64,27 @@ async function refreshPipelines() {
 }
 
 const initPipelineStatus = () => {
-  pipelineStatusBarItem = createStatusBarItem('$(info) GitLab: Fetching pipeline...', 'gl.pipelineActions');
-  pipelinesStatusTimer = setInterval(() => { refreshPipelines() }, 30000);
+  pipelineStatusBarItem = createStatusBarItem(
+    '$(info) GitLab: Fetching pipeline...',
+    'gl.pipelineActions',
+  );
+  pipelinesStatusTimer = setInterval(() => {
+    refreshPipelines();
+  }, 30000);
 
   refreshPipelines();
-}
+};
 
-const initMrStatus = () => {
-  const cmdName = `gl.mrOpener${Date.now()}`;
-  commandRegisterHelper(cmdName, () => {
-    if (mr) {
-      opn(mr.web_url);
-    } else {
-      vscode.window.showInformationMessage('GitLab Workflow: No MR found for this branch.');
-    }
-  });
+async function fetchMRIssues() {
+  const issues = await gitLabService.fetchMRIssues(mr.iid);
+  let text = `$(code) GitLab: No issue.`;
 
-  mrStatusBarItem = createStatusBarItem('$(info) GitLab: Finding MR...', cmdName);
-  mrStatusTimer = setInterval(() => { fetchBranchMr() }, 60000);
+  if (issues[0]) {
+    [issue] = issues;
+    text = `$(code) GitLab: Issue #${issue.iid}`;
+  }
 
-  fetchBranchMr();
+  mrIssueStatusBarItem.text = text;
 }
 
 async function fetchBranchMr() {
@@ -97,28 +101,32 @@ async function fetchBranchMr() {
   if (mr) {
     text = `$(git-pull-request) GitLab: MR !${mr.iid}`;
     fetchMRIssues();
+  } else if (project) {
+    mrIssueStatusBarItem.text = `$(code) GitLab: No issue.`;
   } else {
-    if (project) {
-      mrIssueStatusBarItem.text = `$(code) GitLab: No issue.`;
-    } else {
-      mrIssueStatusBarItem.hide();
-    }
+    mrIssueStatusBarItem.hide();
   }
 
   mrStatusBarItem.text = text;
 }
 
-async function fetchMRIssues() {
-  const issues = await gitLabService.fetchMRIssues(mr.iid);
-  let text = `$(code) GitLab: No issue.`;
+const initMrStatus = () => {
+  const cmdName = `gl.mrOpener${Date.now()}`;
+  commandRegisterHelper(cmdName, () => {
+    if (mr) {
+      opn(mr.web_url);
+    } else {
+      vscode.window.showInformationMessage('GitLab Workflow: No MR found for this branch.');
+    }
+  });
 
-  if (issues[0]) {
-    issue = issues[0];
-    text = `$(code) GitLab: Issue #${issue.iid}`;
-  }
+  mrStatusBarItem = createStatusBarItem('$(info) GitLab: Finding MR...', cmdName);
+  mrStatusTimer = setInterval(() => {
+    fetchBranchMr();
+  }, 60000);
 
-  mrIssueStatusBarItem.text = text;
-}
+  fetchBranchMr();
+};
 
 const initMrIssueStatus = () => {
   const cmdName = `gl.mrIssueOpener${Date.now()}`;
@@ -131,9 +139,9 @@ const initMrIssueStatus = () => {
   });
 
   mrIssueStatusBarItem = createStatusBarItem('$(info) GitLab: Fetching closing issue...', cmdName);
-}
+};
 
-const init = (ctx) => {
+const init = ctx => {
   context = ctx;
 
   initPipelineStatus();
@@ -141,7 +149,7 @@ const init = (ctx) => {
   if (showIssueLinkOnStatusBar) {
     initMrIssueStatus();
   }
-}
+};
 
 const dispose = () => {
   mrStatusBarItem.dispose();
@@ -159,7 +167,7 @@ const dispose = () => {
     clearInterval(mrStatusTimer);
     mrStatusTimer = null;
   }
-}
+};
 
 exports.init = init;
 exports.dispose = dispose;

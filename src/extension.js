@@ -9,12 +9,6 @@ const ciConfigValidator = require('./ci_config_validator');
 
 let context = null;
 
-const activate = (ctx) => {
-  context = ctx;
-  registerCommands();
-  init();
-};
-
 const registerCommands = () => {
   const commands = {
     'gl.showIssuesAssigedToMe': openers.showIssues,
@@ -33,18 +27,22 @@ const registerCommands = () => {
     'gl.compareCurrentBranch': openers.compareCurrentBranch,
     'gl.createSnippet': snippetInput.show,
     'gl.validateCIConfig': ciConfigValidator.validate,
-  }
+  };
 
-  Object.keys(commands).forEach((cmd) => {
-    context.subscriptions.push(
-      vscode.commands.registerCommand(cmd, commands[cmd])
-    );
+  Object.keys(commands).forEach(cmd => {
+    context.subscriptions.push(vscode.commands.registerCommand(cmd, commands[cmd]));
   });
 };
 
 const init = () => {
   tokenService.init(context);
-}
+};
+
+const activate = ctx => {
+  context = ctx;
+  registerCommands();
+  init();
+};
 
 exports.init = init;
 exports.activate = activate;

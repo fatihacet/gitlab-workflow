@@ -13,7 +13,9 @@ async function fetch(path, method = 'GET', data = null) {
   const glToken = tokenService.getToken(instanceUrl);
 
   if (!glToken) {
-    return vscode.window.showInformationMessage('GitLab Workflow: Cannot make request. No token found.');
+    return vscode.window.showInformationMessage(
+      'GitLab Workflow: Cannot make request. No token found.',
+    );
   }
 
   const config = {
@@ -39,13 +41,28 @@ async function fetch(path, method = 'GET', data = null) {
   }
 }
 
-async function fetchUser(userName) {
-  try {
-    const path = userName ? `/user?search=${userName}`: '/user';
+async function fetchCurrentProject() {
+  const remote = await gitService.fetchGitRemote();
 
-    return await fetch(path);
+  if (remote) {
+    const { namespace, project } = remote;
+    const projectData = await fetch(`/projects/${namespace.replace(/\//g, '%2F')}%2F${project}`);
+
+    return projectData || null;
+  }
+
+  return null;
+}
+
+async function fetchUser(userName) {
+  let user = null;
+
+  try {
+    const path = userName ? `/user?search=${userName}` : '/user';
+
+    user = await fetch(path);
   } catch (e) {
-    let message = 'GitLab Workflow: GitLab user not found.'
+    let message = 'GitLab Workflow: GitLab user not found.';
 
     if (!userName) {
       message += ' Check your Personal Access Token.';
@@ -53,20 +70,25 @@ async function fetchUser(userName) {
 
     vscode.window.showInformationMessage(message);
   }
+
+  return user;
 }
 
 async function fetchMyOpenMergeRequests() {
   const project = await fetchCurrentProject();
+  let mrs = [];
 
   if (project) {
-    return await fetch(`/projects/${project.id}/merge_requests?scope=created-by-me&state=opened`);
+    const path = `/projects/${project.id}/merge_requests?scope=created-by-me&state=opened`;
+    mrs = await fetch(path);
   }
 
-  return [];
+  return mrs;
 }
 
 async function fetchLastPipelineForCurrentBranch() {
   const project = await fetchCurrentProject();
+  let pipeline = null;
 
   if (project) {
     const branchName = await gitService.fetchTrackingBranchName();
@@ -74,26 +96,11 @@ async function fetchLastPipelineForCurrentBranch() {
     const pipelines = await fetch(`${pipelinesRootPath}?ref=${branchName}`);
 
     if (pipelines.length) {
-      return await fetch(`${pipelinesRootPath}/${pipelines[0].id}`);
+      pipeline = await fetch(`${pipelinesRootPath}/${pipelines[0].id}`);
     }
-
-    return null;
   }
 
-  return null;
-}
-
-async function fetchCurrentProject() {
-  const remote = await gitService.fetchGitRemote();
-
-  if (remote) {
-    const { namespace, project } = remote;
-    const projectData = await fetch(`/projects/${namespace.replace(/\//g, "%2F")}%2F${project}`);
-
-    return projectData || null;
-  }
-
-  return null;
+  return pipeline;
 }
 
 /**
@@ -112,24 +119,26 @@ async function fetchOpenMergeRequestForCurrentBranch() {
 
   // Recursive fetcher method to find the branch MR in MR list.
   async function fetcher() {
-    const mrs = await fetch(`/projects/${project.id}/merge_requests?state=opened&per_page=100&page=${page}`);
-
-    const [mr] = mrs.filter((mr) => {
-      return mr.source_branch === branchName;
-    });
+    const path = `/projects/${project.id}/merge_requests?state=opened&per_page=100&page=${page}`;
+    const mrs = await fetch(path);
+    const [mr] = mrs.filter(m => m.source_branch === branchName);
 
     if (mr) {
-      if (page > 1) {  // Cache only if we need to do pagination.
+      if (page > 1) {
+        // Cache only if we need to do pagination.
         branchMR = mr;
       }
 
       return mr;
     }
 
-    if (page <= 5 && mrs.length === 100) { // Retry max 5 times.
-      page = page + 1;
+    if (page <= 5 && mrs.length === 100) {
+      // Retry max 5 times.
+      page += 1;
       return await fetcher();
     }
+
+    return null;
   }
 
   return project ? await fetcher() : null;
@@ -181,7 +190,7 @@ async function fetchMRIssues(mrId) {
   }
 
   return issues;
-};
+}
 
 async function createSnippet(data) {
   let snippet;
@@ -193,7 +202,7 @@ async function createSnippet(data) {
   }
 
   return snippet;
-};
+}
 
 async function validateCIConfig(content) {
   let response = null;

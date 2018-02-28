@@ -3,8 +3,13 @@
   "plugins": ["import", "prettier"],
   "rules": {
     "no-console": "off",
-    "no-underscore-dangle": ["error", { "allow": ["_setGLToken"] }],
-    "import/no-unresolved": [2, { "ignore": ["vscode"] }],
+    "no-return-await": "off",
+    "import/no-unresolved": [
+      2,
+      {
+        "ignore": ["vscode"]
+      }
+    ],
     "prettier/prettier": ["error"]
   }
 }
