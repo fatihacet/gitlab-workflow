@@ -2,42 +2,20 @@ const vscode = require('vscode');
 const opn = require('opn');
 const gitLabService = require('./gitlab_service');
 
-async function showIssueSearchInput() {
-  showSearchInputFor('issues');
-}
-
-async function showMergeRequestSearchInput() {
-  showSearchInputFor('merge_requests');
-}
-
-async function showSearchInputFor(noteableType) {
-  const query = await vscode.window.showInputBox({
-    ignoreFocusOut: true,
-    placeHolder: 'Search in title or description. (Check project page for advanced usage)',
-  });
-
-  const queryString = await parseQuery(query, noteableType);
-  const project = await gitLabService.fetchCurrentProject();
-
-  if (project) {
-    opn(`${project.web_url}/${noteableType}${queryString}`);
-  } else {
-    vscode.window.showErrorMessage('GitLab Workflow: No project found to search issues');
-  }
-}
-
 const parseQuery = (query, noteableType) => {
   const params = {};
-  const tokens = query.replace(/: /g, ':') // Normalize spaces after tokens.
+  const tokens = query
+    .replace(/: /g, ':') // Normalize spaces after tokens.
     .replace(/\s[a-z]*:/gi, t => `\n${t}`) // Get tokens and add new line.
     .split('\n') // Create array from tokens.
-    .map(t => t.trim().split(':')) // Return new array with token and value arrays.
+    .map(t => t.trim().split(':')); // Return new array with token and value arrays.
 
   // If there is no token it's a basic text search.
   if (tokens.length === 1 && tokens[0][1] === undefined) {
+    // eslint-disable-next-line prefer-destructuring
     params.search = tokens[0][0];
   } else {
-    tokens.forEach((t) => {
+    tokens.forEach(t => {
       const [token, value] = t;
 
       switch (token) {
@@ -86,7 +64,8 @@ const parseQuery = (query, noteableType) => {
           if (value === 'me') {
             params.scope = 'assigned-to-me';
           } else {
-            const key = noteableType === 'merge_requests' ? 'assignee_username' : 'assignee_username[]';
+            const key =
+              noteableType === 'merge_requests' ? 'assignee_username' : 'assignee_username[]';
             params[key] = value;
           }
           break;
@@ -100,11 +79,35 @@ const parseQuery = (query, noteableType) => {
   }
 
   // URL encode keys and values and return a new array to build actual query string.
-  const queryParams = Object.keys(params).map(k =>
-    params[k] ? `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}` : ''
+  const queryParams = Object.keys(params).map(
+    k => (params[k] ? `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}` : ''),
   );
 
   return queryParams.length ? `?${queryParams.join('&')}` : '';
+};
+
+async function showSearchInputFor(noteableType) {
+  const query = await vscode.window.showInputBox({
+    ignoreFocusOut: true,
+    placeHolder: 'Search in title or description. (Check project page for advanced usage)',
+  });
+
+  const queryString = await parseQuery(query, noteableType);
+  const project = await gitLabService.fetchCurrentProject();
+
+  if (project) {
+    opn(`${project.web_url}/${noteableType}${queryString}`);
+  } else {
+    vscode.window.showErrorMessage('GitLab Workflow: No project found to search issues');
+  }
+}
+
+async function showIssueSearchInput() {
+  showSearchInputFor('issues');
+}
+
+async function showMergeRequestSearchInput() {
+  showSearchInputFor('merge_requests');
 }
 
 exports.showIssueSearchInput = showIssueSearchInput;

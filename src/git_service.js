@@ -2,22 +2,22 @@ const vscode = require('vscode');
 const execa = require('execa');
 const url = require('url');
 
-const getWorkspaceRootPath = () => {
-  return vscode.workspace.workspaceFolders[0].uri.fsPath;
-}
+const getWorkspaceRootPath = () => vscode.workspace.workspaceFolders[0].uri.fsPath;
 
 async function fetch(cmd) {
   const [git, ...args] = cmd.split(' ');
-
-  return await execa.stdout(git, args, {
+  const output = await execa.stdout(git, args, {
     cwd: getWorkspaceRootPath(),
   });
+
+  return output;
 }
 
 async function fetchBranchName() {
   const cmd = 'git rev-parse --abbrev-ref HEAD';
+  const output = await fetch(cmd);
 
-  return await fetch(cmd);
+  return output;
 }
 
 /**
@@ -26,7 +26,7 @@ async function fetchBranchName() {
  *
  * Fixes #1 where local branch name is renamed and doesn't exists on remote but
  * local branch still tracks another branch on remote.
-*/
+ */
 async function fetchTrackingBranchName() {
   const branchName = await fetchBranchName();
 
@@ -38,7 +38,9 @@ async function fetchTrackingBranchName() {
       return ref.replace('refs/heads/', '');
     }
   } catch (e) {
-    console.log(`Couldn't find tracking branch. Extension will fallback to branch name ${branchName}`);
+    console.log(
+      `Couldn't find tracking branch. Extension will fallback to branch name ${branchName}`,
+    );
   }
 
   return branchName;
@@ -46,59 +48,62 @@ async function fetchTrackingBranchName() {
 
 async function fetchLastCommitId() {
   const cmd = 'git log --format=%H -n 1';
+  const output = await fetch(cmd);
 
-  return await fetch(cmd);
+  return output;
 }
 
-async function fetchGitRemote() {
-  let url = null;
-
-  try {
-    const branchName = await fetchBranchName();
-    const remoteName = await fetch(`git config --get branch.${branchName}.remote`);
-    url = await fetch(`git ls-remote --get-url ${remoteName}`);
-  } catch(e) {
-    try {
-      url = await fetch('git ls-remote --get-url');
-    } catch (e) {
-      const remote = await fetch('git remote');
-
-      url = await fetch(`git ls-remote --get-url ${remote}`);
-    }
-  }
-
-  if (url) {
-    const [schema, domain, namespace, project] = parseGitRemote(url);
-
-    return { schema, domain, namespace, project };
-  }
-
-  return null;
-}
-
-const parseGitRemote = (remote) => {
+const parseGitRemote = remote => {
   if (remote.startsWith('git@') || remote.startsWith('git://')) {
-    const match = new RegExp('^git(?:@|://)([^:/]+)(?::|:/|/)(.+)/(.+?)(?:.git)?$', 'i').exec(remote);
+    const match = new RegExp('^git(?:@|://)([^:/]+)(?::|:/|/)(.+)/(.+?)(?:.git)?$', 'i').exec(
+      remote,
+    );
 
     if (!match) {
       return null;
     }
 
     return ['git:', ...match.slice(1, 4)];
-  } else {
-    const { protocol = 'https:', hostname, pathname } = url.parse(remote);
-
-    if (!hostname || !pathname) {
-      return null;
-    }
-
-    const match = pathname.match(/\/(.+)\/(.*?)(?:.git)?$/);
-    if (!match) {
-      return null;
-    }
-
-    return [protocol, hostname, ...match.slice(1, 3)];
   }
+
+  const { protocol = 'https:', hostname, pathname } = url.parse(remote);
+
+  if (!hostname || !pathname) {
+    return null;
+  }
+
+  const match = pathname.match(/\/(.+)\/(.*?)(?:.git)?$/);
+  if (!match) {
+    return null;
+  }
+
+  return [protocol, hostname, ...match.slice(1, 3)];
+};
+
+async function fetchGitRemote() {
+  let remoteUrl = null;
+
+  try {
+    const branchName = await fetchBranchName();
+    const remoteName = await fetch(`git config --get branch.${branchName}.remote`);
+    remoteUrl = await fetch(`git ls-remote --get-url ${remoteName}`);
+  } catch (err) {
+    try {
+      remoteUrl = await fetch('git ls-remote --get-url');
+    } catch (e) {
+      const remote = await fetch('git remote');
+
+      remoteUrl = await fetch(`git ls-remote --get-url ${remote}`);
+    }
+  }
+
+  if (remoteUrl) {
+    const [schema, domain, namespace, project] = parseGitRemote(url);
+
+    return { schema, domain, namespace, project };
+  }
+
+  return null;
 }
 
 exports.fetchBranchName = fetchBranchName;

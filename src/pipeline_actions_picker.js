@@ -20,13 +20,14 @@ async function showPicker() {
       label: 'Cancel last pipeline',
       action: 'cancel',
     },
-  ]
+  ];
 
   const selected = await vscode.window.showQuickPick(items);
 
   if (selected) {
     if (selected.action === 'view') {
-      return openers.openCurrentPipeline();
+      openers.openCurrentPipeline();
+      return;
     }
 
     gitLabService.handlePipelineAction(selected.action);

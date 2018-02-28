@@ -25,8 +25,8 @@ const contextOptions = [
   {
     label: 'Snippet from selection',
     type: 'selection',
-  }
-]
+  },
+];
 
 async function createSnippet(project, editor, visibility, context) {
   let content = '';

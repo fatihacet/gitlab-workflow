@@ -25,12 +25,16 @@ async function openLink(link) {
     if (project) {
       opn(link.replace('$userId', user.id).replace('$projectUrl', project.web_url));
     } else {
-      vscode.window.showInformationMessage('GitLab Workflow: Failed to open file on web. No GitLab project.');
+      vscode.window.showInformationMessage(
+        'GitLab Workflow: Failed to open file on web. No GitLab project.',
+      );
     }
   } else {
-    vscode.window.showInformationMessage('GitLab Workflow: GitLab user not found. Check your Personal Access Token.');
+    vscode.window.showInformationMessage(
+      'GitLab Workflow: GitLab user not found. Check your Personal Access Token.',
+    );
   }
-};
+}
 
 async function showIssues() {
   openLink('$projectUrl/issues?assignee_id=$userId');
@@ -38,7 +42,7 @@ async function showIssues() {
 
 async function showMergeRequests() {
   openLink('$projectUrl/merge_requests?assignee_id=$userId');
-};
+}
 
 async function openActiveFile() {
   const editor = vscode.window.activeTextEditor;
@@ -50,7 +54,7 @@ async function openActiveFile() {
       const branchName = await gitService.fetchTrackingBranchName();
       const workspaceFolder = vscode.workspace.getWorkspaceFolder(editor.document.uri);
       const filePath = editor.document.uri.path.replace(`${workspaceFolder.uri.path}/`, '');
-      let fileUrl = `${currentProject.web_url}/blob/${branchName}/${filePath}`;
+      const fileUrl = `${currentProject.web_url}/blob/${branchName}/${filePath}`;
       let anchor = '';
 
       if (editor.selection) {
@@ -64,7 +68,9 @@ async function openActiveFile() {
 
       opn(`${fileUrl}${anchor}`);
     } else {
-      vscode.window.showInformationMessage('GitLab Workflow: Failed to open file on web. No GitLab project.');
+      vscode.window.showInformationMessage(
+        'GitLab Workflow: Failed to open file on web. No GitLab project.',
+      );
     }
   } else {
     vscode.window.showInformationMessage('GitLab Workflow: No open file.');
@@ -81,7 +87,7 @@ async function openCurrentMergeRequest() {
 
 async function openCreateNewIssue() {
   openLink('$projectUrl/issues/new');
-};
+}
 
 async function openCreateNewMr() {
   const project = await gitLabService.fetchCurrentProject();
@@ -91,9 +97,11 @@ async function openCreateNewMr() {
 
     opn(`${project.web_url}/merge_requests/new?merge_request%5Bsource_branch%5D=${branchName}`);
   } else {
-    vscode.window.showInformationMessage('GitLab Workflow: Failed to open file on web. No GitLab project.');
+    vscode.window.showInformationMessage(
+      'GitLab Workflow: Failed to open file on web. No GitLab project.',
+    );
   }
-};
+}
 
 async function openProjectPage() {
   openLink('$projectUrl');
@@ -118,8 +126,7 @@ async function compareCurrentBranch() {
   try {
     project = await gitLabService.fetchCurrentProject();
     lastCommitId = await gitService.fetchLastCommitId();
-  }
-  catch(e) {
+  } catch (e) {
     console.log('Failed to run compareCurrentBranch command', e);
   }
 

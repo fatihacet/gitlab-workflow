@@ -11,19 +11,9 @@
   "engines": {
     "vscode": "^1.19.0"
   },
-  "categories": [
-    "Other"
-  ],
-  "keywords": [
-    "git",
-    "gitlab",
-    "merge request",
-    "pipeline",
-    "ci cd"
-  ],
-  "activationEvents": [
-    "*"
-  ],
+  "categories": ["Other"],
+  "keywords": ["git", "gitlab", "merge request", "pipeline", "ci cd"],
+  "activationEvents": ["*"],
   "bugs": {
     "url": "https://gitlab.com/fatihacet/gitlab-vscode-extension/issues",
     "email": "acetfatih@gmail.com"
@@ -121,12 +111,18 @@
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "node ./node_modules/vscode/bin/test",
     "eslint": "eslint --max-warnings 0 --ext .js .",
+    "format": "prettier --write '**/*.{js,json}'",
     "publish": "vsce publish"
   },
   "devDependencies": {
-    "eslint": "^4.16.0",
-    "typescript": "^2.6.1",
-    "@types/mocha": "^2.2.42"
+    "@types/mocha": "^2.2.42",
+    "eslint": "^4.18.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "prettier": "^1.11.0",
+    "typescript": "^2.6.1"
   },
   "dependencies": {
     "execa": "^0.9.0",
