@@ -98,7 +98,7 @@ async function fetchGitRemote() {
   }
 
   if (remoteUrl) {
-    const [schema, domain, namespace, project] = parseGitRemote(url);
+    const [schema, domain, namespace, project] = parseGitRemote(remoteUrl);
 
     return { schema, domain, namespace, project };
   }
