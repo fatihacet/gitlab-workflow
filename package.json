@@ -2,7 +2,7 @@
   "name": "gitlab-workflow",
   "displayName": "GitLab Workflow",
   "description": "GitLab VSCode integration",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "publisher": "fatihacet",
   "repository": {
     "type": "git",
@@ -25,8 +25,7 @@
   "main": "./src/extension",
   "icon": "src/assets/logo.png",
   "contributes": {
-    "commands": [
-      {
+    "commands": [{
         "command": "gl.setToken",
         "title": "GitLab: Set GitLab Personal Access Token"
       },

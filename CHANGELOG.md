@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [0.5.2] - 2018-03-01
+### Added
+- GitLab Workflow now supports multiple instances. Implemented by [@csvn](https://gitlab.com/csvn) with [MR !5](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/5) 👍
+- ESLint and Prettier integration for dev environment. Added by [@alpcanaydin](https://gitlab.com/alpcanaydin) with [MR !6](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/6) 👍
+
+### Changed
+- Private Access Token set and remove flow changed. We automatically migrate existing keys so this change shouldn't break your existing workflow or you shouln't need to do anyhing. Read more [here](https://gitlab.com/fatihacet/gitlab-vscode-extension#setup) and [here](https://gitlab.com/fatihacet/gitlab-vscode-extension#multiple-gitlab-instances).
+
+
 ## [0.5.1] - 2018-02-27
 ### Added
 - Add an option to turn off the issue link in the status bar
