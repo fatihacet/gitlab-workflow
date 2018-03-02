@@ -1,14 +1,5 @@
-const { URL } = require('url');
 const vscode = require('vscode');
 const tokenService = require('./token_service');
-
-const urlValidator = url => {
-  try {
-    new URL(url); // eslint-disable-line
-  } catch (_err) {
-    vscode.window.showInformationMessage(`Gitlab instance "${url}" is not a valid URL`);
-  }
-};
 
 async function showInput() {
   const instance = await vscode.window.showInputBox({
@@ -16,7 +7,6 @@ async function showInput() {
     value: 'https://gitlab.com',
     placeHolder: 'E.g. https://gitlab.com',
     prompt: 'URL to Gitlab instance',
-    validateInput: urlValidator,
   });
 
   const token = await vscode.window.showInputBox({
