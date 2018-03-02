@@ -113,6 +113,11 @@
           "type": "boolean",
           "default": true,
           "description": "Whether to display the GitLab issue link in the status bar"
+        },
+        "gitlab.ca": {
+          "type": "string",
+          "default": null,
+          "description": "Custom CA file to use (example: /etc/ssl/certs/ca-certificates.crt)"
         }
       }
     }
