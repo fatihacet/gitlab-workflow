@@ -35,8 +35,7 @@
   "main": "./src/extension",
   "icon": "src/assets/logo.png",
   "contributes": {
-    "commands": [
-      {
+    "commands": [{
         "command": "gl.setToken",
         "title": "GitLab: Set GitLab Personal Access Token"
       },
@@ -118,6 +117,11 @@
           "type": "string",
           "default": null,
           "description": "Custom CA file to use (example: /etc/ssl/certs/ca-certificates.crt)"
+        },
+        "gitlab.ignoreCertificateErrors": {
+          "type": "boolean",
+          "default": false,
+          "description": "Ignore TLS/SSL certificate errors when calling the GitLab API"
         }
       }
     }

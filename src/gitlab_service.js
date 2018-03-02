@@ -9,7 +9,7 @@ const statusBar = require('./status_bar');
 let branchMR = null;
 
 async function fetch(path, method = 'GET', data = null) {
-  const { instanceUrl, ca } = vscode.workspace.getConfiguration('gitlab');
+  const { instanceUrl, ignoreCertificateErrors, ca } = vscode.workspace.getConfiguration('gitlab');
   const apiRoot = `${instanceUrl}/api/v4`;
   const glToken = tokenService.getToken(instanceUrl);
 
@@ -25,6 +25,7 @@ async function fetch(path, method = 'GET', data = null) {
     headers: {
       'PRIVATE-TOKEN': glToken,
     },
+    rejectUnauthorized: !ignoreCertificateErrors,
   };
 
   if (ca) {
