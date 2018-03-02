@@ -11,9 +11,19 @@
   "engines": {
     "vscode": "^1.19.0"
   },
-  "categories": ["Other"],
-  "keywords": ["git", "gitlab", "merge request", "pipeline", "ci cd"],
-  "activationEvents": ["*"],
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "git",
+    "gitlab",
+    "merge request",
+    "pipeline",
+    "ci cd"
+  ],
+  "activationEvents": [
+    "*"
+  ],
   "bugs": {
     "url": "https://gitlab.com/fatihacet/gitlab-vscode-extension/issues",
     "email": "acetfatih@gmail.com"
@@ -25,7 +35,8 @@
   "main": "./src/extension",
   "icon": "src/assets/logo.png",
   "contributes": {
-    "commands": [{
+    "commands": [
+      {
         "command": "gl.setToken",
         "title": "GitLab: Set GitLab Personal Access Token"
       },
