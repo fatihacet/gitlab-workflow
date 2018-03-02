@@ -1,6 +1,7 @@
 const vscode = require('vscode');
 const opn = require('opn');
 const request = require('request-promise');
+const fs = require('fs');
 const gitService = require('./git_service');
 const tokenService = require('./token_service');
 const statusBar = require('./status_bar');
@@ -8,7 +9,7 @@ const statusBar = require('./status_bar');
 let branchMR = null;
 
 async function fetch(path, method = 'GET', data = null) {
-  const { instanceUrl } = vscode.workspace.getConfiguration('gitlab');
+  const { instanceUrl, ca } = vscode.workspace.getConfiguration('gitlab');
   const apiRoot = `${instanceUrl}/api/v4`;
   const glToken = tokenService.getToken(instanceUrl);
 
@@ -25,6 +26,14 @@ async function fetch(path, method = 'GET', data = null) {
       'PRIVATE-TOKEN': glToken,
     },
   };
+
+  if (ca) {
+    try {
+      config.ca = fs.readFileSync(ca);
+    } catch (e) {
+      vscode.window.showErrorMessage(`GitLab Workflow: Cannot read CA '${ca}'`);
+    }
+  }
 
   if (data) {
     config.formData = data;
