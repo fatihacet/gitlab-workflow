@@ -1,0 +1,6 @@
+# As suggested by ESLint let's disable conversion of LF linebreaks to CRLF
+# when checking out files on Windows
+
+# https://eslint.org/docs/rules/linebreak-style#using-this-rule-with-version-control-systems
+
+*.js text eol=lf
