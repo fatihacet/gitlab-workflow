@@ -1,8 +1,13 @@
-# <img src="https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/logo.png" width="64" /> [GitLab VSCode Extension](https://gitlab.com/fatihacet/gitlab-vscode-extension)
+# <img src="https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/logo.png" width="64" align="center" /> [GitLab VSCode Extension](https://gitlab.com/fatihacet/gitlab-vscode-extension)
 
 [![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/fatihacet.gitlab-workflow.svg)](https://marketplace.visualstudio.com/items?itemName=fatihacet.gitlab-workflow) [![Installs](https://vsmarketplacebadge.apphb.com/installs/fatihacet.gitlab-workflow.svg)](https://marketplace.visualstudio.com/items?itemName=fatihacet.gitlab-workflow)
 
 This extension integrates GitLab to VSCode by adding GitLab specific options to VSCode command palette and status bar.
+
+
+## Screencast
+
+[![video-cover](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/screencast-cover.jpg)](https://www.youtube.com/watch?v=XcxsF0lWBhA)
 
 
 ## Features
@@ -23,7 +28,8 @@ This extension integrates GitLab to VSCode by adding GitLab specific options to 
 - Open project on GitLab.
 - Open issue page to create a new issue.
 - Open merge request page to create a merge request.
-- Set and remove your GitLab Personal Access Token. _Required, see Setup section below._
+- Set and remove your GitLab Personal Access Token. _Required step, see [Setup](#setup) section below._
+- Supports multiple GitLab instances [Read more](#multiple-gitlab-instances).
 
 **Curious to know what's next?** [See here](#whats-next)
 
@@ -53,6 +59,33 @@ That's it. 🏁
 
 You can start using this extension right away. If your project has a pipeline for last commit and a MR from your current branch, you should see them on VSCode status bar. 🎉
 
+#### Multiple Gitlab instances
+
+If you want to use multiple GitLab instances you may want to configure each workspace separately. See `gitlab.instanceUrl` config option in [Configuration Options](#configuration-options) section.
+
+
+## Configuration options
+
+**`gitlab.instanceUrl`** _(required: false, default: "https://gitlab.com")_
+
+If you are using GitLab on a custom domain, you should add this to your user settings file. Example: `"gitlab.instanceUrl": "https://my-gitlab-domain.com"`
+
+To enable Gitlab Workflow extension to work with different Gitlab instances, each token is assigned to a Gitlab instance URL. For the extension to selected the correct token for a specific workspace, the option [`gitlab.instanceUrl`](#configuration-options) can be used. This option can be set in the current workspace's `.vscode/settings.json` file.
+
+**`gitlab.showIssueLinkOnStatusBar`** _(required: false, default: true)_
+
+If you are not using GitLab's issue tracker, you may want to set this `false` to remove related issue link on status bar. You should restart your VSCode after updating this option.
+
+**`gitlab.ca`** _(required: false, default: null)_
+
+If your self hosted GitLab instance has a self signed SSL certificate you would probably need to set this option in to point your cetrificate file. More discussion can be found [in this issue](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/26).
+
+**`gitlab.ignoreCertificateErrors`**  _(required: false, default: false)_
+
+If you are using a self hosted GitLab instance with no SSL certificate or having certificate issues and unable to use the extension you may want to set this option to `true` to ignore certificate errors. More information can be found [here](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/26#note_61312786).
+
+> You can open User Settings file by pressing `Cmd+,` on Mac OS or following `Code > Preferences > User Settings`. You can simply add extension configuration values to you User Settings file. This won't break or change anything on your VSCode.
+
 
 ## Usage
 - Open up Command Palette by pressing `Cmd+Shift+P`.
@@ -61,10 +94,6 @@ You can start using this extension right away. If your project has a pipeline fo
 ![https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/gitlab-vscode.png](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/gitlab-vscode.png)
 
 ![https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/pipeline-actions.png](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/pipeline-actions.png)
-
-
-## Multiple Gitlab instances
-To enable Gitlab Workflow extension to work with different Gitlab instances, each token is assigned to a Gitlab instance URL. For the extension to selected the correct token for a specific workspace, the option [`gitlab.instanceUrl`](#configuration-options) can be used. This option can be set in the current workspace's `.vscode/settings.json` file.
 
 
 ## Features in depth
@@ -148,19 +177,6 @@ Using this command, you can quickly validate GitLab CI configuration.
 -----
 
 
-## Configuration options
-
-**`gitlab.instanceUrl`** _(required: false, default: "https://gitlab.com")_
-
-If you are using GitLab on a custom domain, you should add this to your user settings file. Example: `"gitlab.instanceUrl": "https://my-gitlab-domain.com"`
-
-**`gitlab.showIssueLinkOnStatusBar`** _(required: false, default: true)_
-
-If you are not using GitLab's issue tracker, you may want to set this `false` to remove related issue link on status bar. You should restart your VSCode after updating this option.
-
-> You can open User Settings file by pressing `Cmd+,` on Mac OS or following `Code > Preferences > User Settings`. You can simply add extension configuration values to you User Settings file. This won't break or change anything on your VSCode.
-
-
 ## What's next?
 - Open last commit on GitLab.
 - MR actions picker which will allow you to
@@ -183,3 +199,5 @@ If you are not using GitLab's issue tracker, you may want to set this `false` to
 
 ## Contribution
 This extension is open source and [hosted on GitLab](https://gitlab.com/fatihacet/gitlab-vscode-extension). Contributions are more than welcome. Feel free to fork and add new features or submit bug reports.
+
+[Here](https://gitlab.com/fatihacet/gitlab-vscode-extension/blob/master/CONTRIBUTORS.md) is the list of great people who contributed this project and make it even more awesome. Thank you all 🎉

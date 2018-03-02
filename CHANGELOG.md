@@ -1,9 +1,23 @@
 # CHANGELOG
 
+## [0.6.0] - 2018-03-02
+### Added
+- A new config option named `gitlab.ca` to set self signed certificates. [Read more](https://gitlab.com/fatihacet/gitlab-vscode-extension#configuration-options)
+- A new config option named `gitlab.ignoreCertificateErrors` to ignore certificate errors while connecting and fetching data from GitLab instance. [Read more](https://gitlab.com/fatihacet/gitlab-vscode-extension#configuration-options)
+
+### Fixed
+- [#26](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/26) Support for on-premises GitLab instances with self-signed
+  - Fixed by [@piec](https://gitlab.com/piec) with [MR !8](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/8) 👍
+  - Possibily fixes [#23](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/23) and [#10](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/10)
+- [#29](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/29) Support for on-premises GitLab instances with no certification (http)
+
+
 ## [0.5.2] - 2018-03-01
 ### Added
-- GitLab Workflow now supports multiple instances. Implemented by [@csvn](https://gitlab.com/csvn) with [MR !5](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/5) 👍
-- ESLint and Prettier integration for dev environment. Added by [@alpcanaydin](https://gitlab.com/alpcanaydin) with [MR !6](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/6) 👍
+- GitLab Workflow now supports multiple instances.
+  - Implemented by [@csvn](https://gitlab.com/csvn) with [MR !5](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/5) 👍
+- ESLint and Prettier integration for dev environment.
+  - Added by [@alpcanaydin](https://gitlab.com/alpcanaydin) with [MR !6](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/6) 👍
 
 ### Changed
 - Private Access Token set and remove flow changed. We automatically migrate existing keys so this change shouldn't break your existing workflow or you shouln't need to do anyhing. Read more [here](https://gitlab.com/fatihacet/gitlab-vscode-extension#setup) and [here](https://gitlab.com/fatihacet/gitlab-vscode-extension#multiple-gitlab-instances).
