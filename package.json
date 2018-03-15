@@ -4,6 +4,7 @@
   "description": "GitLab VSCode integration",
   "version": "0.6.0",
   "publisher": "fatihacet",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://gitlab.com/fatihacet/gitlab-vscode-extension"
@@ -35,7 +36,8 @@
   "main": "./src/extension",
   "icon": "src/assets/logo.png",
   "contributes": {
-    "commands": [{
+    "commands": [
+      {
         "command": "gl.setToken",
         "title": "GitLab: Set GitLab Personal Access Token"
       },
