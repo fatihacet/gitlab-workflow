@@ -10,6 +10,7 @@ let branchMR = null;
 
 async function fetch(path, method = 'GET', data = null) {
   const { instanceUrl, ignoreCertificateErrors, ca } = vscode.workspace.getConfiguration('gitlab');
+  const { proxy } = vscode.workspace.getConfiguration('http');
   const apiRoot = `${instanceUrl}/api/v4`;
   const glToken = tokenService.getToken(instanceUrl);
 
@@ -27,6 +28,10 @@ async function fetch(path, method = 'GET', data = null) {
     },
     rejectUnauthorized: !ignoreCertificateErrors,
   };
+
+  if (proxy && proxy.length > 0) {
+    config.proxy = proxy;
+  }
 
   if (ca) {
     try {
