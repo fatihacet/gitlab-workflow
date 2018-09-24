@@ -7,4 +7,4 @@
 - Alpcan Aydin [@alpcanaydin](https://gitlab.com/alpcanaydin)
 - Pierre [@piec](https://gitlab.com/piec)
 - Adem Ilter [@ademilter](https://twitter.com/ademilter)
-- Abbas Mashayekh [@martianboy][https://gitlab.com/martianboy]
+- Abbas Mashayekh [@martianboy](https://gitlab.com/martianboy)
