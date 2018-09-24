@@ -1,5 +1,4 @@
 {
-  "editor.formatOnSave": true,
   "javascript.validate.enable": false,
   "eslint.enable": true,
   "gitlab.instanceUrl": "https://gitlab.com"

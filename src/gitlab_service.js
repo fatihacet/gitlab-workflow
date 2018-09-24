@@ -84,16 +84,50 @@ async function fetchUser(userName) {
   return user;
 }
 
-async function fetchMyOpenMergeRequests() {
+async function fetchIssuables(params = {}) {
+  const { type, scope, state } = params;
+  const config = {
+    type: type || 'merge_requests',
+    scope: scope || 'created-by-me',
+    state: state || 'opened',
+  }
   const project = await fetchCurrentProject();
-  let mrs = [];
+  let issuables = [];
 
   if (project) {
-    const path = `/projects/${project.id}/merge_requests?scope=created-by-me&state=opened`;
-    mrs = await fetch(path);
+    const path = `/projects/${project.id}/${config.type}?scope=${config.scope}&state=${config.state}`;
+    issuables = await fetch(path);
   }
 
-  return mrs;
+  return issuables;
+}
+
+async function fetchIssuesAssignedToMe() {
+  return await fetchIssuables({
+    type: 'issues',
+    scope: 'assigned_to_me',
+  });
+}
+
+async function fetchIssuesCreatedByMe() {
+  return await fetchIssuables({
+    type: 'issues',
+    scope: 'created_by_me',
+  });
+}
+
+async function fetchMergeRequestsAssignedToMe() {
+  return await fetchIssuables({
+    scope: 'assigned-to-me',
+  });
+}
+
+async function fetchMergeRequestsCreatedByMe() {
+  return await fetchIssuables();
+}
+
+async function fetchMyOpenMergeRequests() {
+  return await fetchIssuables();
 }
 
 async function fetchLastPipelineForCurrentBranch() {
@@ -227,6 +261,10 @@ async function validateCIConfig(content) {
 }
 
 exports.fetchUser = fetchUser;
+exports.fetchIssuesAssignedToMe = fetchIssuesAssignedToMe;
+exports.fetchIssuesCreatedByMe = fetchIssuesCreatedByMe;
+exports.fetchMergeRequestsAssignedToMe = fetchMergeRequestsAssignedToMe;
+exports.fetchMergeRequestsCreatedByMe = fetchMergeRequestsCreatedByMe;
 exports.fetchMyOpenMergeRequests = fetchMyOpenMergeRequests;
 exports.fetchOpenMergeRequestForCurrentBranch = fetchOpenMergeRequestForCurrentBranch;
 exports.fetchLastPipelineForCurrentBranch = fetchLastPipelineForCurrentBranch;

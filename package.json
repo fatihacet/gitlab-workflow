@@ -46,11 +46,11 @@
         "title": "GitLab: Remove your GitLab Personal Access Token"
       },
       {
-        "command": "gl.showIssuesAssigedToMe",
+        "command": "gl.showIssuesAssignedToMe",
         "title": "GitLab: Show issues assigned to me"
       },
       {
-        "command": "gl.showMergeRequestsAssigedToMe",
+        "command": "gl.showMergeRequestsAssignedToMe",
         "title": "GitLab: Show merge requests assigned to me"
       },
       {
@@ -100,8 +100,50 @@
       {
         "command": "gl.validateCIConfig",
         "title": "GitLab: Validate GitLab CI config"
+      },
+      {
+        "command": "gl.refreshSidebar",
+        "title": "GitLab: Refresh sidebar"
       }
     ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "gl.refreshSidebar",
+          "group": "navigation"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [{
+        "id": "gitlab-workflow",
+        "title": "GitLab Workflow",
+        "icon": "src/assets/images/light/gitlab-logo.svg"
+      }]
+    },
+    "views": {
+      "gitlab-workflow": [{
+          "id": "issuesAssignedToMe",
+          "name": "Issues assigned to me"
+        },
+        {
+          "id": "issuesCreatedByMe",
+          "name": "Issues created by me"
+        },
+        {
+          "id": "mrsCreatedByMe",
+          "name": "Merge Requests created by me"
+        },
+        {
+          "id": "mrsAssignedToMe",
+          "name": "Merge Requests assigned to me"
+        },
+        {
+          "id": "mrForCurrentBranch",
+          "name": "Merge Request for this branch"
+        }
+      ]
+    },
     "configuration": {
       "title": "GitLab Workflow config",
       "properties": {

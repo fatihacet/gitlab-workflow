@@ -6,13 +6,14 @@ const pipelineActionsPicker = require('./pipeline_actions_picker');
 const searchInput = require('./search_input');
 const snippetInput = require('./snippet_input');
 const ciConfigValidator = require('./ci_config_validator');
+const IssuableDataProvider = require('./data_providers/issuable').DataProvider;
 
 let context = null;
 
 const registerCommands = () => {
   const commands = {
-    'gl.showIssuesAssigedToMe': openers.showIssues,
-    'gl.showMergeRequestsAssigedToMe': openers.showMergeRequests,
+    'gl.showIssuesAssignedToMe': openers.showIssues,
+    'gl.showMergeRequestsAssignedToMe': openers.showMergeRequests,
     'gl.setToken': tokenInput.showInput,
     'gl.removeToken': tokenInput.removeTokenPicker,
     'gl.openActiveFile': openers.openActiveFile,
@@ -27,11 +28,35 @@ const registerCommands = () => {
     'gl.compareCurrentBranch': openers.compareCurrentBranch,
     'gl.createSnippet': snippetInput.show,
     'gl.validateCIConfig': ciConfigValidator.validate,
+    'gl.refreshSidebar': snippetInput.show,
   };
 
   Object.keys(commands).forEach(cmd => {
     context.subscriptions.push(vscode.commands.registerCommand(cmd, commands[cmd]));
   });
+
+  const assignedIssuesDataProvider = new IssuableDataProvider({
+    fetcher: 'fetchIssuesAssignedToMe',
+  });
+
+  const createdIssuesDataProvider = new IssuableDataProvider({
+    fetcher: 'fetchIssuesCreatedByMe',
+  });
+
+  const assignedMrsDataProvider = new IssuableDataProvider({
+    fetcher: 'fetchMergeRequestsAssignedToMe',
+    issuableType: 'merge request',
+  });
+
+  const createdMrsDataProvider = new IssuableDataProvider({
+    fetcher: 'fetchMergeRequestsCreatedByMe',
+    issuableType: 'merge request',
+  });
+
+  vscode.window.registerTreeDataProvider('issuesAssignedToMe', assignedIssuesDataProvider);
+  vscode.window.registerTreeDataProvider('issuesCreatedByMe', createdIssuesDataProvider);
+  vscode.window.registerTreeDataProvider('mrsAssignedToMe', assignedMrsDataProvider);
+  vscode.window.registerTreeDataProvider('mrsCreatedByMe', createdMrsDataProvider);
 };
 
 const init = () => {
