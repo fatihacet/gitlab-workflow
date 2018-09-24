@@ -185,7 +185,6 @@ Using this command, you can quickly validate GitLab CI configuration.
   - Go to specific MR tab, Discussions, Commits, Pipelines, Changes.
   - Assign MR to user.
   - View last commit.
-- **[moonshot]** GitLab Dashboard tab where you can see your issues, MRs, Todos all in one place in VSCode.
 - **[moonshot]** MR diff discussions on VSCode gutter with user avatars like we have in GitLab Changes tab.
 - **Already Shipped**
   - `[v0.2.2]` Pipeline link to pipeline status bar item.
