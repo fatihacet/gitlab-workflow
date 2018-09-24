@@ -119,14 +119,17 @@
       ]
     },
     "viewsContainers": {
-      "activitybar": [{
-        "id": "gitlab-workflow",
-        "title": "GitLab Workflow",
-        "icon": "src/assets/images/light/gitlab-logo.svg"
-      }]
+      "activitybar": [
+        {
+          "id": "gitlab-workflow",
+          "title": "GitLab Workflow",
+          "icon": "src/assets/images/light/gitlab-logo.svg"
+        }
+      ]
     },
     "views": {
-      "gitlab-workflow": [{
+      "gitlab-workflow": [
+        {
           "id": "issuesAssignedToMe",
           "name": "Issues assigned to me"
         },
@@ -193,7 +196,6 @@
   },
   "dependencies": {
     "execa": "^0.9.0",
-    "opn": "^5.2.0",
     "request-promise": "^4.2.2",
     "url": "^0.11.0",
     "@types/node": "^7.0.43",

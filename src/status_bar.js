@@ -1,5 +1,5 @@
 const vscode = require('vscode');
-const opn = require('opn');
+const openers = require('./openers');
 const gitLabService = require('./gitlab_service');
 
 let context = null;
@@ -114,7 +114,7 @@ const initMrStatus = () => {
   const cmdName = `gl.mrOpener${Date.now()}`;
   commandRegisterHelper(cmdName, () => {
     if (mr) {
-      opn(mr.web_url);
+      openers.openUrl(mr.web_url);
     } else {
       vscode.window.showInformationMessage('GitLab Workflow: No MR found for this branch.');
     }
@@ -132,7 +132,7 @@ const initMrIssueStatus = () => {
   const cmdName = `gl.mrIssueOpener${Date.now()}`;
   commandRegisterHelper(cmdName, () => {
     if (issue) {
-      opn(issue.web_url);
+      openers.openUrl(issue.web_url);
     } else {
       vscode.window.showInformationMessage('GitLab Workflow: No closing issue found for this MR.');
     }

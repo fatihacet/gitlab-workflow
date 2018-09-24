@@ -1,7 +1,10 @@
 const vscode = require('vscode');
-const opn = require('opn');
 const gitService = require('./git_service');
 const gitLabService = require('./gitlab_service');
+
+const openUrl = (url) => {
+  vscode.commands.executeCommand('vscode.open', vscode.Uri.parse(url));
+}
 
 /**
  * Fetches user and project before opening a link.
@@ -23,7 +26,7 @@ async function openLink(link) {
     const project = await gitLabService.fetchCurrentProject();
 
     if (project) {
-      opn(link.replace('$userId', user.id).replace('$projectUrl', project.web_url));
+      openUrl(link.replace('$userId', user.id).replace('$projectUrl', project.web_url));
     } else {
       vscode.window.showInformationMessage(
         'GitLab Workflow: Failed to open file on web. No GitLab project.',
@@ -66,7 +69,7 @@ async function openActiveFile() {
         }
       }
 
-      opn(`${fileUrl}${anchor}`);
+      openUrl(`${fileUrl}${anchor}`);
     } else {
       vscode.window.showInformationMessage(
         'GitLab Workflow: Failed to open file on web. No GitLab project.',
@@ -81,7 +84,7 @@ async function openCurrentMergeRequest() {
   const mr = await gitLabService.fetchOpenMergeRequestForCurrentBranch();
 
   if (mr) {
-    opn(mr.web_url);
+    openUrl(mr.web_url);
   }
 }
 
@@ -95,7 +98,7 @@ async function openCreateNewMr() {
   if (project) {
     const branchName = await gitService.fetchTrackingBranchName();
 
-    opn(`${project.web_url}/merge_requests/new?merge_request%5Bsource_branch%5D=${branchName}`);
+    openUrl(`${project.web_url}/merge_requests/new?merge_request%5Bsource_branch%5D=${branchName}`);
   } else {
     vscode.window.showInformationMessage(
       'GitLab Workflow: Failed to open file on web. No GitLab project.',
@@ -114,7 +117,7 @@ async function openCurrentPipeline() {
     const pipeline = await gitLabService.fetchLastPipelineForCurrentBranch();
 
     if (pipeline) {
-      opn(`${project.web_url}/pipelines/${pipeline.id}`);
+      openUrl(`${project.web_url}/pipelines/${pipeline.id}`);
     }
   }
 }
@@ -131,10 +134,11 @@ async function compareCurrentBranch() {
   }
 
   if (project && lastCommitId) {
-    opn(`${project.web_url}/compare/master...${lastCommitId}`);
+    openUrl(`${project.web_url}/compare/master...${lastCommitId}`);
   }
 }
 
+exports.openUrl = openUrl;
 exports.showIssues = showIssues;
 exports.showMergeRequests = showMergeRequests;
 exports.openActiveFile = openActiveFile;

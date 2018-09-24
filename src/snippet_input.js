@@ -1,5 +1,5 @@
 const vscode = require('vscode');
-const opn = require('opn');
+const openers = require('./openers');
 const gitLabService = require('./gitlab_service');
 
 const visibilityOptions = [
@@ -51,7 +51,7 @@ async function createSnippet(project, editor, visibility, context) {
     visibility,
   });
 
-  opn(snippet.web_url);
+  openers.openUrl(snippet.web_url);
 }
 
 async function showPicker() {

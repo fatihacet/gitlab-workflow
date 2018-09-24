@@ -1,6 +1,6 @@
 const vscode = require('vscode');
-const opn = require('opn');
 const gitLabService = require('./gitlab_service');
+const openers = require('./openers');
 
 const parseQuery = (query, noteableType) => {
   const params = {};
@@ -96,7 +96,7 @@ async function showSearchInputFor(noteableType) {
   const project = await gitLabService.fetchCurrentProject();
 
   if (project) {
-    opn(`${project.web_url}/${noteableType}${queryString}`);
+    openers.openUrl(`${project.web_url}/${noteableType}${queryString}`);
   } else {
     vscode.window.showErrorMessage('GitLab Workflow: No project found to search issues');
   }

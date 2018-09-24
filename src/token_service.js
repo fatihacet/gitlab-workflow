@@ -1,5 +1,5 @@
 const vscode = require('vscode');
-const opn = require('opn');
+const openers = require('./openers');
 const statusBar = require('./status_bar');
 
 let context = null;
@@ -67,7 +67,7 @@ const askForToken = () => {
         if (action === 'set') {
           vscode.commands.executeCommand('gl.setToken');
         } else {
-          opn('https://gitlab.com/fatihacet/gitlab-vscode-extension#setup');
+          openers.openUrl('https://gitlab.com/fatihacet/gitlab-vscode-extension#setup');
         }
       }
     });

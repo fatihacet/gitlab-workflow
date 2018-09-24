@@ -1,8 +1,8 @@
 const vscode = require('vscode');
-const opn = require('opn');
 const request = require('request-promise');
 const fs = require('fs');
 const gitService = require('./git_service');
+const openers = require('./openers');
 const tokenService = require('./token_service');
 const statusBar = require('./status_bar');
 
@@ -218,7 +218,7 @@ async function handlePipelineAction(action) {
     }
 
     if (newPipeline) {
-      opn(`${project.web_url}/pipelines/${newPipeline.id}`);
+      openers.openUrl(`${project.web_url}/pipelines/${newPipeline.id}`);
       statusBar.refreshPipelines();
     }
   } else {
