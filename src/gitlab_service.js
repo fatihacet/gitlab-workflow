@@ -29,7 +29,7 @@ async function fetch(path, method = 'GET', data = null) {
     rejectUnauthorized: !ignoreCertificateErrors,
   };
 
-  if (proxy && proxy.length > 0) {
+  if (proxy) {
     config.proxy = proxy;
   }
 
