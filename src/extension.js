@@ -45,20 +45,24 @@ const registerCommands = () => {
 const registerSidebarTreeDataProviders = () => {
   const assignedIssuesDataProvider = new IssuableDataProvider({
     fetcher: 'fetchIssuesAssignedToMe',
+    noItemText: 'There is no issue assigned to you.',
   });
 
   const createdIssuesDataProvider = new IssuableDataProvider({
     fetcher: 'fetchIssuesCreatedByMe',
+    noItemText: 'There is no issue created by you.',
   });
 
   const assignedMrsDataProvider = new IssuableDataProvider({
     fetcher: 'fetchMergeRequestsAssignedToMe',
     issuableType: 'merge request',
+    noItemText: 'There is no MR assigned to you.',
   });
 
   const createdMrsDataProvider = new IssuableDataProvider({
     fetcher: 'fetchMergeRequestsCreatedByMe',
     issuableType: 'merge request',
+    noItemText: 'There is no MR created by you.',
   });
 
   const register = (name, provider) => {

@@ -2,13 +2,13 @@ const vscode = require('vscode');
 const gitLabService = require('../gitlab_service');
 
 class DataProvider {
-  constructor({ fetcher, issuableType }) {
+  constructor({ fetcher, issuableType, noItemText }) {
     this._onDidChangeTreeData = new vscode.EventEmitter();
     this.onDidChangeTreeData = this._onDidChangeTreeData.event;
 
     this.fetcher = fetcher;
-    this.issuableType = issuableType || 'issue';
-    this.issuableSign = this.issuableType === 'issue' ? '#' : '!';
+    this.issuableSign = issuableType === 'merge_request' ? '!' : '#';
+    this.noItemText = noItemText || 'Nothing to show.';
   }
 
   async getChildren() {
@@ -28,7 +28,7 @@ class DataProvider {
         items.push(item);
       });
     } else {
-      items.push(new vscode.TreeItem(`No ${this.issuableType} assigned to you.`));
+      items.push(new vscode.TreeItem(this.noItemText));
     }
 
     return items;
