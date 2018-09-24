@@ -5,10 +5,14 @@ const tokenService = require('./token_service');
 const pipelineActionsPicker = require('./pipeline_actions_picker');
 const searchInput = require('./search_input');
 const snippetInput = require('./snippet_input');
+const sidebar = require('./sidebar');
 const ciConfigValidator = require('./ci_config_validator');
 const IssuableDataProvider = require('./data_providers/issuable').DataProvider;
 
 let context = null;
+vscode.gitLabWorkflow = {
+  sidebarDataProviders: [],
+};
 
 const registerCommands = () => {
   const commands = {
@@ -28,13 +32,17 @@ const registerCommands = () => {
     'gl.compareCurrentBranch': openers.compareCurrentBranch,
     'gl.createSnippet': snippetInput.show,
     'gl.validateCIConfig': ciConfigValidator.validate,
-    'gl.refreshSidebar': snippetInput.show,
+    'gl.refreshSidebar': sidebar.refresh,
   };
 
   Object.keys(commands).forEach(cmd => {
     context.subscriptions.push(vscode.commands.registerCommand(cmd, commands[cmd]));
   });
 
+  registerSidebarTreeDataProviders();
+};
+
+const registerSidebarTreeDataProviders = () => {
   const assignedIssuesDataProvider = new IssuableDataProvider({
     fetcher: 'fetchIssuesAssignedToMe',
   });
@@ -53,11 +61,16 @@ const registerCommands = () => {
     issuableType: 'merge request',
   });
 
-  vscode.window.registerTreeDataProvider('issuesAssignedToMe', assignedIssuesDataProvider);
-  vscode.window.registerTreeDataProvider('issuesCreatedByMe', createdIssuesDataProvider);
-  vscode.window.registerTreeDataProvider('mrsAssignedToMe', assignedMrsDataProvider);
-  vscode.window.registerTreeDataProvider('mrsCreatedByMe', createdMrsDataProvider);
-};
+  const register = (name, provider) => {
+    vscode.window.registerTreeDataProvider(name, provider);
+    vscode.gitLabWorkflow.sidebarDataProviders.push(provider);
+  }
+
+  register('issuesAssignedToMe', assignedIssuesDataProvider);
+  register('issuesCreatedByMe', createdIssuesDataProvider);
+  register('mrsAssignedToMe', assignedMrsDataProvider);
+  register('mrsCreatedByMe', createdMrsDataProvider);
+}
 
 const init = () => {
   tokenService.init(context);

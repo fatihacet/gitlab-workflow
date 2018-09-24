@@ -3,9 +3,12 @@ const gitLabService = require('../gitlab_service');
 
 class DataProvider {
   constructor({ fetcher, issuableType }) {
+    this._onDidChangeTreeData = new vscode.EventEmitter();
+    this.onDidChangeTreeData = this._onDidChangeTreeData.event;
+
     this.fetcher = fetcher;
     this.issuableType = issuableType || 'issue';
-    this.issuableSign = issuableType === 'issue' ? '#' : '!';
+    this.issuableSign = this.issuableType === 'issue' ? '#' : '!';
   }
 
   async getChildren() {
@@ -30,11 +33,17 @@ class DataProvider {
 
     return items;
   }
+
   getParent() {
     return null;
   }
+
   getTreeItem(item) {
     return item;
+  }
+
+  refresh() {
+    this._onDidChangeTreeData.fire();
   }
 }
 

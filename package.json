@@ -103,7 +103,11 @@
       },
       {
         "command": "gl.refreshSidebar",
-        "title": "GitLab: Refresh sidebar"
+        "title": "GitLab: Refresh sidebar",
+        "icon": {
+          "light": "src/assets/images/light/refresh.svg",
+          "dark": "src/assets/images/dark/refresh.svg"
+        }
       }
     ],
     "menus": {
