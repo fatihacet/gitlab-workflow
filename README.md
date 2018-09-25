@@ -2,7 +2,7 @@
 
 [![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/fatihacet.gitlab-workflow.svg)](https://marketplace.visualstudio.com/items?itemName=fatihacet.gitlab-workflow) [![Installs](https://vsmarketplacebadge.apphb.com/installs/fatihacet.gitlab-workflow.svg)](https://marketplace.visualstudio.com/items?itemName=fatihacet.gitlab-workflow)
 
-This extension integrates GitLab to VSCode by adding GitLab specific options to VSCode command palette and status bar.
+This extension integrates GitLab to VSCode by adding a new GitLab sidebar where you can find issues and merge requests created by you or assigned to you. It also extends VSCode command palette and status bar to provide more information about your project.
 
 
 ## Screencast
@@ -12,9 +12,10 @@ This extension integrates GitLab to VSCode by adding GitLab specific options to 
 
 ## Features
 
-- See pipeline status, open MR and closing issue links in status bar. [Read more](#status-bar).
-- Automatically updates pipeline status on status bar so you don't need to open GitLab to see your pipeline status.
-- Advanced pipeline actions allows you to view pipeline on GitLab, create new pipeline, retry or cancel current pipeline. [Read more](#pipeline-actions).
+- See your issues and MRs on a dedicated panel in the VSCode sidebar. [Read more](#sidebar)
+- See pipeline status, open MR and closing issue links in the status bar. [Read more](#status-bar).
+- Automatically updates pipeline status on the status bar so you don't need to open GitLab to see your pipeline status.
+- Advanced pipeline actions allow you to view pipeline on GitLab, create a new pipeline, retry or cancel current pipeline. [Read more](#pipeline-actions).
 - Issue and MR search including simple and advanced search. [Read more](#advanced-search).
 - View MR and closing issue on GitLab with a single click from your status bar.
 - Create public, internal or private snippet from entire file or selection. [Read more](#create-snippet).
@@ -27,7 +28,7 @@ This extension integrates GitLab to VSCode by adding GitLab specific options to 
 - Open pipeline on GitLab.
 - Open project on GitLab.
 - Open issue page to create a new issue.
-- Open merge request page to create a merge request.
+- Open the merge request page to create a merge request.
 - Set and remove your GitLab Personal Access Token. _Required step, see [Setup](#setup) section below._
 - Supports multiple GitLab instances [Read more](#multiple-gitlab-instances).
 
@@ -41,13 +42,13 @@ To use this extension, you need to create a GitLab Personal Access Token and giv
 ##### Step 1: Create your Personal Access Token
 - If you are using
   - GitLab.com [click to open Personal Access Tokens page](https://gitlab.com/profile/personal_access_tokens).
-  - Self hosted GitLab instance go to "Settings" and click "Access Tokens" on the left navigation menu
+  - Self-hosted GitLab instance go to "Settings" and click "Access Tokens" on the left navigation menu
 - On "Add a personal access token" form
   - Give a name to your token.
   - Select and expiry date.
   - Select "api" and "read_user" permissions.
   - Hit "Create personal access token" button.
-- Copy the token. _Remember you won't be able to see value of this token ever again for security reasons._
+- Copy the token. _Remember you won't be able to see the value of this token ever again for security reasons._
 
 ##### Step 2: Add token to GitLab Workflow Extension
 - Open up Command Palette by pressing `Cmd+Shift+P`.
@@ -74,34 +75,34 @@ To enable Gitlab Workflow extension to work with different Gitlab instances, eac
 
 **`gitlab.showIssueLinkOnStatusBar`** _(required: false, default: true)_
 
-If you are not using GitLab's issue tracker, you may want to set this `false` to remove related issue link on status bar. You should restart your VSCode after updating this option.
+If you are not using GitLab's issue tracker, you may want to set this `false` to remove related issue link on the status bar. You should restart your VSCode after updating this option.
 
 **`gitlab.ca`** _(required: false, default: null)_
 
-If your self hosted GitLab instance has a self signed SSL certificate you would probably need to set this option in to point your cetrificate file. More discussion can be found [in this issue](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/26).
+If your self-hosted GitLab instance has a self-signed SSL certificate you would probably need to set this option in to point your certificate file. More discussion can be found [in this issue](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/26).
 
 **`gitlab.ignoreCertificateErrors`**  _(required: false, default: false)_
 
-If you are using a self hosted GitLab instance with no SSL certificate or having certificate issues and unable to use the extension you may want to set this option to `true` to ignore certificate errors. More information can be found [here](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/26#note_61312786).
+If you are using a self-hosted GitLab instance with no SSL certificate or having certificate issues and unable to use the extension you may want to set this option to `true` to ignore certificate errors. More information can be found [here](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/26#note_61312786).
 
-> You can open User Settings file by pressing `Cmd+,` on Mac OS or following `Code > Preferences > User Settings`. You can simply add extension configuration values to you User Settings file. This won't break or change anything on your VSCode.
+> You can open User Settings file by pressing `Cmd+,` on Mac OS or following `Code > Preferences > User Settings`. You can simply add extension configuration values to your User Settings file. This won't break or change anything on your VSCode.
 
 
 ## Usage
 - Open up Command Palette by pressing `Cmd+Shift+P`.
-- Search for `GitLab:` and you will see all commands provided by the extension.
+- Search for `GitLab:` and you will see all the commands provided by the extension.
 
 ![https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/gitlab-vscode.png](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/gitlab-vscode.png)
 
 ![https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/pipeline-actions.png](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/pipeline-actions.png)
 
 
-## Features in depth
+## Features in-depth
 
 ### Advanced Search
 GitLab Workflow extension provides you two types of search. Basic and advanced search. Basic search is quick however advanced search is more powerful which allows you to filter issues by author, assignee, milestone, title etc.
 
-To use basic search, in the search input, you can type your search term and hit Enter. This will search issues/MRs against their title and description fields. Example: `Inconsistent line endings for HEX files` or `Pipelines should ignore retried builds`.
+To use the basic search, in the search input, you can type your search term and hit Enter. This will search issues/MRs against their title and description fields. Example: `Inconsistent line endings for HEX files` or `Pipelines should ignore retried builds`.
 
 You can perform advanced issue/MR search by using some predefined tokens. Full list below.
 
@@ -120,28 +121,34 @@ You can perform advanced issue/MR search by using some predefined tokens. Full l
 - `title: multiple group page author: annabeldunstone assignee: timzallmann label: frontend`
 
 **Important notes**
-- `:` after token name is necessary. `label :` is not a valid token name and may return parsing error. Hence `label:` should be used. However space after token name is optional. Both `label: frontend` and `label:frontend` is valid. This rule is valid for all tokens above.
+- `:` after the token name is necessary. `label :` is not a valid token name and may return parsing error. Hence `label:` should be used. However, space after the token name is optional. Both `label: frontend` and `label:frontend` is valid. This rule is valid for all tokens above.
 - You don't need to add quotes around multiple words for `title` token. `title:"new merge request widget"` may return parsing error. `title: new merge request widget` should be used.
-- You can have `labels` and `label` tokens at the same time. `labels: fronted discussion label: performance` is a valid query and all labels will be included in search. This example is equal with `labels: fronted discussion performance`. You can also have multiple `label` tokens. `label: frontend label: discussion label: performance` is valid and equal to `labels: fronted discussion performance`.
+- You can have `labels` and `label` tokens at the same time. `labels: fronted discussion label: performance` is a valid query and all labels will be included in your search query. It's equal with `labels: fronted discussion performance`. You can also have multiple `label` tokens. `label: frontend label: discussion label: performance` is valid and equals to `labels: fronted discussion performance`.
 
 ![_advanced-search.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_advanced-search.gif)
 
 
 ### Pipeline actions
-One of the real power features of this extension is pipeline actions. This feature can be accessible from status bar by clicking the pipeline status text or command palette and allows you to,
+One of the real power features of this extension is pipeline actions. This feature can be accessible from the status bar by clicking the pipeline status text or command palette and allows you to,
 
-- View latest pipeline on GitLab
+- View the latest pipeline on GitLab
 - Create a new pipeline for your current branch
-- Retry last pipeline
-- Cancel last pipeline
+- Retry the last pipeline
+- Cancel the last pipeline
 
 ![_pipeline_actions.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_pipeline_actions.gif)
 
 
-### Status bar
-If your current project is a GitLab project, extension will do the following things:
+### Sidebar
+Extension will add a GitLab Workflow panel to your VSCode where you can toggle from VSCode sidebar. The dedicated panel will allow you to see the list of your issues and MRs. In the current version, clicking the items will open their URL on your default browser but the next version will allow you to interact with your issues and MRs right in your VSCode. With the upcoming version, the extension will allow you to see the MR changes and discussions in VSCode.
 
-- Fetch pipeline of last commit and show it on the status bar. Clicking this item will open pipeline actions menu.
+![_status_bar_.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_status_bar_.gif)
+
+
+### Status bar
+If your current project is a GitLab project, the extension will do the following things:
+
+- Fetch pipeline of the last commit and show it on the status bar. Clicking this item will open the pipeline actions menu.
 - Show open MR for current branch and show it on the status bar. Clicking this item will open MR on GitLab.
 - Fetch closing issue of that MR and show it on the status bar. Clicking this item will open Issue on GitLab.
 
@@ -149,7 +156,7 @@ If your current project is a GitLab project, extension will do the following thi
 
 
 ### Create snippet
-You can create snippet from selection or entire file. You can also select visibility level of your snippet.
+You can create a snippet from selection or entire file. You can also select visibility level of your snippet.
 
 ![_create-snippet.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_create-snippet.gif)
 
@@ -159,7 +166,7 @@ You can see changes in your branch by comparing with `master` and see them on Gi
 
 ![_compare-with-master.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_compare-with-master.gif)
 
-> Soon extension will support comparing with other branches.
+> Soon extension will support comparing your current branch with other branches.
 
 
 ### Open active file
@@ -184,7 +191,7 @@ Using this command, you can quickly validate GitLab CI configuration.
 - MR actions picker which will allow you to
   - Go to specific MR tab, Discussions, Commits, Pipelines, Changes.
   - Assign MR to user.
-  - View last commit.
+  - View the last commit.
 - **[moonshot]** MR diff discussions on VSCode gutter with user avatars like we have in GitLab Changes tab.
 - **Already Shipped**
   - `[v0.2.2]` Pipeline link to pipeline status bar item.
