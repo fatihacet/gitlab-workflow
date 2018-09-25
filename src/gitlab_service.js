@@ -90,14 +90,20 @@ async function fetchUser(userName) {
 }
 
 async function fetchIssuables(params = {}) {
+  let project = null;
+  let issuables = [];
   const { type, scope, state } = params;
   const config = {
     type: type || 'merge_requests',
     scope: scope || 'created-by-me',
     state: state || 'opened',
   }
-  const project = await fetchCurrentProject();
-  let issuables = [];
+
+  try {
+    project = await fetchCurrentProject();
+  } catch (e) {
+    // Fail silently
+  }
 
   if (project) {
     const path = `/projects/${project.id}/${config.type}?scope=${config.scope}&state=${config.state}`;
