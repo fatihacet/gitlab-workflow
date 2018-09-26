@@ -8,6 +8,7 @@ const snippetInput = require('./snippet_input');
 const sidebar = require('./sidebar');
 const ciConfigValidator = require('./ci_config_validator');
 const IssuableDataProvider = require('./data_providers/issuable').DataProvider;
+const CurrentBranchDataProvider = require('./data_providers/current_branch').DataProvider;
 
 let context = null;
 vscode.gitLabWorkflow = {
@@ -65,6 +66,8 @@ const registerSidebarTreeDataProviders = () => {
     noItemText: 'There is no MR created by you.',
   });
 
+  const currentBranchDataProvider = new CurrentBranchDataProvider();
+
   const register = (name, provider) => {
     vscode.window.registerTreeDataProvider(name, provider);
     vscode.gitLabWorkflow.sidebarDataProviders.push(provider);
@@ -74,6 +77,7 @@ const registerSidebarTreeDataProviders = () => {
   register('issuesCreatedByMe', createdIssuesDataProvider);
   register('mrsAssignedToMe', assignedMrsDataProvider);
   register('mrsCreatedByMe', createdMrsDataProvider);
+  register('currentBranchInfo', currentBranchDataProvider);
 }
 
 const init = () => {
