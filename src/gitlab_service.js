@@ -225,7 +225,7 @@ async function handlePipelineAction(action) {
 
     if (newPipeline) {
       openers.openUrl(`${project.web_url}/pipelines/${newPipeline.id}`);
-      statusBar.refreshPipelines();
+      statusBar.refreshPipeline();
     }
   } else {
     vscode.window.showErrorMessage('GitLab Workflow: No project or pipeline found.');

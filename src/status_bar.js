@@ -29,7 +29,7 @@ const commandRegisterHelper = (cmdName, callback) => {
   vscode.commands.registerCommand(cmdName, callback);
 };
 
-async function refreshPipelines() {
+async function refreshPipeline() {
   let project = null;
   let pipeline = null;
   const statuses = {
@@ -50,12 +50,13 @@ async function refreshPipelines() {
       return;
     }
 
-    console.log('Failed to execute refreshPipelines.', e);
+    console.log('Failed to execute refreshPipeline.', e);
   }
 
   if (pipeline) {
     const { status } = pipeline;
     const msg = `$(${statuses[status].icon}) GitLab: Pipeline ${statuses[status].text || status}.`;
+
     pipelineStatusBarItem.text = msg;
     pipelineStatusBarItem.show();
   } else {
@@ -69,10 +70,10 @@ const initPipelineStatus = () => {
     'gl.pipelineActions',
   );
   pipelinesStatusTimer = setInterval(() => {
-    refreshPipelines();
+    refreshPipeline();
   }, 30000);
 
-  refreshPipelines();
+  refreshPipeline();
 };
 
 async function fetchMRIssues() {
@@ -87,7 +88,7 @@ async function fetchMRIssues() {
   mrIssueStatusBarItem.text = text;
 }
 
-async function fetchBranchMr() {
+async function fetchBranchMR() {
   let project = null;
   let text = '$(git-pull-request) GitLab: No MR.';
 
@@ -122,10 +123,10 @@ const initMrStatus = () => {
 
   mrStatusBarItem = createStatusBarItem('$(info) GitLab: Finding MR...', cmdName);
   mrStatusTimer = setInterval(() => {
-    fetchBranchMr();
+    fetchBranchMR();
   }, 60000);
 
-  fetchBranchMr();
+  fetchBranchMR();
 };
 
 const initMrIssueStatus = () => {
@@ -171,4 +172,4 @@ const dispose = () => {
 
 exports.init = init;
 exports.dispose = dispose;
-exports.refreshPipelines = refreshPipelines;
+exports.refreshPipeline = refreshPipeline;
