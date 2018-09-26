@@ -99,6 +99,36 @@ If you are using a self-hosted GitLab instance with no SSL certificate or having
 
 ## Features in-depth
 
+
+### Sidebar
+Extension will add a GitLab Workflow panel to sidebar of your VSCode. The dedicated panel will allow you to see the list of your issues and MRs. Also you will be able to see pipeline, MR and issue links for your current branch.
+
+In the current version, clicking the links will open them on your default browser but the next version will allow you to interact with your issues and MRs right in your VSCode. With the upcoming versions, the extension will allow you to see the MR changes and discussions in VSCode.
+
+![_sidebar.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_sidebar.gif)
+
+
+### Pipeline actions
+One of the real power features of this extension is pipeline actions. This feature can be accessible from the status bar by clicking the pipeline status text or command palette and allows you to,
+
+- View the latest pipeline on GitLab
+- Create a new pipeline for your current branch
+- Retry the last pipeline
+- Cancel the last pipeline
+
+![_pipeline_actions.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_pipeline_actions.gif)
+
+
+### Status bar
+If your current project is a GitLab project, the extension will do the following things:
+
+- Fetch pipeline of the last commit and show it on the status bar. Clicking this item will open the pipeline actions menu.
+- Show open MR for current branch and show it on the status bar. Clicking this item will open MR on GitLab.
+- Fetch closing issue of that MR and show it on the status bar. Clicking this item will open Issue on GitLab.
+
+![_status_bar.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_status-bar.gif)
+
+
 ### Advanced Search
 GitLab Workflow extension provides you two types of search. Basic and advanced search. Basic search is quick however advanced search is more powerful which allows you to filter issues by author, assignee, milestone, title etc.
 
@@ -126,35 +156,6 @@ You can perform advanced issue/MR search by using some predefined tokens. Full l
 - You can have `labels` and `label` tokens at the same time. `labels: fronted discussion label: performance` is a valid query and all labels will be included in your search query. It's equal with `labels: fronted discussion performance`. You can also have multiple `label` tokens. `label: frontend label: discussion label: performance` is valid and equals to `labels: fronted discussion performance`.
 
 ![_advanced-search.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_advanced-search.gif)
-
-
-### Pipeline actions
-One of the real power features of this extension is pipeline actions. This feature can be accessible from the status bar by clicking the pipeline status text or command palette and allows you to,
-
-- View the latest pipeline on GitLab
-- Create a new pipeline for your current branch
-- Retry the last pipeline
-- Cancel the last pipeline
-
-![_pipeline_actions.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_pipeline_actions.gif)
-
-
-### Sidebar
-Extension will add a GitLab Workflow panel to sidebar of your VSCode. The dedicated panel will allow you to see the list of your issues and MRs. Also you will be able to see pipeline, MR and issue links for your current branch.
-
-In the current version, clicking the links will open them on your default browser but the next version will allow you to interact with your issues and MRs right in your VSCode. With the upcoming versions, the extension will allow you to see the MR changes and discussions in VSCode.
-
-![_sidebar.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_sidebar.gif)
-
-
-### Status bar
-If your current project is a GitLab project, the extension will do the following things:
-
-- Fetch pipeline of the last commit and show it on the status bar. Clicking this item will open the pipeline actions menu.
-- Show open MR for current branch and show it on the status bar. Clicking this item will open MR on GitLab.
-- Fetch closing issue of that MR and show it on the status bar. Clicking this item will open Issue on GitLab.
-
-![_status_bar.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_status-bar.gif)
 
 
 ### Create snippet

@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## [1.0.0] - 2018-09-26
+### Added
+- A new panel on the sidebar to see the list of your issues and MRs alongside with the links and informations for your current branch. [Read more](https://gitlab.com/fatihacet/gitlab-vscode-extension#sidebar)
+
+### Fixed
+- [#41](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/41) Extension not opening the pipeline from command pallete
+  - Fixed [with this commit](https://gitlab.com/fatihacet/gitlab-vscode-extension/commit/080a8c609f57df19b093dcfd0ec44cf89e7f5790)
+- Respect VSCode http.proxy settings
+  - Implemented by [@martianboy](https://gitlab.com/martianboy) with [MR !13](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/13) 👍
+
+
 ## [0.6.0] - 2018-03-02
 ### Added
 - A new config option named `gitlab.ca` to set self signed certificates. [Read more](https://gitlab.com/fatihacet/gitlab-vscode-extension#configuration-options)
@@ -41,14 +52,15 @@
 
 
 ## [0.4.2] - 2018-02-18
+### Added
+- 🎉 [New logo](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/logo.png) _Special thanks to [@ademilter](https://twitter.com/ademilter) for his amazing work_ 👍
+
+
 ### Fixed
 - [#14](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/14) GitLab: Open active file on GitLab - workspace path not filtered out
   - Fixed by [@swiffer](https://gitlab.com/swiffer) with [MR !1](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/1) 👍
 - [#16](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/16) Does not work witch projects in subgroup
   - Fixed by [@AmandaCameron](https://gitlab.com/AmandaCameron) with [MR !3](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/3) 👍
-
-### Added
-- 🎉 [New logo](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/logo.png) _Special thanks to [@ademilter](https://twitter.com/ademilter) for his amazing work_ 👍
 
 
 ## [0.4.1] - 2018-02-10
