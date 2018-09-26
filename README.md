@@ -140,9 +140,11 @@ One of the real power features of this extension is pipeline actions. This featu
 
 
 ### Sidebar
-Extension will add a GitLab Workflow panel to your VSCode where you can toggle from VSCode sidebar. The dedicated panel will allow you to see the list of your issues and MRs. In the current version, clicking the items will open their URL on your default browser but the next version will allow you to interact with your issues and MRs right in your VSCode. With the upcoming version, the extension will allow you to see the MR changes and discussions in VSCode.
+Extension will add a GitLab Workflow panel to sidebar of your VSCode. The dedicated panel will allow you to see the list of your issues and MRs. Also you will be able to see pipeline, MR and issue links for your current branch.
 
-![_status_bar_.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_status_bar_.gif)
+In the current version, clicking the links will open them on your default browser but the next version will allow you to interact with your issues and MRs right in your VSCode. With the upcoming versions, the extension will allow you to see the MR changes and discussions in VSCode.
+
+![_sidebar.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_sidebar.gif)
 
 
 ### Status bar
