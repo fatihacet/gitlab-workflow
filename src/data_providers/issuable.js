@@ -1,5 +1,6 @@
 const vscode = require('vscode');
 const gitLabService = require('../gitlab_service');
+const { SidebarTreeItem } = require('../sidebar_tree_item');
 
 class DataProvider {
   constructor({ fetcher, issuableType, noItemText }) {
@@ -18,17 +19,11 @@ class DataProvider {
     if (issues.length) {
       issues.forEach((issue) => {
         const title = `${this.issuableSign}${issue.iid} · ${issue.title}`;
-        const item = new vscode.TreeItem(title);
 
-        item.command = {
-          command: 'vscode.open',
-          arguments: [vscode.Uri.parse(issue.web_url)],
-        }
-
-        items.push(item);
+        items.push(new SidebarTreeItem(title, issue.web_url));
       });
     } else {
-      items.push(new vscode.TreeItem(this.noItemText));
+      items.push(new SidebarTreeItem(this.noItemText));
     }
 
     return items;
