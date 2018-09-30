@@ -55,6 +55,7 @@ async function create(issuable) {
           .replace('{{devScriptUri}}', devScriptUri);
 
   panel.webview.html = html;
+  panel.webview.postMessage({ issuable });
 }
 
 exports.addDeps = addDeps;

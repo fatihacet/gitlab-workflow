@@ -1,27 +1,31 @@
-<template>
-  <div id="app">
-    <img src="#1" alt="" />
-    <HelloWorld msg="Welcome to VSCode extension 2" />
-  </div>
-</template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import IssuableDetails from './components/IssuableDetails';
 
 export default {
   name: 'app',
+  data() {
+    return {
+      issuable: {
+        title: 'Loading...',
+      },
+    };
+  },
   components: {
-    HelloWorld
-  }
+    IssuableDetails,
+  },
+  created() {
+    window.addEventListener('message', event => {
+      this.issuable = event.data.issuable;
+    });
+  },
 }
 </script>
 
+<template>
+  <div id="app">
+    <issuable-details :issuable="issuable" />
+  </div>
+</template>
+
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  margin-top: 60px;
-}
 </style>
