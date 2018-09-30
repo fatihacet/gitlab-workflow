@@ -1,14 +1,14 @@
 const vscode = require('vscode');
 
 class SidebarTreeItem extends vscode.TreeItem {
-  constructor(title, url) {
+  constructor(title, data) {
     super(title);
 
-    if (url) {
+    if (data) {
       this.command = {
-        command: 'vscode.open',
-        arguments: [vscode.Uri.parse(url)],
-      };
+        command: 'gl.showRichContent',
+        arguments: [data],
+      }
     }
   }
 }
