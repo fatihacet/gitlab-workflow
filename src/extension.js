@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const vscode = require('vscode');
 const openers = require('./openers');
 const tokenInput = require('./token_input');
@@ -7,6 +9,7 @@ const searchInput = require('./search_input');
 const snippetInput = require('./snippet_input');
 const sidebar = require('./sidebar');
 const ciConfigValidator = require('./ci_config_validator');
+const webviewController = require('./webview_controller');
 const IssuableDataProvider = require('./data_providers/issuable').DataProvider;
 const CurrentBranchDataProvider = require('./data_providers/current_branch').DataProvider;
 
@@ -34,6 +37,7 @@ const registerCommands = () => {
     'gl.createSnippet': snippetInput.show,
     'gl.validateCIConfig': ciConfigValidator.validate,
     'gl.refreshSidebar': sidebar.refresh,
+    'gl.showRichContent': webviewController.create,
   };
 
   Object.keys(commands).forEach(cmd => {
@@ -81,6 +85,7 @@ const registerSidebarTreeDataProviders = () => {
 }
 
 const init = () => {
+  webviewController.addDeps(context);
   tokenService.init(context);
 };
 

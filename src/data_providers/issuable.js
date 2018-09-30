@@ -20,7 +20,7 @@ class DataProvider {
       issues.forEach((issue) => {
         const title = `${this.issuableSign}${issue.iid} · ${issue.title}`;
 
-        items.push(new SidebarTreeItem(title, issue.web_url));
+        items.push(new SidebarTreeItem(title, issue));
       });
     } else {
       items.push(new SidebarTreeItem(this.noItemText));
