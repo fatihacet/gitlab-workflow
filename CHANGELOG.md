@@ -6,6 +6,10 @@
   - Implemented [with this commit](https://gitlab.com/fatihacet/gitlab-vscode-extension/commit/6318028f1d3959ee0f70d22bb31b68bcbc4a998c)
   - Closes [#58](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/58)
 
+### Fixed
+- [#57](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/57) Can't use extension with self-hosted gitlab - scope validity
+  - Fixed [with this commit](https://gitlab.com/fatihacet/gitlab-vscode-extension/commit/cf2fafec91df042ada35609848f251b6ebb02aeb)
+
 
 ## [1.0.0] - 2018-09-26
 ### Added

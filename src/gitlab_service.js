@@ -6,6 +6,7 @@ const openers = require('./openers');
 const tokenService = require('./token_service');
 const statusBar = require('./status_bar');
 
+let version = null;
 let branchMR = null;
 
 async function fetch(path, method = 'GET', data = null) {
@@ -92,20 +93,31 @@ async function fetchUser(userName) {
 async function fetchIssuables(params = {}) {
   let project = null;
   let issuables = [];
+
   const { type, scope, state } = params;
   const config = {
     type: type || 'merge_requests',
-    scope: scope || 'created-by-me',
+    scope: scope || 'created_by_me',
     state: state || 'opened',
   }
 
   try {
     project = await fetchCurrentProject();
+
+    if (!version) {
+      version = await fetchVersion();
+    }
   } catch (e) {
     // Fail silently
   }
 
   if (project) {
+    // Normalize scope parameter for version < 11 instances.
+    const [ major ] = version.split('.');
+    if (parseInt(major, 10) < 11) {
+      config.scope = config.scope.replace(/_/g, '-');
+    }
+
     const path = `/projects/${project.id}/${config.type}?scope=${config.scope}&state=${config.state}`;
     issuables = await fetch(path);
   }
@@ -129,7 +141,7 @@ async function fetchIssuesCreatedByMe() {
 
 async function fetchMergeRequestsAssignedToMe() {
   return await fetchIssuables({
-    scope: 'assigned-to-me',
+    scope: 'assigned_to_me',
   });
 }
 
@@ -271,6 +283,15 @@ async function validateCIConfig(content) {
   return response;
 }
 
+async function fetchVersion() {
+  try {
+    const v = await fetch('/version');
+    version = v.version;
+  } catch (e) {}
+
+  return version;
+}
+
 exports.fetchUser = fetchUser;
 exports.fetchIssuesAssignedToMe = fetchIssuesAssignedToMe;
 exports.fetchIssuesCreatedByMe = fetchIssuesCreatedByMe;
@@ -284,3 +305,4 @@ exports.handlePipelineAction = handlePipelineAction;
 exports.fetchMRIssues = fetchMRIssues;
 exports.createSnippet = createSnippet;
 exports.validateCIConfig = validateCIConfig;
+exports.fetchVersion = fetchVersion;
