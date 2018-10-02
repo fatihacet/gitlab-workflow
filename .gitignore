@@ -3,3 +3,4 @@ node_modules
 .vsix
 .history
 .DS_Store
+src/webview/dist/*.hot-update.js*
