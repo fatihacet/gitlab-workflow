@@ -73,9 +73,13 @@ If you are using GitLab on a custom domain, you should add this to your user set
 
 To enable Gitlab Workflow extension to work with different Gitlab instances, each token is assigned to a Gitlab instance URL. For the extension to selected the correct token for a specific workspace, the option [`gitlab.instanceUrl`](#configuration-options) can be used. This option can be set in the current workspace's `.vscode/settings.json` file.
 
+**`gitlab.showStatusBarLinks`** _(required: false, default: true)_
+
+If you don't want to see GitLab related links on the status bar, you can set this option to `false`. If you are using version 1.0.0 or above you can also find the same links in sidebar. You should restart your VSCode after updating this option.
+
 **`gitlab.showIssueLinkOnStatusBar`** _(required: false, default: true)_
 
-If you are not using GitLab's issue tracker, you may want to set this `false` to remove related issue link on the status bar. You should restart your VSCode after updating this option.
+If you are not using GitLab's issue tracker, you can set this option to `false` to remove related issue link on the status bar. You should restart your VSCode after updating this option.
 
 **`gitlab.ca`** _(required: false, default: null)_
 

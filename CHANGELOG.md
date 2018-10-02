@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [1.1.0] - 2018-10-02
+### Added
+- A new config option to toggle GitLab related links on the status bar [Read more](https://gitlab.com/fatihacet/gitlab-vscode-extension#configuration-options)
+  - Implemented [with this commit](https://gitlab.com/fatihacet/gitlab-vscode-extension/commit/6318028f1d3959ee0f70d22bb31b68bcbc4a998c)
+  - Closes [#58](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/58)
+
+
 ## [1.0.0] - 2018-09-26
 ### Added
 - A new panel on the sidebar to see the list of your issues and MRs alongside with the links and informations for your current branch. [Read more](https://gitlab.com/fatihacet/gitlab-vscode-extension#sidebar)

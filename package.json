@@ -2,7 +2,7 @@
   "name": "gitlab-workflow",
   "displayName": "GitLab Workflow",
   "description": "GitLab VSCode integration",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "publisher": "fatihacet",
   "license": "MIT",
   "repository": {
@@ -152,12 +152,17 @@
       ]
     },
     "configuration": {
-      "title": "GitLab Workflow config",
+      "title": "GitLab Workflow (GitLab VSCode Extension)",
       "properties": {
         "gitlab.instanceUrl": {
           "type": "string",
           "default": "https://gitlab.com",
           "description": "Your GitLab instance URL (default is https://gitlab.com)"
+        },
+        "gitlab.showStatusBarLinks": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to display all GitLab related link in the status bar (Requires restart of VSCode)"
         },
         "gitlab.showIssueLinkOnStatusBar": {
           "type": "boolean",
