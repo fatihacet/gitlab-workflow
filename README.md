@@ -81,6 +81,10 @@ If you don't want to see GitLab related links on the status bar, you can set thi
 
 If you are not using GitLab's issue tracker, you can set this option to `false` to remove related issue link on the status bar. You should restart your VSCode after updating this option.
 
+**`gitlab.showMrStatusOnStatusBar`** _(required: false, default: true)_
+
+You can toggle visibility of MR link in your sidebar. You can always find MR link in GitLab Workflow sidebar. You should restart your VSCode after updating this option.
+
 **`gitlab.ca`** _(required: false, default: null)_
 
 If your self-hosted GitLab instance has a self-signed SSL certificate you would probably need to set this option in to point your certificate file. More discussion can be found [in this issue](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/26).

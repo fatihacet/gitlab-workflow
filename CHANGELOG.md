@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [1.2.0] - 2018-10-03
+### Added
+- A new config option to toggle MR status on status bar [Read more](https://gitlab.com/fatihacet/gitlab-vscode-extension#configuration-options)
+  - Implemented by [@robinvoor](https://gitlab.com/robinvoor) with [MR !15](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/15) 👍
+
+
 ## [1.1.1] - 2018-10-03
 ### Fixed
 - Invalid date parsing for unfinished pipelines.
