@@ -34,9 +34,18 @@ class DataProvider {
 
       if (pipeline) {
         const statusText = pipeline.status === 'success' ? 'passed' : pipeline.status;
-        const timeAgo = moment(pipeline.finished_at).fromNow();
+        const actions = {
+          running: 'Started',
+          pending: 'Created',
+          success: 'Finished',
+          failed: 'Failed',
+          canceled: 'Canceled',
+          skipped: 'Skipped',
+        };
+        const timeAgo = moment(pipeline.updated_at).fromNow();
+        const actionText = actions[pipeline.status] || '';
 
-        message = `Pipeline #${pipeline.id} ${statusText} · ${timeAgo}`;
+        message = `Pipeline #${pipeline.id} ${statusText} · ${actionText} ${timeAgo}`;
         url = `${this.project.web_url}/pipelines/${pipeline.id}`;
       }
 

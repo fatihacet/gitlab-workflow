@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [1.1.1] - 2018-10-03
+### Fixed
+- Invalid date parsing for unfinished pipelines.
+
+
 ## [1.1.0] - 2018-10-02
 ### Added
 - A new config option to toggle GitLab related links on the status bar [Read more](https://gitlab.com/fatihacet/gitlab-vscode-extension#configuration-options)
