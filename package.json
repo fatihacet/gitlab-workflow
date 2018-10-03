@@ -169,6 +169,11 @@
           "default": true,
           "description": "Whether to display the GitLab issue link in the status bar"
         },
+        "gitlab.showMrStatusOnStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to display the GitLab Merge Request status in the status bar"
+        },
         "gitlab.ca": {
           "type": "string",
           "default": null,
