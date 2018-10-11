@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const vscode = require('vscode');
+const gitLabService = require('./gitlab_service');
 
 let context = null;
 
@@ -34,6 +35,12 @@ const getResources = () => {
   return paths;
 }
 
+const getIndexPath = () => {
+  const isDev = !(fs.existsSync(path.join(context.extensionPath, 'src/webview/dist/js/app.js')));
+
+  return isDev ? 'src/webview/public/dev.html' : 'src/webview/public/index.html';
+}
+
 async function create(issuable) {
   const panel = vscode.window.createWebviewPanel('glWorkflow', 'GL Workflow', vscode.ViewColumn.One, {
     enableScripts: true,
@@ -42,11 +49,8 @@ async function create(issuable) {
     ]
   });
 
-  const isDev = !(fs.existsSync(path.join(context.extensionPath, 'src/webview/dist/js/app.js')));
-  const indexPath = isDev ? 'src/webview/public/dev.html' : 'src/webview/public/index.html';
-
   const { appScriptUri, vendorUri, styleUri, devScriptUri } = getResources();
-  let html = fs.readFileSync(path.join(context.extensionPath, indexPath), 'UTF-8');
+  let html = fs.readFileSync(path.join(context.extensionPath, getIndexPath()), 'UTF-8');
 
   html = html.replace(/{{nonce}}/gm, getNonce())
           .replace('{{styleUri}}', styleUri)
@@ -54,8 +58,10 @@ async function create(issuable) {
           .replace('{{appScriptUri}}', appScriptUri)
           .replace('{{devScriptUri}}', devScriptUri);
 
+
+  const discussions = await gitLabService.fetchDiscussions(issuable);
   panel.webview.html = html;
-  panel.webview.postMessage({ issuable });
+  panel.webview.postMessage({ issuable, discussions });
 }
 
 exports.addDeps = addDeps;
