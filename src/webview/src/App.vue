@@ -8,6 +8,7 @@ export default {
       issuable: {
         title: 'Loading...',
       },
+      discussions: [],
     };
   },
   components: {
@@ -24,6 +25,7 @@ export default {
 <template>
   <div id="app">
     <issuable-details :issuable="issuable" />
+    <issuable-discussions :discussions="discussions" />
   </div>
 </template>
 

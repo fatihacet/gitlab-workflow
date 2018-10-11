@@ -335,6 +335,18 @@ async function fetchVersion() {
   return version;
 }
 
+async function fetchDiscussions(issuable) {
+  let discussions = [];
+
+  try {
+    discussions = await fetch(`/projects/${issuable.project_id}/issues/${issuable.iid}/discussions?sort=asc`);
+  } catch (e) {
+    vscode.window.showInformationMessage('GitLab Workflow: Failed to fetch discussions for this issuable.');
+  }
+
+  return discussions;
+}
+
 exports.fetchUser = fetchUser;
 exports.fetchIssuesAssignedToMe = fetchIssuesAssignedToMe;
 exports.fetchIssuesCreatedByMe = fetchIssuesCreatedByMe;
@@ -351,3 +363,4 @@ exports.fetchMRIssues = fetchMRIssues;
 exports.createSnippet = createSnippet;
 exports.validateCIConfig = validateCIConfig;
 exports.fetchVersion = fetchVersion;
+exports.fetchDiscussions = fetchDiscussions;
