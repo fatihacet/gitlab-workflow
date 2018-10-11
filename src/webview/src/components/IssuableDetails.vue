@@ -62,6 +62,11 @@ export default {
           {{ issuable.author.name }}
         </a>
       </span>
+      <a
+        :href="issuable.web_url"
+      >
+        View in GitLab
+      </a>
     </div>
     <div class="title">
       <h2>{{ issuable.title }}</h2>
