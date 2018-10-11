@@ -85,7 +85,10 @@ async function fetchGitRemote() {
 
   try {
     const branchName = await fetchBranchName();
-    const remoteName = await fetch(`git config --get branch.${branchName}.remote`);
+    let { remoteName } = vscode.workspace.getConfiguration('gitlab');
+    if (!remoteName) {
+      remoteName = await fetch(`git config --get branch.${branchName}.remote`);
+    }
     remoteUrl = await fetch(`git ls-remote --get-url ${remoteName}`);
   } catch (err) {
     try {

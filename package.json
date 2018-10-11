@@ -183,6 +183,11 @@
           "type": "boolean",
           "default": false,
           "description": "Ignore TLS/SSL certificate errors when calling the GitLab API"
+        },
+        "gitlab.remoteName": {
+          "type": "string",
+          "default": null,
+          "description": "Name of the git remote to use in order to locate the Gitlab project"
         }
       }
     }
