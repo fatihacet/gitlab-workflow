@@ -236,7 +236,6 @@ async function handlePipelineAction(action) {
     }
 
     if (newPipeline) {
-      openers.openUrl(`${project.web_url}/pipelines/${newPipeline.id}`);
       statusBar.refreshPipeline();
     }
   } else {
