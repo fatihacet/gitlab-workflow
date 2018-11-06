@@ -9,7 +9,7 @@
 
 ### Changed
 - Pipeline action will not open the pipeline on the default browser
-  - Changed by [@cdenneen](https://gitlab.com/cdenneen) with [MR !20](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/20)
+  - Changed by [@Clapfire](https://gitlab.com/Clapfire) with [MR !20](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/20)
   - Closes [#31](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/31)
 
 
