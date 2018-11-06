@@ -95,6 +95,9 @@ If you are using a self-hosted GitLab instance with no SSL certificate or having
 
 > You can open User Settings file by pressing `Cmd+,` on Mac OS or following `Code > Preferences > User Settings`. You can simply add extension configuration values to your User Settings file. This won't break or change anything on your VSCode.
 
+**`gitlab.remoteName`** _(required: false, default: null)_
+
+The name of the git remote link corresponding to the Gitlab repositiory with your MR and issues. If no setting is provided, the extension will detect it. For example: origin.
 
 ## Usage
 - Open up Command Palette by pressing `Cmd+Shift+P`.
