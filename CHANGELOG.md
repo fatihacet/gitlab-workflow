@@ -1,6 +1,14 @@
 # CHANGELOG
 
-## [1.3.0] - 2018-11-06
+## [1.4.0] - 2018-11-06
+### Added
+- A new config option to toggle pipeline status change notifications [Read more](https://gitlab.com/fatihacet/gitlab-vscode-extension#configuration-options)
+
+### Changed
+- Pipeline notifications introduced in v1.3.0 will not be on by default with this version. You need to manually set the option to true.
+
+
+## [1.3.0] - 2018-11-05
 ### Added
 - A new config option to set remote name manually [Read more](https://gitlab.com/fatihacet/gitlab-vscode-extension#configuration-options)
   - Implemented by [@jduponchelle](https://gitlab.com/jduponchelle) with [MR !18](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/18)

@@ -11,7 +11,12 @@ let mrStatusTimer = null;
 let issue = null;
 let mr = null;
 let firstRun = true;
-const { showStatusBarLinks, showIssueLinkOnStatusBar, showMrStatusOnStatusBar } = vscode.workspace.getConfiguration('gitlab');
+const {
+  showStatusBarLinks,
+  showIssueLinkOnStatusBar,
+  showMrStatusOnStatusBar,
+  showPipelineUpdateNotifications
+} = vscode.workspace.getConfiguration('gitlab');
 
 const createStatusBarItem = (text, command) => {
   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
@@ -30,7 +35,7 @@ const commandRegisterHelper = (cmdName, callback) => {
   vscode.commands.registerCommand(cmdName, callback);
 };
 
-async function refreshPipeline(init) {
+async function refreshPipeline() {
   let project = null;
   let pipeline = null;
   const statuses = {
@@ -50,19 +55,23 @@ async function refreshPipeline(init) {
       pipelineStatusBarItem.hide();
       return;
     }
-
-    console.log('Failed to execute refreshPipeline.', e);
   }
 
   if (pipeline) {
     const { status } = pipeline;
-    const msg = `$(${statuses[status].icon}) GitLab: Pipeline ${statuses[status].text || status}.`;
-    if (pipelineStatusBarItem.text != msg && !firstRun) {
-      vscode.window.showInformationMessage('Pipeline ' + (statuses[status].text || status) + '.', 'View in Gitlab')
-                   .then(selection => {
-                      if(selection == 'View in Gitlab') openers.openCurrentPipeline();
-                    });
+    const statusText = statuses[status].text || status;
+    const msg = `$(${statuses[status].icon}) GitLab: Pipeline ${statusText}`;
+
+    if (showPipelineUpdateNotifications && pipelineStatusBarItem.text != msg && !firstRun) {
+      const message = `Pipeline ${statusText}. View in GitLab`;
+
+      vscode.window.showInformationMessage(message).then(selection => {
+        if (selection == 'View in Gitlab') {
+          openers.openCurrentPipeline();
+        }
+      });
     }
+
     pipelineStatusBarItem.text = msg;
     pipelineStatusBarItem.show();
   } else {
