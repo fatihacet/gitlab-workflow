@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## [1.3.0] - 2018-11-06
+### Added
+- A new config option to set remote name manually [Read more](https://gitlab.com/fatihacet/gitlab-vscode-extension#configuration-options)
+  - Implemented by [@jduponchelle](https://gitlab.com/jduponchelle) with [MR !18](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/18)
+- Extension will show a notification after pipeline status changed
+  - Implemented by [@Clapfire](https://gitlab.com/Clapfire) with [MR !21](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/21)
+
+### Changed
+- Pipeline action will not open the pipeline on the default browser
+  - Changed by [@cdenneen](https://gitlab.com/cdenneen) with [MR !20](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/20)
+  - Closes [#31](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/31)
+
+
 ## [1.2.0] - 2018-10-03
 ### Added
 - A new config option to toggle MR status on status bar [Read more](https://gitlab.com/fatihacet/gitlab-vscode-extension#configuration-options)

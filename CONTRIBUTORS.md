@@ -9,3 +9,5 @@
 - Adem Ilter [@ademilter](https://twitter.com/ademilter)
 - Abbas Mashayekh [@martianboy](https://gitlab.com/martianboy)
 - Robin [@robinvoor](https://gitlab.com/robinvoor)
+- Julien Duponchelle [@jduponchelle](https://gitlab.com/jduponchelle)
+- Kasper Laursen [@Clapfire](https://gitlab.com/Clapfire)
