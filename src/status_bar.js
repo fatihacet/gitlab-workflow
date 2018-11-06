@@ -10,6 +10,7 @@ let mrIssueStatusBarItem = null;
 let mrStatusTimer = null;
 let issue = null;
 let mr = null;
+let firstRun = true;
 const { showStatusBarLinks, showIssueLinkOnStatusBar, showMrStatusOnStatusBar } = vscode.workspace.getConfiguration('gitlab');
 
 const createStatusBarItem = (text, command) => {
@@ -29,7 +30,7 @@ const commandRegisterHelper = (cmdName, callback) => {
   vscode.commands.registerCommand(cmdName, callback);
 };
 
-async function refreshPipeline() {
+async function refreshPipeline(init) {
   let project = null;
   let pipeline = null;
   const statuses = {
@@ -56,12 +57,18 @@ async function refreshPipeline() {
   if (pipeline) {
     const { status } = pipeline;
     const msg = `$(${statuses[status].icon}) GitLab: Pipeline ${statuses[status].text || status}.`;
-
+    if (pipelineStatusBarItem.text != msg && !firstRun) {
+      vscode.window.showInformationMessage('Pipeline ' + (statuses[status].text || status) + '.', 'View in Gitlab')
+                   .then(selection => {
+                      if(selection == 'View in Gitlab') openers.openCurrentPipeline();
+                    });
+    }
     pipelineStatusBarItem.text = msg;
     pipelineStatusBarItem.show();
   } else {
     pipelineStatusBarItem.text = 'GitLab: No pipeline.';
   }
+  firstRun = false;
 }
 
 const initPipelineStatus = () => {
