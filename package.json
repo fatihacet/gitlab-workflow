@@ -189,6 +189,11 @@
           "default": null,
           "description": "Name of the git remote to use in order to locate the Gitlab project"
         },
+        "gitlab.pipelineGitRemoteName": {
+          "type": "string",
+          "default": null,
+          "description": "Name of the git remote to use in order to locate the Gitlab project for your pipeline. Keep empty for default"
+        },
         "gitlab.showPipelineUpdateNotifications": {
           "type": "boolean",
           "default": false,

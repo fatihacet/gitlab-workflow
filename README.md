@@ -97,7 +97,11 @@ If you are using a self-hosted GitLab instance with no SSL certificate or having
 
 **`gitlab.remoteName`** _(required: false, default: null)_
 
-The name of the git remote link corresponding to the Gitlab repositiory with your MR and issues. If no setting is provided, the extension will detect it. For example: origin.
+The name of the git remote link corresponding to the GitLab repositiory with your MR and issues. If no setting is provided, the extension will detect it. For example: origin.
+
+**`gitlab.pipelineGitRemoteName`** _(required: false, default: null)_
+
+The name of the git remote link corresponding to the GitLab repositiory with your pipelines. If no setting is provided, the extension will detect it. For example: origin.
 
 ## Usage
 - Open up Command Palette by pressing `Cmd+Shift+P`.

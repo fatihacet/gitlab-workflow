@@ -111,7 +111,7 @@ async function openProjectPage() {
 }
 
 async function openCurrentPipeline() {
-  const project = await gitLabService.fetchCurrentProject();
+  const project = await gitLabService.fetchCurrentPipelineProject();
 
   if (project) {
     const pipeline = await gitLabService.fetchLastPipelineForCurrentBranch();

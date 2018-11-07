@@ -48,7 +48,7 @@ async function refreshPipeline() {
   };
 
   try {
-    project = await gitLabService.fetchCurrentProject();
+    project = await gitLabService.fetchCurrentPipelineProject();
     pipeline = await gitLabService.fetchLastPipelineForCurrentBranch();
   } catch (e) {
     if (!project) {
