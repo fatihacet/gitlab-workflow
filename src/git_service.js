@@ -80,12 +80,12 @@ const parseGitRemote = remote => {
   return [protocol, hostname, ...match.slice(1, 3)];
 };
 
-async function fetchGitRemote() {
+async function fetchRemoteUrl(name) {
   let remoteUrl = null;
+  let remoteName = name;
 
   try {
     const branchName = await fetchBranchName();
-    let { remoteName } = vscode.workspace.getConfiguration('gitlab');
     if (!remoteName) {
       remoteName = await fetch(`git config --get branch.${branchName}.remote`);
     }
@@ -109,7 +109,20 @@ async function fetchGitRemote() {
   return null;
 }
 
+async function fetchGitRemote() {
+  const { remoteName } = vscode.workspace.getConfiguration('gitlab');
+
+  return await fetchRemoteUrl(remoteName);
+}
+
+async function fetchGitRemotePipeline() {
+  const { pipelineGitRemoteName } = vscode.workspace.getConfiguration('gitlab');
+
+  return await fetchRemoteUrl(pipelineGitRemoteName);
+}
+
 exports.fetchBranchName = fetchBranchName;
 exports.fetchTrackingBranchName = fetchTrackingBranchName;
 exports.fetchLastCommitId = fetchLastCommitId;
 exports.fetchGitRemote = fetchGitRemote;
+exports.fetchGitRemotePipeline = fetchGitRemotePipeline;

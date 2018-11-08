@@ -57,9 +57,7 @@ async function fetch(path, method = 'GET', data = null) {
   }
 }
 
-async function fetchCurrentProject() {
-  const remote = await gitService.fetchGitRemote();
-
+async function fetchProjectData(remote) {
   if (remote) {
     const { namespace, project } = remote;
     const projectData = await fetch(`/projects/${namespace.replace(/\//g, '%2F')}%2F${project}`);
@@ -68,6 +66,30 @@ async function fetchCurrentProject() {
   }
 
   return null;
+}
+
+async function fetchCurrentProject() {
+  try {
+    const remote = await gitService.fetchGitRemote();
+
+    return await fetchProjectData(remote);
+  } catch (e) {
+    console.log('Failed to execute fetch', e);
+
+    return null;
+  }
+}
+
+async function fetchCurrentPipelineProject() {
+  try {
+    const remote = await gitService.fetchGitRemotePipeline();
+
+    return await fetchProjectData(remote);
+  } catch (e) {
+    console.log('Failed to execute fetch', e);
+
+    return null;
+  }
 }
 
 async function fetchUser(userName) {
@@ -154,7 +176,7 @@ async function fetchMyOpenMergeRequests() {
 }
 
 async function fetchLastPipelineForCurrentBranch() {
-  const project = await fetchCurrentProject();
+  const project = await fetchCurrentPipelineProject();
   let pipeline = null;
 
   if (project) {
@@ -300,6 +322,7 @@ exports.fetchMyOpenMergeRequests = fetchMyOpenMergeRequests;
 exports.fetchOpenMergeRequestForCurrentBranch = fetchOpenMergeRequestForCurrentBranch;
 exports.fetchLastPipelineForCurrentBranch = fetchLastPipelineForCurrentBranch;
 exports.fetchCurrentProject = fetchCurrentProject;
+exports.fetchCurrentPipelineProject = fetchCurrentPipelineProject;
 exports.handlePipelineAction = handlePipelineAction;
 exports.fetchMRIssues = fetchMRIssues;
 exports.createSnippet = createSnippet;
