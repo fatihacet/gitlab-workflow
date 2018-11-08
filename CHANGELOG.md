@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [1.5.0] - 2018-11-08
+### Added
+- A new config option to fetch pipeline data from a different Git remote [Read more](https://gitlab.com/fatihacet/gitlab-vscode-extension#configuration-options)
+  - Implemented by [@jduponchelle](https://gitlab.com/jduponchelle)
+    - with [MR !22](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/22)
+    - closes [Issue #59](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/59)
+
 ## [1.4.0] - 2018-11-06
 ### Added
 - A new config option to toggle pipeline status change notifications [Read more](https://gitlab.com/fatihacet/gitlab-vscode-extension#configuration-options)
@@ -11,20 +18,25 @@
 ## [1.3.0] - 2018-11-05
 ### Added
 - A new config option to set remote name manually [Read more](https://gitlab.com/fatihacet/gitlab-vscode-extension#configuration-options)
-  - Implemented by [@jduponchelle](https://gitlab.com/jduponchelle) with [MR !18](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/18)
+  - Implemented by [@jduponchelle](https://gitlab.com/jduponchelle)
+    - with [MR !18](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/18)
 - Extension will show a notification after pipeline status changed
-  - Implemented by [@Clapfire](https://gitlab.com/Clapfire) with [MR !21](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/21)
+  - Implemented by [@Clapfire](https://gitlab.com/Clapfire)
+    - with [MR !21](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/21)
+    - closes [Issue #32](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/32)
 
 ### Changed
 - Pipeline action will not open the pipeline on the default browser
-  - Changed by [@Clapfire](https://gitlab.com/Clapfire) with [MR !20](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/20)
-  - Closes [#31](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/31)
+  - Changed by [@Clapfire](https://gitlab.com/Clapfire)
+    - with [MR !20](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/20)
+    - closes [#31](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/31)
 
 
 ## [1.2.0] - 2018-10-03
 ### Added
 - A new config option to toggle MR status on status bar [Read more](https://gitlab.com/fatihacet/gitlab-vscode-extension#configuration-options)
-  - Implemented by [@robinvoor](https://gitlab.com/robinvoor) with [MR !15](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/15) 👍
+  - Implemented by [@robinvoor](https://gitlab.com/robinvoor)
+    - with [MR !15](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/15) 👍
 
 
 ## [1.1.1] - 2018-10-03
@@ -36,7 +48,7 @@
 ### Added
 - A new config option to toggle GitLab related links on the status bar [Read more](https://gitlab.com/fatihacet/gitlab-vscode-extension#configuration-options)
   - Implemented [with this commit](https://gitlab.com/fatihacet/gitlab-vscode-extension/commit/6318028f1d3959ee0f70d22bb31b68bcbc4a998c)
-  - Closes [#58](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/58)
+    - closes [#58](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/58)
 
 ### Fixed
 - [#57](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/57) Can't use extension with self-hosted gitlab - scope validity
