@@ -38,6 +38,7 @@ const commandRegisterHelper = (cmdName, callback) => {
 async function refreshPipeline() {
   let project = null;
   let pipeline = null;
+  const maxJobs = 4;
   const statuses = {
     running: { icon: 'pulse' },
     pending: { icon: 'clock' },
@@ -59,7 +60,27 @@ async function refreshPipeline() {
 
   if (pipeline) {
     const { status } = pipeline;
-    const statusText = statuses[status].text || status;
+    let statusText = statuses[status].text || status;
+
+    if (status === 'running' || status === 'failed') {
+      try {
+        const jobs = await gitLabService.fetchLastJobsForCurrentBranch(pipeline);
+        if (jobs) {
+          const jobsName = jobs.filter(job => job.status === status).map(job => job.name);
+          if (jobsName.length > maxJobs) {
+            statusText += ' (';
+            statusText += jobsName.slice(0, maxJobs).join(', ');
+            statusText += `, +${jobsName.length - maxJobs} jobs`;
+            statusText += ')';
+          } else {
+            statusText += ` (${jobsName.join(', ')})`;
+          }
+        }
+      } catch (e) {
+        vscode.window.showErrorMessage(`GitLab Workflow: Failed to fetch jobs for pipeline.`);
+      }
+    }
+
     const msg = `$(${statuses[status].icon}) GitLab: Pipeline ${statusText}`;
 
     if (showPipelineUpdateNotifications && pipelineStatusBarItem.text != msg && !firstRun) {
