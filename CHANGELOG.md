@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [1.5.1] - 2018-11-28
+### Fixed
+- View in GitLab button in the pipeline updated notification was not visible
+  - Implemented by [@Clapfire](https://gitlab.com/Clapfire)
+    - with [MR !24](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/24)
+
+
 ## [1.5.0] - 2018-11-08
 ### Added
 - A new config option to fetch pipeline data from a different Git remote [Read more](https://gitlab.com/fatihacet/gitlab-vscode-extension#configuration-options)
