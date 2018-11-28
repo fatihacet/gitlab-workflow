@@ -15,7 +15,7 @@ const {
   showStatusBarLinks,
   showIssueLinkOnStatusBar,
   showMrStatusOnStatusBar,
-  showPipelineUpdateNotifications
+  showPipelineUpdateNotifications,
 } = vscode.workspace.getConfiguration('gitlab');
 
 const createStatusBarItem = (text, command) => {
@@ -63,13 +63,15 @@ async function refreshPipeline() {
     const msg = `$(${statuses[status].icon}) GitLab: Pipeline ${statusText}`;
 
     if (showPipelineUpdateNotifications && pipelineStatusBarItem.text != msg && !firstRun) {
-      const message = `Pipeline ${statusText}. View in GitLab`;
+      const message = `Pipeline ${statusText}.`;
 
-      vscode.window.showInformationMessage(message).then(selection => {
-        if (selection == 'View in Gitlab') {
-          openers.openCurrentPipeline();
-        }
-      });
+      vscode.window
+        .showInformationMessage(message, { modal: false }, 'View in Gitlab')
+        .then(selection => {
+          if (selection == 'View in Gitlab') {
+            openers.openCurrentPipeline();
+          }
+        });
     }
 
     pipelineStatusBarItem.text = msg;
