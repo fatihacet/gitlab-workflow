@@ -1,4 +1,5 @@
 <script>
+import UserAvatar from './UserAvatar';
 const moment = require('moment');
 const md = require('markdown-it')().use(require('markdown-it-checkbox'));
 
@@ -8,6 +9,9 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  components: {
+    UserAvatar,
   },
   computed: {
     stateText() {
@@ -19,11 +23,8 @@ export default {
       return states[this.issuable.state] || '';
     },
     description() {
-      // This could a nice Regex but :(
-      const normalized = this.issuable.description.replace(
-        /\/uploads/gm,
-        `${this.issuable.web_url.split('/issues/')[0]}/uploads/`
-      );
+      const path = `${this.issuable.web_url.split('/issues/')[0]}/uploads/`;
+      const normalized = this.issuable.description.replace(/\/uploads/gm, path);
 
       return md.render(normalized);
     },
@@ -50,21 +51,8 @@ export default {
         {{ createdAgo }}
       </span>
       by
-      <img
-        :src="issuable.author.avatar_url"
-        class="avatar"
-      />
-      <span class="author">
-        <a
-          :href="issuable.author.web_url"
-          target="_blank"
-        >
-          {{ issuable.author.name }}
-        </a>
-      </span>
-      <a
-        :href="issuable.web_url"
-      >
+      <user-avatar :issuable="issuable" />
+      <a :href="issuable.web_url">
         View in GitLab
       </a>
     </div>
@@ -79,11 +67,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.avatar {
-  width: 24px;
-  height: 24px;
-  border-radius: 24px;
-}
 .capitalize {
   text-transform: capitalize;
 }
