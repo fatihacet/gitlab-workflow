@@ -33,3 +33,19 @@ export default {
     />
   </div>
 </template>
+
+<style lang="scss">
+.issuable-discussions {
+  position: relative;
+
+  &::before {
+    content: '';
+    border-left: 2px solid #919191;
+    position: absolute;
+    left: 35px;
+    top: 16px;
+    bottom: 0;
+    z-index: -1;
+  }
+}
+</style>

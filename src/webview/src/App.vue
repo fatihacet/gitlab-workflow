@@ -61,3 +61,37 @@ export default {
     </template>
   </div>
 </template>
+
+<style lang="scss">
+body.vscode-light {
+  * {
+    border-color: #333;
+  }
+
+  .idiff.deletion {
+    background: #fac5cd;
+  }
+
+  .idiff.addition {
+    background: #c7f0d2;
+  }
+}
+.capitalize {
+  text-transform: capitalize;
+}
+
+code {
+  padding: 2px 4px;
+  color: #c0341d;
+  background-color: #fbe5e1;
+  border-radius: 4px;
+}
+
+.idiff.deletion {
+  background: #df818f;
+}
+
+.idiff.addition {
+  background: #7cba8d;
+}
+</style>

@@ -33,9 +33,38 @@ export default {
 <template>
   <div class="note">
     <div class="note-header">
-      <user-avatar :user="author" />
-      {{ createdAgo }}
+      <user-avatar :user="author" :size="40" /> · {{ createdAgo }}
     </div>
     <note-body :note="note" />
   </div>
 </template>
+
+<style lang="scss">
+.note {
+  border: 1px solid #919191;
+  border-radius: 4px;
+  padding: 16px;
+  margin: 16px 0;
+  background: var(--background-color);
+
+  .avatar {
+    margin-right: 10px;
+  }
+
+  &:not(.system-note) {
+    .note-header {
+      position: relative;
+      top: -8px;
+    }
+
+    .avatar {
+      position: relative;
+      top: 8px;
+    }
+
+    .note-body {
+      margin-top: -12px;
+    }
+  }
+}
+</style>
