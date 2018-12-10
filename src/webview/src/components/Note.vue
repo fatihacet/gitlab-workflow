@@ -17,14 +17,11 @@ export default {
     NoteBody,
   },
   computed: {
-    note() {
-      return this.noteable.notes[0];
-    },
     author() {
-      return this.note.author;
+      return this.noteable.author;
     },
     createdAgo() {
-      return moment(this.note.created_at).fromNow();
+      return moment(this.noteable.created_at).fromNow();
     },
   },
 };
@@ -35,7 +32,7 @@ export default {
     <div class="note-header">
       <user-avatar :user="author" :size="40" /> · {{ createdAgo }}
     </div>
-    <note-body :note="note" />
+    <note-body :note="noteable" />
   </div>
 </template>
 

@@ -34,6 +34,7 @@ export default {
 <style lang="scss">
 .note-body {
   margin-left: 56px;
+  line-height: 21px;
 
   .badge {
     padding: 0 8px;

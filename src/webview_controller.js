@@ -44,7 +44,8 @@ const getIndexPath = () => {
 }
 
 async function create(issuable) {
-  const panel = vscode.window.createWebviewPanel('glWorkflow', 'GL Workflow', vscode.ViewColumn.One, {
+  const title = `${issuable.title.slice(0, 20)}...`;
+  const panel = vscode.window.createWebviewPanel('glWorkflow', title, vscode.ViewColumn.One, {
     enableScripts: true,
     localResourceRoots: [
       vscode.Uri.file(path.join(context.extensionPath, 'src'))
