@@ -2,6 +2,8 @@
 import IssuableDetails from './components/IssuableDetails';
 import IssuableDiscussions from './components/IssuableDiscussions';
 
+const vscode = acquireVsCodeApi();
+
 export default {
   name: 'app',
   data() {
@@ -15,12 +17,36 @@ export default {
     IssuableDetails,
     IssuableDiscussions,
   },
+  computed: {
+    notesById() {
+      const notes = {}
+
+      this.discussions.forEach((d) => {
+        d.notes.forEach((n) => {
+          notes[n.id] = n;
+        });
+      });
+
+      notes[this.issuable.id] = this.issuable;
+      return notes;
+    },
+  },
   created() {
+    window.vsCodeApi = vscode;
     this.isLoading = true;
 
     window.addEventListener('message', event => {
-      this.issuable = event.data.issuable;
-      this.isLoading = false;
+      if (event.data.type === 'issuableFetch') {
+        this.issuable = event.data.issuable;
+        this.discussions = event.data.discussions;
+        this.isLoading = false;
+      } else if (event.data.type === 'markdownRendered') {
+        const { ref, key, markdown } = event.data;
+        const note = this.notesById[ref] || {};
+
+        note[key] = markdown;
+        note.markdownRenderedOnServer = true;
+      }
     });
   },
 }
@@ -35,6 +61,3 @@ export default {
     </template>
   </div>
 </template>
-
-<style lang="scss">
-</style>

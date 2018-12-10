@@ -1,7 +1,7 @@
 <script>
 export default {
   props: {
-    issuable: {
+    user: {
       type: Object,
       required: true,
     },
@@ -11,17 +11,9 @@ export default {
 
 <template>
   <span>
-    <img
-      :src="issuable.author.avatar_url"
-      class="avatar"
-    />
+    <img :src="user.avatar_url" class="avatar" />
     <span class="author">
-      <a
-        :href="issuable.author.web_url"
-        target="_blank"
-      >
-        {{ issuable.author.name }}
-      </a>
+      <a :href="user.web_url" target="_blank">{{ user.name }}</a>
     </span>
   </span>
 </template>
