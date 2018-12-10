@@ -347,6 +347,29 @@ async function fetchDiscussions(issuable) {
   return discussions;
 }
 
+// TODO: Remove project fetch
+async function renderMarkdown(markdown) {
+  let rendered = { html: markdown };
+  const [ major ] = version.split('.');
+
+  if (parseInt(major, 10) < 11) {
+    return markdown;
+  }
+
+  try {
+    const project = await fetchCurrentProject();
+    rendered = await fetch('/markdown', 'POST', {
+      text: markdown,
+      project: project.path_with_namespace,
+      gfm: 'true', // Needs to be a string for the API
+    });
+  } catch(e) {
+    return markdown;
+  }
+
+  return rendered.html;
+};
+
 exports.fetchUser = fetchUser;
 exports.fetchIssuesAssignedToMe = fetchIssuesAssignedToMe;
 exports.fetchIssuesCreatedByMe = fetchIssuesCreatedByMe;
@@ -364,3 +387,4 @@ exports.createSnippet = createSnippet;
 exports.validateCIConfig = validateCIConfig;
 exports.fetchVersion = fetchVersion;
 exports.fetchDiscussions = fetchDiscussions;
+exports.renderMarkdown = renderMarkdown;

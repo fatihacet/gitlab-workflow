@@ -1,5 +1,6 @@
 <script>
 import UserAvatar from './UserAvatar';
+
 const moment = require('moment');
 const md = require('markdown-it')().use(require('markdown-it-checkbox'));
 
@@ -23,6 +24,10 @@ export default {
       return states[this.issuable.state] || '';
     },
     description() {
+      if (this.issuable.markdownRenderedOnServer) {
+        return this.issuable.description;
+      }
+
       const path = `${this.issuable.web_url.split('/issues/')[0]}/uploads/`;
       const normalized = this.issuable.description.replace(/\/uploads/gm, path);
 
@@ -32,7 +37,15 @@ export default {
       return moment(this.issuable.created_at).fromNow();
     },
   },
-}
+  mounted() {
+    window.vsCodeApi.postMessage({
+      command: 'renderMarkdown',
+      markdown: this.issuable.description,
+      ref: this.issuable.id,
+      key: 'description',
+    });
+  },
+};
 </script>
 
 <template>
@@ -51,7 +64,7 @@ export default {
         {{ createdAgo }}
       </span>
       by
-      <user-avatar :issuable="issuable" />
+      <user-avatar :user="issuable.author" />
       <a :href="issuable.web_url">
         View in GitLab
       </a>

@@ -10,11 +10,13 @@ const addDeps = (ctx) => {
 }
 
 const getNonce = () => {
-  let text = "";
-  const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let text = '';
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
   for (let i = 0; i < 32; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
+
   return text;
 }
 
@@ -50,18 +52,31 @@ async function create(issuable) {
   });
 
   const { appScriptUri, vendorUri, styleUri, devScriptUri } = getResources();
-  let html = fs.readFileSync(path.join(context.extensionPath, getIndexPath()), 'UTF-8');
-
-  html = html.replace(/{{nonce}}/gm, getNonce())
-          .replace('{{styleUri}}', styleUri)
-          .replace('{{vendorUri}}', vendorUri)
-          .replace('{{appScriptUri}}', appScriptUri)
-          .replace('{{devScriptUri}}', devScriptUri);
-
+  let html = fs
+    .readFileSync(path.join(context.extensionPath, getIndexPath()), 'UTF-8')
+    .replace(/{{nonce}}/gm, getNonce())
+    .replace('{{styleUri}}', styleUri)
+    .replace('{{vendorUri}}', vendorUri)
+    .replace('{{appScriptUri}}', appScriptUri)
+    .replace('{{devScriptUri}}', devScriptUri);
 
   const discussions = await gitLabService.fetchDiscussions(issuable);
+
   panel.webview.html = html;
-  panel.webview.postMessage({ issuable, discussions });
+  panel.webview.postMessage({ type: 'issuableFetch', issuable, discussions });
+  panel.webview.onDidReceiveMessage(async (message) => {
+    if (message.command === 'renderMarkdown') {
+      let rendered = await gitLabService.renderMarkdown(message.markdown);
+      rendered = rendered.replace(/ src=".*" alt/gim, ' alt').replace(/" data-src/gim, '" src');
+
+      panel.webview.postMessage({
+        type: 'markdownRendered',
+        ref: message.ref,
+        key: message.key,
+        markdown: rendered,
+      });
+    }
+  });
 }
 
 exports.addDeps = addDeps;

@@ -1,6 +1,6 @@
 <script>
-const moment = require('moment');
-const md = require('markdown-it')().use(require('markdown-it-checkbox'));
+import Note from './Note';
+import SystemNote from './SystemNote';
 
 export default {
   props: {
@@ -9,13 +9,27 @@ export default {
       required: true,
     },
   },
-}
+  methods: {
+    getComponentName(discussion) {
+      if (discussion.individual_note) {
+        if (discussion.notes[0].system) {
+          return SystemNote;
+        }
+
+        return Note;
+      }
+    },
+  },
+};
 </script>
 
 <template>
   <div class="issuable-discussions">
-    <ul>
-
-    </ul>
+    <component
+      v-for="discussion in discussions"
+      :key="discussion.id"
+      :is="getComponentName(discussion)"
+      :noteable="discussion"
+    />
   </div>
 </template>
