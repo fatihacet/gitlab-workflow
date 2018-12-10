@@ -30,3 +30,27 @@ export default {
     <div class="body" v-html="renderedNoteBody"></div>
   </div>
 </template>
+
+<style lang="scss">
+.note-body {
+  margin-left: 56px;
+
+  .badge {
+    padding: 0 8px;
+    line-height: 16px;
+    border-radius: 36px;
+    font-size: 12px;
+    display: inline-block;
+  }
+
+  .body p {
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+</style>

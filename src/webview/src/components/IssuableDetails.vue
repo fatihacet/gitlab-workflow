@@ -28,8 +28,10 @@ export default {
         return this.issuable.description;
       }
 
+      const description = this.issuable.description || '';
+
       const path = `${this.issuable.web_url.split('/issues/')[0]}/uploads/`;
-      const normalized = this.issuable.description.replace(/\/uploads/gm, path);
+      const normalized = description.replace(/\/uploads/gm, path);
 
       return md.render(normalized);
     },
@@ -54,19 +56,15 @@ export default {
       <span
         :class="{ [issuable.state]: true }"
         class="state"
-      >
-        {{ stateText }}
-      </span>
-      <span class="capitalize">
-        {{ issuable.state }}
-      </span>
-      <span class="date">
-        {{ createdAgo }}
-      </span>
-      by
-      <user-avatar :user="issuable.author" />
-      <a :href="issuable.web_url">
-        View in GitLab
+      >{{ stateText }}</span>
+      <span class="capitalize"> opened</span>
+      {{ createdAgo }} by
+      <user-avatar
+        :user="issuable.author"
+        :show-handle="false"
+      />
+      <a :href="issuable.web_url" class="view-link">
+        Open in GitLab
       </a>
     </div>
     <div class="title">
@@ -79,8 +77,32 @@ export default {
   </div>
 </template>
 
-<style lang="scss" scoped>
-.capitalize {
-  text-transform: capitalize;
+<style lang="scss">
+.issuable-details {
+  border-bottom: 1px solid #919191;
+
+  .header {
+    padding: 10px 0 6px;
+    line-height: 36px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #919191;
+    position: relative;
+
+    .view-link {
+      position: absolute;
+      right: 0;
+    }
+
+    .state {
+      border-radius: 4px;
+      background-color: #2A9D3F;
+      padding: 2px 9px;
+      margin-right: 5px;
+    }
+  }
+
+  .description {
+    margin-bottom: 16px;
+  }
 }
 </style>
