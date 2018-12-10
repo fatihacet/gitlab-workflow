@@ -54,7 +54,12 @@ export default {
 
 <template>
   <div id="app">
-    <h2 v-if="isLoading">Loading...</h2>
+    <p v-if="isLoading" class="loading">
+      Fetching issuable details and discussions. This may take a while.
+      <br />
+      If it doesn't work, please
+      <a href="https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/new">create an issue.</a>
+    </p>
     <template v-else>
       <issuable-details :issuable="issuable" />
       <issuable-discussions :discussions="discussions" />
@@ -65,7 +70,11 @@ export default {
 <style lang="scss">
 body.vscode-light {
   * {
-    border-color: #333;
+    border-color: #333 !important;
+
+    &::before {
+      border-color: #333 !important;
+    }
   }
 
   .idiff.deletion {
@@ -74,6 +83,10 @@ body.vscode-light {
 
   .idiff.addition {
     background: #c7f0d2;
+  }
+
+  .issuable-details .state {
+    color: #fff;
   }
 }
 .capitalize {
@@ -93,5 +106,11 @@ code {
 
 .idiff.addition {
   background: #7cba8d;
+}
+
+#app .loading {
+  text-align: center;
+  font-size: 14px;
+  line-height: 30px;
 }
 </style>

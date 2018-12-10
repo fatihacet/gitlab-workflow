@@ -1,5 +1,6 @@
 <script>
 import Note from './Note';
+import Discussion from './Discussion';
 import SystemNote from './SystemNote';
 
 export default {
@@ -8,6 +9,11 @@ export default {
       type: Array,
       required: true,
     },
+  },
+  components: {
+    Note,
+    Discussion,
+    SystemNote,
   },
   methods: {
     getComponentName(discussion) {
@@ -18,6 +24,11 @@ export default {
 
         return Note;
       }
+
+      return Discussion;
+    },
+    getComponentData(discussion) {
+      return discussion.individual_note ? discussion.notes[0] : discussion;
     },
   },
 };
@@ -29,7 +40,7 @@ export default {
       v-for="discussion in discussions"
       :key="discussion.id"
       :is="getComponentName(discussion)"
-      :noteable="discussion"
+      :noteable="getComponentData(discussion)"
     />
   </div>
 </template>

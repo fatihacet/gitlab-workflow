@@ -16,14 +16,11 @@ export default {
     UserAvatar,
   },
   computed: {
-    note() {
-      return this.noteable.notes[0];
-    },
     author() {
-      return this.note.author;
+      return this.noteable.author;
     },
     createdAgo() {
-      return moment(this.note.created_at).fromNow();
+      return moment(this.noteable.created_at).fromNow();
     },
   },
 };
@@ -49,7 +46,7 @@ export default {
     </span>
     <div class="note-body-wrapper">
       <user-avatar :user="author" :show-avatar="false"/>
-      <note-body :note="note"/>
+      <note-body :note="noteable"/>
       · {{ createdAgo }}
     </div>
   </div>

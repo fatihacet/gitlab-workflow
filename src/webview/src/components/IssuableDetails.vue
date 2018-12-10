@@ -29,7 +29,6 @@ export default {
       }
 
       const description = this.issuable.description || '';
-
       const path = `${this.issuable.web_url.split('/issues/')[0]}/uploads/`;
       const normalized = description.replace(/\/uploads/gm, path);
 
@@ -80,6 +79,7 @@ export default {
 <style lang="scss">
 .issuable-details {
   border-bottom: 1px solid #919191;
+  line-height: 21px;
 
   .header {
     padding: 10px 0 6px;
@@ -95,9 +95,17 @@ export default {
 
     .state {
       border-radius: 4px;
-      background-color: #2A9D3F;
       padding: 2px 9px;
       margin-right: 5px;
+      font-size: 12px;
+
+      &.opened {
+        background-color: #2A9D3F;
+      }
+
+      &.closed {
+        background-color: #1D64C9;
+      }
     }
   }
 
