@@ -192,6 +192,28 @@ async function fetchLastPipelineForCurrentBranch() {
   return pipeline;
 }
 
+async function fetchLastJobsForCurrentBranch(pipeline) {
+  const project = await fetchCurrentPipelineProject();
+  if (project) {
+    let jobs = await fetch(`/projects/${project.id}/pipelines/${pipeline.id}/jobs`);
+
+    // Gitlab return multiple jobs if you retry the pipeline we filter to keep only the last
+    const alreadyProcessedJob = new Set();
+    jobs = jobs.sort((one, two) => (one.created_at > two.created_at ? -1 : 1));
+    jobs = jobs.filter(job => {
+      if (alreadyProcessedJob.has(job.name)) {
+        return false;
+      }
+      alreadyProcessedJob.add(job.name);
+      return true;
+    });
+
+    return jobs;
+  }
+
+  return null;
+}
+
 /**
  * GitLab API doesn't support getting open MR by commit ID or branch name.
  * Using this recursive fetcher method, we fetch 100 MRs at a time and do pagination
@@ -321,6 +343,7 @@ exports.fetchMergeRequestsCreatedByMe = fetchMergeRequestsCreatedByMe;
 exports.fetchMyOpenMergeRequests = fetchMyOpenMergeRequests;
 exports.fetchOpenMergeRequestForCurrentBranch = fetchOpenMergeRequestForCurrentBranch;
 exports.fetchLastPipelineForCurrentBranch = fetchLastPipelineForCurrentBranch;
+exports.fetchLastJobsForCurrentBranch = fetchLastJobsForCurrentBranch;
 exports.fetchCurrentProject = fetchCurrentProject;
 exports.fetchCurrentPipelineProject = fetchCurrentPipelineProject;
 exports.handlePipelineAction = handlePipelineAction;
