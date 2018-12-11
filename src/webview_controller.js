@@ -43,27 +43,36 @@ const getIndexPath = () => {
   return isDev ? 'src/webview/public/dev.html' : 'src/webview/public/index.html';
 }
 
-async function create(issuable) {
-  const title = `${issuable.title.slice(0, 20)}...`;
-  const panel = vscode.window.createWebviewPanel('glWorkflow', title, vscode.ViewColumn.One, {
-    enableScripts: true,
-    localResourceRoots: [
-      vscode.Uri.file(path.join(context.extensionPath, 'src'))
-    ]
-  });
-
+const replaceResources = () => {
   const { appScriptUri, vendorUri, styleUri, devScriptUri } = getResources();
-  let html = fs
+
+  return fs
     .readFileSync(path.join(context.extensionPath, getIndexPath()), 'UTF-8')
     .replace(/{{nonce}}/gm, getNonce())
     .replace('{{styleUri}}', styleUri)
     .replace('{{vendorUri}}', vendorUri)
     .replace('{{appScriptUri}}', appScriptUri)
     .replace('{{devScriptUri}}', devScriptUri);
+}
+
+const createPanel = (issuable) => {
+  const title = `${issuable.title.slice(0, 20)}...`;
+
+  return vscode.window.createWebviewPanel('glWorkflow', title, vscode.ViewColumn.One, {
+    enableScripts: true,
+    localResourceRoots: [
+      vscode.Uri.file(path.join(context.extensionPath, 'src')),
+    ]
+  });
+}
+
+async function create(issuable) {
+  const panel = createPanel(issuable);
+  const html = replaceResources();
+  panel.webview.html = html;
 
   const discussions = await gitLabService.fetchDiscussions(issuable);
 
-  panel.webview.html = html;
   panel.webview.postMessage({ type: 'issuableFetch', issuable, discussions });
   panel.webview.onDidReceiveMessage(async (message) => {
     if (message.command === 'renderMarkdown') {
