@@ -8,7 +8,7 @@ class SidebarTreeItem extends vscode.TreeItem {
       this.command = {
         command: 'gl.showRichContent',
         arguments: [data],
-      }
+      };
     }
   }
 }

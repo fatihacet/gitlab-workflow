@@ -229,7 +229,7 @@
     "eslint": "eslint --max-warnings 0 --ext .js .",
     "format": "prettier --write '**/*.{js,json}'",
     "publish": "vsce publish",
-    "webview": "cd src/webview && yarn build --watch"
+    "webview": "cd src/webview ; yarn build --watch"
   },
   "devDependencies": {
     "@types/mocha": "^5.2.5",

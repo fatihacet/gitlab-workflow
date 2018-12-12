@@ -379,9 +379,13 @@ async function fetchDiscussions(issuable) {
 
   try {
     const type = issuable.sha ? 'merge_requests' : 'issues';
-    discussions = await fetch(`/projects/${issuable.project_id}/${type}/${issuable.iid}/discussions?sort=asc`);
+    discussions = await fetch(
+      `/projects/${issuable.project_id}/${type}/${issuable.iid}/discussions?sort=asc`,
+    );
   } catch (e) {
-    vscode.window.showInformationMessage('GitLab Workflow: Failed to fetch discussions for this issuable.');
+    vscode.window.showInformationMessage(
+      'GitLab Workflow: Failed to fetch discussions for this issuable.',
+    );
   }
 
   return discussions;
@@ -390,7 +394,7 @@ async function fetchDiscussions(issuable) {
 // TODO: Remove project fetch
 async function renderMarkdown(markdown) {
   let rendered = { html: markdown };
-  const [ major ] = version.split('.');
+  const [major] = version.split('.');
 
   if (parseInt(major, 10) < 11) {
     return markdown;
@@ -403,12 +407,12 @@ async function renderMarkdown(markdown) {
       project: project.path_with_namespace,
       gfm: 'true', // Needs to be a string for the API
     });
-  } catch(e) {
+  } catch (e) {
     return markdown;
   }
 
   return rendered.html;
-};
+}
 
 exports.fetchUser = fetchUser;
 exports.fetchIssuesAssignedToMe = fetchIssuesAssignedToMe;
