@@ -1,6 +1,9 @@
 # CHANGELOG
 
 ## [1.6.0] - 2018-12-12
+### Security
+- Fixed NPM security issues
+
 ### Added
 - Pipeline notification on the status bar will now include the list of running and failed jobs
   - Implemented by [@jduponchelle](https://gitlab.com/jduponchelle)
