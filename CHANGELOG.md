@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## [1.6.0] - 2018-12-12
+### Added
+- Pipeline notification on the status bar will now include the list of running and failed jobs
+  - Implemented by [@jduponchelle](https://gitlab.com/jduponchelle)
+    - with [MR !23](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/22)
+
+### Fixed
+- Refresh buttons on the sidebar were visible for all panes and even for other extensions.
+  - Fixed by [@Logerfo](https://gitlab.com/Logerfo)
+    - with [MR !26](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/25)
+
+
 ## [1.5.1] - 2018-11-28
 ### Fixed
 - View in GitLab button in the pipeline updated notification was not visible
@@ -13,6 +25,7 @@
   - Implemented by [@jduponchelle](https://gitlab.com/jduponchelle)
     - with [MR !22](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/22)
     - closes [Issue #59](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/59)
+
 
 ## [1.4.0] - 2018-11-06
 ### Added
@@ -219,5 +232,5 @@
 
 ## [0.1.1] - 2018-01-25
 ### Added
-- Implemented show issues assinged to me.
-- Implemented show merge requests assinged to me.
+- Implemented show issues assigned to me.
+- Implemented show merge requests assigned to me.
