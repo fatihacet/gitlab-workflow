@@ -3,6 +3,7 @@ const execa = require('execa');
 const url = require('url');
 
 const getWorkspaceRootPath = () => vscode.workspace.workspaceFolders[0].uri.fsPath;
+const currentInstanceUrl = () => vscode.workspace.getConfiguration('gitlab').instanceUrl;
 
 async function fetch(cmd) {
   const [git, ...args] = cmd.split(' ');
@@ -53,7 +54,23 @@ async function fetchLastCommitId() {
   return output;
 }
 
+const getInstancePath = () => {
+  const pathname = url.parse(currentInstanceUrl()).pathname;
+  if (pathname != "/") {
+    // Remove trailing slash if exists
+    return pathname.replace(/\/$/, "");
+  } else {
+    // Do not return extra slash if no extra path in instance url
+    return "";
+  }
+}
+
+const escapeForRegExp = str => {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
 const parseGitRemote = remote => {
+  const pathRegExp = escapeForRegExp(getInstancePath());
   if (remote.startsWith('git@') || remote.startsWith('git://')) {
     const match = new RegExp('^git(?:@|://)([^:/]+)(?::|:/|/)(.+)/(.+?)(?:.git)?$', 'i').exec(
       remote,
@@ -72,7 +89,7 @@ const parseGitRemote = remote => {
     return null;
   }
 
-  const match = pathname.match(/\/(.+)\/(.*?)(?:.git)?$/);
+  const match = pathname.match(pathRegExp + '\/(.+)\/(.*?)(?:.git)?$');
   if (!match) {
     return null;
   }
