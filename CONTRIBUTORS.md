@@ -12,3 +12,4 @@
 - Julien Duponchelle [@jduponchelle](https://gitlab.com/jduponchelle)
 - Kasper Laursen [@Clapfire](https://gitlab.com/Clapfire)
 - Bruno Logerfo [@Logerfo](https://gitlab.com/Logerfo)
+- Tuomo Ala-Vannesluoma [@tuomoa](https://gitlab.com/tuomoa)
