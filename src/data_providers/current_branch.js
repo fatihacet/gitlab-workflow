@@ -77,8 +77,10 @@ class DataProvider {
         const issues = await gitLabService.fetchMRIssues(this.mr.iid);
 
         if (issues.length) {
-          issues.forEach((issue) => {
-            this.children.push(new SidebarTreeItem(`Issue: #${issue.iid} · ${issue.title}`, issue.web_url));
+          issues.forEach(issue => {
+            this.children.push(
+              new SidebarTreeItem(`Issue: #${issue.iid} · ${issue.title}`, issue.web_url),
+            );
           });
         } else {
           this.children.push(new SidebarTreeItem('No closing issue found.'));

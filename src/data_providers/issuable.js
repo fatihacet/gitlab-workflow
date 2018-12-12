@@ -17,7 +17,7 @@ class DataProvider {
     const issues = await gitLabService[this.fetcher]();
 
     if (issues.length) {
-      issues.forEach((issue) => {
+      issues.forEach(issue => {
         const title = `${this.issuableSign}${issue.iid} · ${issue.title}`;
 
         items.push(new SidebarTreeItem(title, issue));

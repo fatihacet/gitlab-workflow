@@ -5,9 +5,9 @@ const gitLabService = require('./gitlab_service');
 
 let context = null;
 
-const addDeps = (ctx) => {
+const addDeps = ctx => {
   context = ctx;
-}
+};
 
 const getNonce = () => {
   let text = '';
@@ -18,7 +18,7 @@ const getNonce = () => {
   }
 
   return text;
-}
+};
 
 const getResources = () => {
   const paths = {
@@ -26,22 +26,22 @@ const getResources = () => {
     vendorUri: 'src/webview/dist/js/chunk-vendors.js',
     styleUri: 'src/webview/dist/css/app.css',
     devScriptUri: 'src/webview/dist/app.js',
-  }
+  };
 
-  Object.keys(paths).forEach((key) => {
+  Object.keys(paths).forEach(key => {
     const uri = vscode.Uri.file(path.join(context.extensionPath, paths[key]));
 
     paths[key] = uri.with({ scheme: 'vscode-resource' });
   });
 
   return paths;
-}
+};
 
 const getIndexPath = () => {
-  const isDev = !(fs.existsSync(path.join(context.extensionPath, 'src/webview/dist/js/app.js')));
+  const isDev = !fs.existsSync(path.join(context.extensionPath, 'src/webview/dist/js/app.js'));
 
   return isDev ? 'src/webview/public/dev.html' : 'src/webview/public/index.html';
-}
+};
 
 const replaceResources = () => {
   const { appScriptUri, vendorUri, styleUri, devScriptUri } = getResources();
@@ -53,18 +53,16 @@ const replaceResources = () => {
     .replace('{{vendorUri}}', vendorUri)
     .replace('{{appScriptUri}}', appScriptUri)
     .replace('{{devScriptUri}}', devScriptUri);
-}
+};
 
-const createPanel = (issuable) => {
+const createPanel = issuable => {
   const title = `${issuable.title.slice(0, 20)}...`;
 
   return vscode.window.createWebviewPanel('glWorkflow', title, vscode.ViewColumn.One, {
     enableScripts: true,
-    localResourceRoots: [
-      vscode.Uri.file(path.join(context.extensionPath, 'src')),
-    ]
+    localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'src'))],
   });
-}
+};
 
 async function create(issuable) {
   const panel = createPanel(issuable);
@@ -74,7 +72,7 @@ async function create(issuable) {
   const discussions = await gitLabService.fetchDiscussions(issuable);
 
   panel.webview.postMessage({ type: 'issuableFetch', issuable, discussions });
-  panel.webview.onDidReceiveMessage(async (message) => {
+  panel.webview.onDidReceiveMessage(async message => {
     if (message.command === 'renderMarkdown') {
       let rendered = await gitLabService.renderMarkdown(message.markdown);
       rendered = rendered.replace(/ src=".*" alt/gim, ' alt').replace(/" data-src/gim, '" src');

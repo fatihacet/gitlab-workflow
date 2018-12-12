@@ -75,14 +75,14 @@ const registerSidebarTreeDataProviders = () => {
   const register = (name, provider) => {
     vscode.window.registerTreeDataProvider(name, provider);
     vscode.gitLabWorkflow.sidebarDataProviders.push(provider);
-  }
+  };
 
   register('issuesAssignedToMe', assignedIssuesDataProvider);
   register('issuesCreatedByMe', createdIssuesDataProvider);
   register('mrsAssignedToMe', assignedMrsDataProvider);
   register('mrsCreatedByMe', createdMrsDataProvider);
   register('currentBranchInfo', currentBranchDataProvider);
-}
+};
 
 const init = () => {
   webviewController.addDeps(context);
