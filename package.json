@@ -114,6 +114,7 @@
       "view/title": [
         {
           "command": "gl.refreshSidebar",
+          "when": "view =~ /(issuesAssignedToMe|issuesCreatedByMe|mrsCreatedByMe|mrsAssignedToMe|currentBranchInfo)/",
           "group": "navigation"
         }
       ]
