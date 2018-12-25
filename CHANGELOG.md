@@ -1,11 +1,19 @@
 # CHANGELOG
 
+## [1.8.0] - 2019-01-02
+
+### Added
+- A new panel in the GitLab sidebar to show all MRs in the current project
+  - Implemented by [@jkdufair](https://gitlab.com/jkdufair) with [MR !27](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/27) 👍
+
+
 ## [1.7.0] - 2018-12-13
 
 ### Added
 - Ability to work with the non-root domains for self hosted GitLab instances.
-  - Implemented by [@tuomoa](https://gitlab.com/tuomoa) with [MR !11](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/11)  👍
-  - Special thanks to [@Turmio](https://gitlab.com/Turmio) for helping to test this.
+  - Implemented by [@tuomoa](https://gitlab.com/tuomoa) with [MR !11](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/11) 👍
+  - Special thanks to [@Turmio](https://gitlab.com/Turmio) for helping to test this. 👍
+
 
 ## [1.6.0] - 2018-12-12
 ### Security
@@ -13,7 +21,7 @@
 
 ### Added
 - Pipeline notification on the status bar will now include the list of running and failed jobs
-  - Implemented by [@jduponchelle](https://gitlab.com/jduponchelle) with [MR !23](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/23)  👍
+  - Implemented by [@jduponchelle](https://gitlab.com/jduponchelle) with [MR !23](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/23) 👍
 
 ### Fixed
 - Refresh buttons on the sidebar were visible for all panes and even for other extensions.

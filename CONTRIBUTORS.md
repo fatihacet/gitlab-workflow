@@ -13,3 +13,5 @@
 - Kasper Laursen [@Clapfire](https://gitlab.com/Clapfire)
 - Bruno Logerfo [@Logerfo](https://gitlab.com/Logerfo)
 - Tuomo Ala-Vannesluoma [@tuomoa](https://gitlab.com/tuomoa)
+- Jason Dufair [@jkdufair](https://gitlab.com/jkdufair)
+- Frank [@ffes](https://gitlab.com/ffes)
