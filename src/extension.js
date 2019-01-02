@@ -66,6 +66,12 @@ const registerSidebarTreeDataProviders = () => {
     noItemText: 'There is no MR created by you.',
   });
 
+  const allProjectMrsDataProvider = new IssuableDataProvider({
+    fetcher: 'fetchAllProjectMergeRequests',
+    issuableType: 'merge request',
+    noItemText: 'The project has no merge requests',
+  });
+
   const currentBranchDataProvider = new CurrentBranchDataProvider();
 
   const register = (name, provider) => {
@@ -77,6 +83,7 @@ const registerSidebarTreeDataProviders = () => {
   register('issuesCreatedByMe', createdIssuesDataProvider);
   register('mrsAssignedToMe', assignedMrsDataProvider);
   register('mrsCreatedByMe', createdMrsDataProvider);
+  register('allProjectMrs', allProjectMrsDataProvider);
   register('currentBranchInfo', currentBranchDataProvider);
 }
 

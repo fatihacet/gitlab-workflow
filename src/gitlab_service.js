@@ -171,6 +171,12 @@ async function fetchMergeRequestsCreatedByMe() {
   return await fetchIssuables();
 }
 
+async function fetchAllProjectMergeRequests() {
+  return await fetchIssuables({
+    scope: 'all',
+  });
+}
+
 async function fetchMyOpenMergeRequests() {
   return await fetchIssuables();
 }
@@ -340,6 +346,7 @@ exports.fetchIssuesAssignedToMe = fetchIssuesAssignedToMe;
 exports.fetchIssuesCreatedByMe = fetchIssuesCreatedByMe;
 exports.fetchMergeRequestsAssignedToMe = fetchMergeRequestsAssignedToMe;
 exports.fetchMergeRequestsCreatedByMe = fetchMergeRequestsCreatedByMe;
+exports.fetchAllProjectMergeRequests = fetchAllProjectMergeRequests;
 exports.fetchMyOpenMergeRequests = fetchMyOpenMergeRequests;
 exports.fetchOpenMergeRequestForCurrentBranch = fetchOpenMergeRequestForCurrentBranch;
 exports.fetchLastPipelineForCurrentBranch = fetchLastPipelineForCurrentBranch;

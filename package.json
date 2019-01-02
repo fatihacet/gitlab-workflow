@@ -114,7 +114,7 @@
       "view/title": [
         {
           "command": "gl.refreshSidebar",
-          "when": "view =~ /(issuesAssignedToMe|issuesCreatedByMe|mrsCreatedByMe|mrsAssignedToMe|currentBranchInfo)/",
+          "when": "view =~ /(issuesAssignedToMe|issuesCreatedByMe|mrsCreatedByMe|mrsAssignedToMe|allProjectMrs|currentBranchInfo)/",
           "group": "navigation"
         }
       ]
@@ -145,6 +145,11 @@
         {
           "id": "mrsAssignedToMe",
           "name": "Merge Requests assigned to me"
+        },
+        {
+          "id": "allProjectMrs",
+          "name": "All Project Merge Requests",
+          "when": "config.gitlab.showProjectMergeRequests"
         },
         {
           "id": "currentBranchInfo",
@@ -199,6 +204,11 @@
           "type": "boolean",
           "default": false,
           "description": "Show notification in VSCode when pipeline status changed"
+        },
+        "gitlab.showProjectMergeRequests": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable the \"All Project Merge Requests\" sidebar pane"
         }
       }
     }
