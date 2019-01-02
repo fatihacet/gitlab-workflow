@@ -1,6 +1,7 @@
 <script>
 import IssuableDetails from './components/IssuableDetails';
 import IssuableDiscussions from './components/IssuableDiscussions';
+import CommentForm from './components/CommentForm';
 
 const vscode = acquireVsCodeApi();
 
@@ -16,6 +17,7 @@ export default {
   components: {
     IssuableDetails,
     IssuableDiscussions,
+    CommentForm,
   },
   computed: {
     notesById() {
@@ -63,6 +65,7 @@ export default {
     <template v-else>
       <issuable-details :issuable="issuable" />
       <issuable-discussions :discussions="discussions" />
+      <comment-form :issuable="issuable" />
     </template>
   </div>
 </template>

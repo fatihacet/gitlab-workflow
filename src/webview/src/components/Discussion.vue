@@ -53,7 +53,11 @@ export default {
     class="discussion"
   >
     <note :noteable="initialDiscussion" />
-    <div @click="toggleReplies" class="toggle-widget">
+    <div
+      v-if="hasReplies"
+      @click="toggleReplies"
+      class="toggle-widget"
+    >
       <span
         class="chevron"
         v-html="toggleRepliesIcon"></span> {{ toggleRepliesText }}
