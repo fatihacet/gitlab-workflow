@@ -34,7 +34,7 @@ async function createSnippet(project, editor, visibility, context) {
 
   if (context === 'selection' && editor.selection) {
     const { start, end } = editor.selection;
-    const endLine = start.line === end.line ? end.line + 1 : end.line;
+    const endLine = end.line + 1;
     const startPos = new vscode.Position(start.line, 0);
     const endPos = new vscode.Position(endLine, 0);
     const range = new vscode.Range(startPos, endPos);
