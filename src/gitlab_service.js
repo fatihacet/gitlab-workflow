@@ -10,7 +10,7 @@ let version = null;
 let branchMR = null;
 
 async function fetch(path, method = 'GET', data = null) {
-  const { instanceUrl, ignoreCertificateErrors, ca } = vscode.workspace.getConfiguration('gitlab');
+  const { instanceUrl, ignoreCertificateErrors, ca, cert, certKey } = vscode.workspace.getConfiguration('gitlab');
   const { proxy } = vscode.workspace.getConfiguration('http');
   const apiRoot = `${instanceUrl}/api/v4`;
   const glToken = tokenService.getToken(instanceUrl);
@@ -39,6 +39,22 @@ async function fetch(path, method = 'GET', data = null) {
       config.ca = fs.readFileSync(ca);
     } catch (e) {
       vscode.window.showErrorMessage(`GitLab Workflow: Cannot read CA '${ca}'`);
+    }
+  }
+
+  if (cert) {
+    try {
+      config.cert = fs.readFileSync(cert);
+    } catch (e) {
+      vscode.window.showErrorMessage(`GitLab Workflow: Cannot read CA '${cert}'`);
+    }
+  }
+
+  if (certKey) {
+    try {
+      config.key = fs.readFileSync(certKey);
+    } catch (e) {
+      vscode.window.showErrorMessage(`GitLab Workflow: Cannot read CA '${certKey}'`);
     }
   }
 
