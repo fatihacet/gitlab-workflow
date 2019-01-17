@@ -89,6 +89,14 @@ You can toggle visibility of MR link in your sidebar. You can always find MR lin
 
 If your self-hosted GitLab instance has a self-signed SSL certificate you would probably need to set this option in to point your certificate file. More discussion can be found [in this issue](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/26).
 
+**`gitlab.cert`** _(required: false, default: null)_
+
+If your self-hosted GitLab instance requires a custom cert/key pair you would probably need to set this option in to point your certificate file. Please also see `gitlab.certKey` option. More information [here](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/29#note_132284448).
+
+**`gitlab.certKey`** _(required: false, default: null)_
+
+If your self-hosted GitLab instance requires a custom cert/key pair you would probably need to set this option in to point your certificate key file. Please also see `gitlab.cert` option. More information [here](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/29#note_132284448).
+
 **`gitlab.ignoreCertificateErrors`**  _(required: false, default: false)_
 
 If you are using a self-hosted GitLab instance with no SSL certificate or having certificate issues and unable to use the extension you may want to set this option to `true` to ignore certificate errors. More information can be found [here](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/26#note_61312786).

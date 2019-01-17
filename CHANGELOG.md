@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [1.9.0] - 2019-01-17
+
+### Added
+- Support for crt/key pair certificates for users that may use a *.p12 certificate
+  - Implemented by [@joshanne](https://gitlab.com/joshanne) with [MR !29](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/29) 👍
+
+
 ## [1.8.0] - 2019-01-02
 
 ### Added
