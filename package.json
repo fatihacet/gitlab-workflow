@@ -185,6 +185,16 @@
           "default": null,
           "description": "Custom CA file to use (example: /etc/ssl/certs/ca-certificates.crt)"
         },
+        "gitlab.cert": {
+          "type": "string",
+          "default": null,
+          "description": "Custom Certificate file to use (example: /etc/ssl/certs/certificate.crt)"
+        },
+        "gitlab.certKey": {
+          "type": "string",
+          "default": null,
+          "description": "Custom Certificate Key file to use (example: /etc/ssl/certs/certificateKey.key)"
+        },
         "gitlab.ignoreCertificateErrors": {
           "type": "boolean",
           "default": false,
