@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [1.9.1] - 2019-01-18
+
+### Fixed
+- [#28](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/28) Creating a snippet doesn't work when only 2 lines selected
+  - Fixed by by [@joshanne](https://gitlab.com/joshanne) with [MR !30](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/30) 👍
+
+
 ## [1.9.0] - 2019-01-17
 
 ### Added
@@ -38,7 +45,7 @@
 ## [1.5.1] - 2018-11-28
 ### Fixed
 - View in GitLab button in the pipeline updated notification was not visible
-  - Implemented by [@Clapfire](https://gitlab.com/Clapfire) with [MR !24](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/24) 👍
+  - Fixed by [@Clapfire](https://gitlab.com/Clapfire) with [MR !24](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/24) 👍
 
 
 ## [1.5.0] - 2018-11-08
