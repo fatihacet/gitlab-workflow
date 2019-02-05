@@ -1,6 +1,15 @@
 # CHANGELOG
 
+## [1.9.3] - 2019-02-05
+
+### Fixed
+- Fix broken v1.9.2 by including require package
+  - Fixed by [@swiffer](https://gitlab.com/swiffer) with [MR !33](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/33) 👍
+
+
 ## [1.9.2] - 2019-02-05
+
+### Please skip this version and upgrade to v1.9.3
 
 ### Fixed
 - Node 8.5/8.6 request bug, moved vscode to devDependencies and upgraded npm packages
