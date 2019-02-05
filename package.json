@@ -2,7 +2,7 @@
   "name": "gitlab-workflow",
   "displayName": "GitLab Workflow",
   "description": "GitLab VSCode integration",
-  "version": "1.9.3",
+  "version": "2.0.0-alpha.1",
   "publisher": "fatihacet",
   "license": "MIT",
   "repository": {
@@ -224,6 +224,7 @@
     }
   },
   "scripts": {
+    "preinstall": "cd src/webview ; yarn",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "node ./node_modules/vscode/bin/test",
     "eslint": "eslint --max-warnings 0 --ext .js .",

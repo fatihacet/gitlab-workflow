@@ -1,5 +1,3 @@
-const fs = require('fs');
-const path = require('path');
 const vscode = require('vscode');
 const openers = require('./openers');
 const tokenInput = require('./token_input');
