@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## [1.9.2] - 2019-02-05
+
+### Fixed
+- Node 8.5/8.6 request bug, moved vscode to devDependencies and upgraded npm packages
+  - Fixed by [@swiffer](https://gitlab.com/swiffer) with [MR !32](https://gitlab.com/fatihacet/gitlab-vscode-extension/merge_requests/32) 👍
+
+### Changed
+- [#85](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues/85) Print URLs in "No token found" warning
+  - This was done for troubleshooting purposes. A lot of people are having hard time to configure the instance url and hopefully this will give them a clue to understand what's going wrong.
+
+
 ## [1.9.1] - 2019-01-18
 
 ### Fixed
