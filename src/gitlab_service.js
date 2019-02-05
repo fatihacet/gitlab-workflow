@@ -19,11 +19,20 @@ async function fetch(path, method = 'GET', data = null) {
   const { proxy } = vscode.workspace.getConfiguration('http');
   const apiRoot = `${instanceUrl}/api/v4`;
   const glToken = tokenService.getToken(instanceUrl);
+  const tokens = tokenService.getInstanceUrls().join(', ');
 
   if (!glToken) {
-    return vscode.window.showInformationMessage(
-      'GitLab Workflow: Cannot make request. No token found.',
-    );
+    let err = `
+      GitLab Workflow: Cannot make request.
+      GitLab URL for this workspace is set to ${instanceUrl}
+      and there is no matching token for this URL.
+    `;
+
+    if (tokens.length) {
+      err = `${err} You have configured tokens for ${tokens}.`;
+    }
+
+    return vscode.window.showInformationMessage(err);
   }
 
   const config = {
