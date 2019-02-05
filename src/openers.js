@@ -2,9 +2,9 @@ const vscode = require('vscode');
 const gitService = require('./git_service');
 const gitLabService = require('./gitlab_service');
 
-const openUrl = (url) => {
+const openUrl = url => {
   vscode.commands.executeCommand('vscode.open', vscode.Uri.parse(url));
-}
+};
 
 /**
  * Fetches user and project before opening a link.

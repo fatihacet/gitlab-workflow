@@ -2,7 +2,6 @@ const vscode = require('vscode');
 const request = require('request-promise');
 const fs = require('fs');
 const gitService = require('./git_service');
-const openers = require('./openers');
 const tokenService = require('./token_service');
 const statusBar = require('./status_bar');
 
@@ -10,7 +9,13 @@ let version = null;
 let branchMR = null;
 
 async function fetch(path, method = 'GET', data = null) {
-  const { instanceUrl, ignoreCertificateErrors, ca, cert, certKey } = vscode.workspace.getConfiguration('gitlab');
+  const {
+    instanceUrl,
+    ignoreCertificateErrors,
+    ca,
+    cert,
+    certKey,
+  } = vscode.workspace.getConfiguration('gitlab');
   const { proxy } = vscode.workspace.getConfiguration('http');
   const apiRoot = `${instanceUrl}/api/v4`;
   const glToken = tokenService.getToken(instanceUrl);
@@ -27,6 +32,7 @@ async function fetch(path, method = 'GET', data = null) {
     headers: {
       'PRIVATE-TOKEN': glToken,
     },
+    ecdhCurve: 'auto',
     rejectUnauthorized: !ignoreCertificateErrors,
   };
 
@@ -128,6 +134,15 @@ async function fetchUser(userName) {
   return user;
 }
 
+async function fetchVersion() {
+  try {
+    const v = await fetch('/version');
+    version = v.version;
+  } catch (e) {}
+
+  return version;
+}
+
 async function fetchIssuables(params = {}) {
   let project = null;
   let issuables = [];
@@ -137,7 +152,7 @@ async function fetchIssuables(params = {}) {
     type: type || 'merge_requests',
     scope: scope || 'created_by_me',
     state: state || 'opened',
-  }
+  };
 
   try {
     project = await fetchCurrentProject();
@@ -151,12 +166,14 @@ async function fetchIssuables(params = {}) {
 
   if (project) {
     // Normalize scope parameter for version < 11 instances.
-    const [ major ] = version.split('.');
+    const [major] = version.split('.');
     if (parseInt(major, 10) < 11) {
       config.scope = config.scope.replace(/_/g, '-');
     }
 
-    const path = `/projects/${project.id}/${config.type}?scope=${config.scope}&state=${config.state}`;
+    const path = `/projects/${project.id}/${config.type}?scope=${config.scope}&state=${
+      config.state
+    }`;
     issuables = await fetch(path);
   }
 
@@ -346,15 +363,6 @@ async function validateCIConfig(content) {
   }
 
   return response;
-}
-
-async function fetchVersion() {
-  try {
-    const v = await fetch('/version');
-    version = v.version;
-  } catch (e) {}
-
-  return version;
 }
 
 exports.fetchUser = fetchUser;
