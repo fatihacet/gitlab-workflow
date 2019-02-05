@@ -83,13 +83,13 @@ async function refreshPipeline() {
 
     const msg = `$(${statuses[status].icon}) GitLab: Pipeline ${statusText}`;
 
-    if (showPipelineUpdateNotifications && pipelineStatusBarItem.text != msg && !firstRun) {
+    if (showPipelineUpdateNotifications && pipelineStatusBarItem.text !== msg && !firstRun) {
       const message = `Pipeline ${statusText}.`;
 
       vscode.window
         .showInformationMessage(message, { modal: false }, 'View in Gitlab')
         .then(selection => {
-          if (selection == 'View in Gitlab') {
+          if (selection === 'View in Gitlab') {
             openers.openCurrentPipeline();
           }
         });

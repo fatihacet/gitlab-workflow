@@ -8,7 +8,7 @@ class SidebarTreeItem extends vscode.TreeItem {
       this.command = {
         command: 'vscode.open',
         arguments: [vscode.Uri.parse(url)],
-      }
+      };
     }
   }
 }

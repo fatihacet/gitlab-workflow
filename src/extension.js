@@ -15,34 +15,6 @@ vscode.gitLabWorkflow = {
   sidebarDataProviders: [],
 };
 
-const registerCommands = () => {
-  const commands = {
-    'gl.showIssuesAssignedToMe': openers.showIssues,
-    'gl.showMergeRequestsAssignedToMe': openers.showMergeRequests,
-    'gl.setToken': tokenInput.showInput,
-    'gl.removeToken': tokenInput.removeTokenPicker,
-    'gl.openActiveFile': openers.openActiveFile,
-    'gl.openCurrentMergeRequest': openers.openCurrentMergeRequest,
-    'gl.openCreateNewIssue': openers.openCreateNewIssue,
-    'gl.openCreateNewMR': openers.openCreateNewMr,
-    'gl.openProjectPage': openers.openProjectPage,
-    'gl.openCurrentPipeline': openers.openCurrentPipeline,
-    'gl.pipelineActions': pipelineActionsPicker.showPicker,
-    'gl.issueSearch': searchInput.showIssueSearchInput,
-    'gl.mergeRequestSearch': searchInput.showMergeRequestSearchInput,
-    'gl.compareCurrentBranch': openers.compareCurrentBranch,
-    'gl.createSnippet': snippetInput.show,
-    'gl.validateCIConfig': ciConfigValidator.validate,
-    'gl.refreshSidebar': sidebar.refresh,
-  };
-
-  Object.keys(commands).forEach(cmd => {
-    context.subscriptions.push(vscode.commands.registerCommand(cmd, commands[cmd]));
-  });
-
-  registerSidebarTreeDataProviders();
-};
-
 const registerSidebarTreeDataProviders = () => {
   const assignedIssuesDataProvider = new IssuableDataProvider({
     fetcher: 'fetchIssuesAssignedToMe',
@@ -77,7 +49,7 @@ const registerSidebarTreeDataProviders = () => {
   const register = (name, provider) => {
     vscode.window.registerTreeDataProvider(name, provider);
     vscode.gitLabWorkflow.sidebarDataProviders.push(provider);
-  }
+  };
 
   register('issuesAssignedToMe', assignedIssuesDataProvider);
   register('issuesCreatedByMe', createdIssuesDataProvider);
@@ -85,7 +57,35 @@ const registerSidebarTreeDataProviders = () => {
   register('mrsCreatedByMe', createdMrsDataProvider);
   register('allProjectMrs', allProjectMrsDataProvider);
   register('currentBranchInfo', currentBranchDataProvider);
-}
+};
+
+const registerCommands = () => {
+  const commands = {
+    'gl.showIssuesAssignedToMe': openers.showIssues,
+    'gl.showMergeRequestsAssignedToMe': openers.showMergeRequests,
+    'gl.setToken': tokenInput.showInput,
+    'gl.removeToken': tokenInput.removeTokenPicker,
+    'gl.openActiveFile': openers.openActiveFile,
+    'gl.openCurrentMergeRequest': openers.openCurrentMergeRequest,
+    'gl.openCreateNewIssue': openers.openCreateNewIssue,
+    'gl.openCreateNewMR': openers.openCreateNewMr,
+    'gl.openProjectPage': openers.openProjectPage,
+    'gl.openCurrentPipeline': openers.openCurrentPipeline,
+    'gl.pipelineActions': pipelineActionsPicker.showPicker,
+    'gl.issueSearch': searchInput.showIssueSearchInput,
+    'gl.mergeRequestSearch': searchInput.showMergeRequestSearchInput,
+    'gl.compareCurrentBranch': openers.compareCurrentBranch,
+    'gl.createSnippet': snippetInput.show,
+    'gl.validateCIConfig': ciConfigValidator.validate,
+    'gl.refreshSidebar': sidebar.refresh,
+  };
+
+  Object.keys(commands).forEach(cmd => {
+    context.subscriptions.push(vscode.commands.registerCommand(cmd, commands[cmd]));
+  });
+
+  registerSidebarTreeDataProviders();
+};
 
 const init = () => {
   tokenService.init(context);

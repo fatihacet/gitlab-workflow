@@ -56,18 +56,18 @@ async function fetchLastCommitId() {
 
 const getInstancePath = () => {
   const pathname = url.parse(currentInstanceUrl()).pathname;
-  if (pathname != "/") {
+  if (pathname !== '/') {
     // Remove trailing slash if exists
-    return pathname.replace(/\/$/, "");
-  } else {
-    // Do not return extra slash if no extra path in instance url
-    return "";
+    return pathname.replace(/\/$/, '');
   }
-}
+
+  // Do not return extra slash if no extra path in instance url
+  return '';
+};
 
 const escapeForRegExp = str => {
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-}
+};
 
 const parseGitRemote = remote => {
   const pathRegExp = escapeForRegExp(getInstancePath());
