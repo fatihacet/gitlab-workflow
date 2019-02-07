@@ -64,18 +64,15 @@ const createPanel = issuable => {
   });
 };
 
-async function create(issuable) {
-  const panel = createPanel(issuable);
-  const html = replaceResources();
-  panel.webview.html = html;
-
+async function handleCreate(panel, issuable) {
   const discussions = await gitLabService.fetchDiscussions(issuable);
-
   panel.webview.postMessage({ type: 'issuableFetch', issuable, discussions });
   panel.webview.onDidReceiveMessage(async message => {
     if (message.command === 'renderMarkdown') {
       let rendered = await gitLabService.renderMarkdown(message.markdown);
-      rendered = rendered.replace(/ src=".*" alt/gim, ' alt').replace(/" data-src/gim, '" src');
+      rendered = (rendered || '')
+        .replace(/ src=".*" alt/gim, ' alt')
+        .replace(/" data-src/gim, '" src');
 
       panel.webview.postMessage({
         type: 'markdownRendered',
@@ -85,6 +82,18 @@ async function create(issuable) {
       });
     }
   });
+}
+
+async function create(issuable) {
+  const panel = createPanel(issuable);
+  const html = replaceResources();
+  panel.webview.html = html;
+
+  panel.onDidChangeViewState(() => {
+    handleCreate(panel, issuable);
+  });
+
+  handleCreate(panel, issuable);
 }
 
 exports.addDeps = addDeps;
