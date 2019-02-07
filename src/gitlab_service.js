@@ -414,6 +414,24 @@ async function renderMarkdown(markdown) {
   return rendered.html;
 }
 
+async function saveNote({ issuable, note }) {
+  let response = {};
+
+  try {
+    const projectId = issuable.project_id;
+    const issueId = issuable.iid;
+    response = await fetch(`/projects/${projectId}/issues/${issueId}/notes`, 'POST', {
+      id: projectId,
+      issue_iid: issueId,
+      body: note,
+    });
+  } catch (e) {
+    response = { success: false };
+  }
+
+  return response;
+}
+
 exports.fetchUser = fetchUser;
 exports.fetchIssuesAssignedToMe = fetchIssuesAssignedToMe;
 exports.fetchIssuesCreatedByMe = fetchIssuesCreatedByMe;
@@ -433,3 +451,4 @@ exports.validateCIConfig = validateCIConfig;
 exports.fetchVersion = fetchVersion;
 exports.fetchDiscussions = fetchDiscussions;
 exports.renderMarkdown = renderMarkdown;
+exports.saveNote = saveNote;

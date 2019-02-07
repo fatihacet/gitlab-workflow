@@ -29,7 +29,8 @@ export default {
       }
 
       const description = this.issuable.description || '';
-      const path = `${this.issuable.web_url.split('/issues/')[0]}/uploads/`;
+      const webUrl = this.issuable.web_url || '';
+      const path = `${webUrl.split('/issues/')[0]}/uploads/`;
       const normalized = description.replace(/\/uploads/gm, path);
 
       return md.render(normalized);

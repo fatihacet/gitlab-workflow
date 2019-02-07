@@ -9,15 +9,48 @@ export default {
   data() {
     return {
       note: '',
+      isSaving: false,
+      isFailed: false,
+      command: 'saveNote',
     };
+  },
+  computed: {
+    buttonTitle() {
+      return this.isSaving ? 'Saving...' : 'Comment';
+    },
+  },
+  methods: {
+    addComment() {
+      const { issuable, note, command } = this;
+
+      this.isSaving = true;
+      this.isFailed = false;
+      window.vsCodeApi.postMessage({ command, issuable, note });
+    },
+  },
+  mounted() {
+    window.addEventListener('message', event => {
+      if (event.data.type === 'noteSaved') {
+        if (event.data.status !== false) {
+          this.note = '';
+        } else {
+          this.isFailed = true;
+        }
+
+        this.isSaving = false;
+      }
+    });
   },
 };
 </script>
 
 <template>
   <div class="main-comment-form">
-    <textarea v-model="note"></textarea>
-    <button>Comment</button>
+    <textarea v-model="note" placeholder="Write a comment..."></textarea>
+    <button @click="addComment" :disabled="isSaving || !note.length">
+      {{ buttonTitle }}
+    </button>
+    <span v-if="isFailed">Failed to save your comment. Please try again.</span>
   </div>
 </template>
 

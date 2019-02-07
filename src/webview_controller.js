@@ -81,6 +81,21 @@ async function handleCreate(panel, issuable) {
         markdown: rendered,
       });
     }
+
+    if (message.command === 'saveNote') {
+      const response = await gitLabService.saveNote({
+        issuable: message.issuable,
+        note: message.note,
+      });
+
+      if (response.status !== false) {
+        const newDiscussions = await gitLabService.fetchDiscussions(issuable);
+        panel.webview.postMessage({ type: 'issuableFetch', issuable, discussions: newDiscussions });
+        panel.webview.postMessage({ type: 'noteSaved' });
+      } else {
+        panel.webview.postMessage({ type: 'noteSaved', status: false });
+      }
+    }
   });
 }
 
