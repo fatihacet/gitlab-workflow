@@ -219,6 +219,11 @@
           "type": "boolean",
           "default": true,
           "description": "Enable the \"All Project Merge Requests\" sidebar pane"
+        },
+        "gitlab.enableExperimentalFeatures": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable experimental features including showing Issue details in VSCode"
         }
       }
     }
