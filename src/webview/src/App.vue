@@ -73,10 +73,10 @@ export default {
 <style lang="scss">
 body.vscode-light {
   * {
-    border-color: #333 !important;
+    border-color: #B3B7BE !important;
 
     &::before {
-      border-color: #333 !important;
+      border-color: #B3B7BE !important;
     }
   }
 
@@ -111,9 +111,13 @@ code {
   background: #7cba8d;
 }
 
-#app .loading {
-  text-align: center;
-  font-size: 14px;
-  line-height: 30px;
+#app {
+  margin-bottom: 600px; // to give editor scroll past end effect
+
+  .loading {
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+  }
 }
 </style>
