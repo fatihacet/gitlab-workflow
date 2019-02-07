@@ -79,8 +79,8 @@ const parseQuery = (query, noteableType) => {
   }
 
   // URL encode keys and values and return a new array to build actual query string.
-  const queryParams = Object.keys(params).map(
-    k => (params[k] ? `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}` : ''),
+  const queryParams = Object.keys(params).map(k =>
+    params[k] ? `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}` : '',
   );
 
   return queryParams.length ? `?${queryParams.join('&')}` : '';

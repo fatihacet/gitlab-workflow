@@ -66,7 +66,7 @@ const getInstancePath = () => {
 };
 
 const escapeForRegExp = str => {
-  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 };
 
 const parseGitRemote = remote => {
@@ -89,7 +89,7 @@ const parseGitRemote = remote => {
     return null;
   }
 
-  const match = pathname.match(pathRegExp + '\/(.+)\/(.*?)(?:.git)?$');
+  const match = pathname.match(pathRegExp + '/(.+)/(.*?)(?:.git)?$');
   if (!match) {
     return null;
   }

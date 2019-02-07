@@ -374,6 +374,64 @@ async function validateCIConfig(content) {
   return response;
 }
 
+async function fetchDiscussions(issuable) {
+  let discussions = [];
+
+  try {
+    const type = issuable.sha ? 'merge_requests' : 'issues';
+    discussions = await fetch(
+      `/projects/${issuable.project_id}/${type}/${issuable.iid}/discussions?sort=asc`,
+    );
+  } catch (e) {
+    vscode.window.showInformationMessage(
+      'GitLab Workflow: Failed to fetch discussions for this issuable.',
+    );
+  }
+
+  return discussions;
+}
+
+// TODO: Remove project fetch
+async function renderMarkdown(markdown) {
+  let rendered = { html: markdown };
+  const [major] = version.split('.');
+
+  if (parseInt(major, 10) < 11) {
+    return markdown;
+  }
+
+  try {
+    const project = await fetchCurrentProject();
+    rendered = await fetch('/markdown', 'POST', {
+      text: markdown,
+      project: project.path_with_namespace,
+      gfm: 'true', // Needs to be a string for the API
+    });
+  } catch (e) {
+    return markdown;
+  }
+
+  return rendered.html;
+}
+
+async function saveNote({ issuable, note }) {
+  let response = {};
+
+  try {
+    const projectId = issuable.project_id;
+    const issueId = issuable.iid;
+    response = await fetch(`/projects/${projectId}/issues/${issueId}/notes`, 'POST', {
+      id: projectId,
+      issue_iid: issueId,
+      body: note,
+    });
+  } catch (e) {
+    response = { success: false };
+  }
+
+  return response;
+}
+
 exports.fetchUser = fetchUser;
 exports.fetchIssuesAssignedToMe = fetchIssuesAssignedToMe;
 exports.fetchIssuesCreatedByMe = fetchIssuesCreatedByMe;
@@ -391,3 +449,6 @@ exports.fetchMRIssues = fetchMRIssues;
 exports.createSnippet = createSnippet;
 exports.validateCIConfig = validateCIConfig;
 exports.fetchVersion = fetchVersion;
+exports.fetchDiscussions = fetchDiscussions;
+exports.renderMarkdown = renderMarkdown;
+exports.saveNote = saveNote;

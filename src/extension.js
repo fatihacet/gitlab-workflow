@@ -7,6 +7,7 @@ const searchInput = require('./search_input');
 const snippetInput = require('./snippet_input');
 const sidebar = require('./sidebar');
 const ciConfigValidator = require('./ci_config_validator');
+const webviewController = require('./webview_controller');
 const IssuableDataProvider = require('./data_providers/issuable').DataProvider;
 const CurrentBranchDataProvider = require('./data_providers/current_branch').DataProvider;
 
@@ -78,6 +79,7 @@ const registerCommands = () => {
     'gl.createSnippet': snippetInput.show,
     'gl.validateCIConfig': ciConfigValidator.validate,
     'gl.refreshSidebar': sidebar.refresh,
+    'gl.showRichContent': webviewController.create,
   };
 
   Object.keys(commands).forEach(cmd => {
@@ -88,6 +90,7 @@ const registerCommands = () => {
 };
 
 const init = () => {
+  webviewController.addDeps(context);
   tokenService.init(context);
 };
 

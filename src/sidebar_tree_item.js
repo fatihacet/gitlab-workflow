@@ -1,13 +1,23 @@
 const vscode = require('vscode');
 
 class SidebarTreeItem extends vscode.TreeItem {
-  constructor(title, url) {
+  constructor(title, data) {
     super(title);
 
-    if (url) {
+    const { enableExperimentalFeatures } = vscode.workspace.getConfiguration('gitlab');
+
+    if (data) {
+      let command = 'gl.showRichContent';
+      let arg = data;
+
+      if (data.sha || !enableExperimentalFeatures) {
+        command = 'vscode.open';
+        arg = vscode.Uri.parse(data.web_url);
+      }
+
       this.command = {
-        command: 'vscode.open',
-        arguments: [vscode.Uri.parse(url)],
+        command,
+        arguments: [arg],
       };
     }
   }
