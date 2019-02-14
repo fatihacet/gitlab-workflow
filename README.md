@@ -32,7 +32,17 @@ This extension integrates GitLab to VSCode by adding a new GitLab sidebar where 
 - Set and remove your GitLab Personal Access Token. _Required step, see [Setup](#setup) section below._
 - Supports multiple GitLab instances [Read more](#multiple-gitlab-instances).
 
-**Curious to know what's next?** [See here](#whats-next)
+## Experimental Features
+
+Experimental features are behind a feature flag. To enable them, you can set `gitlab.enableExperimentalFeatures` to `true` in your VSCode settings.
+
+#### View issue details and comments in VSCode
+
+![_issues-in-vscode](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_issues-in-vscode.png)
+
+GitLab Workflow allows you to view issue details and comments right in the VSCode. Click an issue link from the sidebar and VSCode will open a new tab to show the issue details. You can also commment to the issue from VSCode. Currently, replying to discussions are not supported.
+
+Updating assingees and labels are also not implemented. However, you can use [GitLab Slash Commands](https://docs.gitlab.com/ee/integration/slash_commands.html) to perform actions directly from VSCode. For example, to assign an issue to `@fatihacet`, simply add a comment `/assing @fatihacet` inside VSCode.
 
 
 ## Setup
@@ -110,6 +120,12 @@ The name of the git remote link corresponding to the GitLab repositiory with you
 **`gitlab.pipelineGitRemoteName`** _(required: false, default: null)_
 
 The name of the git remote link corresponding to the GitLab repositiory with your pipelines. If no setting is provided, the extension will detect it. For example: origin.
+
+
+**`gitlab.enableExperimentalFeatures`**  _(required: false, default: false)_
+
+To enable experimental features set this flag to `true`. List of experiemental features and details can be found [here](#experiemental-features)
+
 
 ## Usage
 - Open up Command Palette by pressing `Cmd+Shift+P`.
@@ -206,29 +222,12 @@ Using this command, you can quickly validate GitLab CI configuration.
 
 ![_validate-ci-config.gif](https://gitlab.com/fatihacet/gitlab-vscode-extension/raw/master/src/assets/_validate-ci-config.gif)
 
------
 
 ### Caveats and known issues
 - The current version of the extension doesn't support multi-root workspaces. It's planned for the 1.0 major version.
 
 
-## What's next?
-- Open last commit on GitLab.
-- MR actions picker which will allow you to
-  - Go to specific MR tab, Discussions, Commits, Pipelines, Changes.
-  - Assign MR to user.
-  - View the last commit.
-- **[moonshot]** MR diff discussions on VSCode gutter with user avatars like we have in GitLab Changes tab.
-- **Already Shipped**
-  - `[v0.2.2]` Pipeline link to pipeline status bar item.
-  - `[v0.2.2]` View last pipeline on GitLab.
-  - `[v0.3.0]` Pipeline actions menu to quickly view, retry, cancel or create a new pipeline.
-  - `[v0.4.0]` Issue and MR search.
-  - `[v0.4.0]` Detailed issue and MR search.
-  - `title:MR discussions refactor labels:frontend, discussions assignee:fatihacet`
-  - `[v0.4.0]` Compare your changes with master on GitLab.
-  - `[v0.5.0]` Create snippet from selected text
-  - `[v0.5.0]` GitLab CI config file `(.gitlab-ci.yml)` validation
+-----
 
 
 ## Contribution

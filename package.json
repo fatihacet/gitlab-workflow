@@ -2,7 +2,7 @@
   "name": "gitlab-workflow",
   "displayName": "GitLab Workflow",
   "description": "GitLab VSCode integration",
-  "version": "2.0.0-rc1",
+  "version": "2.0.0",
   "publisher": "fatihacet",
   "license": "MIT",
   "repository": {
@@ -36,8 +36,7 @@
   "main": "./src/extension",
   "icon": "src/assets/logo.png",
   "contributes": {
-    "commands": [
-      {
+    "commands": [{
         "command": "gl.setToken",
         "title": "GitLab: Set GitLab Personal Access Token"
       },
@@ -111,26 +110,21 @@
       }
     ],
     "menus": {
-      "view/title": [
-        {
-          "command": "gl.refreshSidebar",
-          "when": "view =~ /(issuesAssignedToMe|issuesCreatedByMe|mrsCreatedByMe|mrsAssignedToMe|allProjectMrs|currentBranchInfo)/",
-          "group": "navigation"
-        }
-      ]
+      "view/title": [{
+        "command": "gl.refreshSidebar",
+        "when": "view =~ /(issuesAssignedToMe|issuesCreatedByMe|mrsCreatedByMe|mrsAssignedToMe|allProjectMrs|currentBranchInfo)/",
+        "group": "navigation"
+      }]
     },
     "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "gitlab-workflow",
-          "title": "GitLab Workflow",
-          "icon": "src/assets/images/light/gitlab-logo.svg"
-        }
-      ]
+      "activitybar": [{
+        "id": "gitlab-workflow",
+        "title": "GitLab Workflow",
+        "icon": "src/assets/images/light/gitlab-logo.svg"
+      }]
     },
     "views": {
-      "gitlab-workflow": [
-        {
+      "gitlab-workflow": [{
           "id": "issuesAssignedToMe",
           "name": "Issues assigned to me"
         },
