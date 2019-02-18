@@ -65,6 +65,9 @@ To use this extension, you need to create a GitLab Personal Access Token and giv
 - Search for "GitLab: Set GitLab Personal Access Token" and hit Enter.
 - Enter the URL to the Gitlab instance the PAT should apply to and hit Enter.
 - Extension will ask for your PAT. Paste your PAT and hit Enter. _It won't be visible and accessible to others._
+- If you want to connect to GitLab hosted on a custom domain, additionally set
+  `gitlab.instanceUrl` in your user or workspace settings, otherwise the extension
+  will try to connect to gitlab.com. See [Configuration Options](#configuration-options) for more information.
 
 That's it. 🏁
 
@@ -79,7 +82,7 @@ If you want to use multiple GitLab instances you may want to configure each work
 
 **`gitlab.instanceUrl`** _(required: false, default: "https://gitlab.com")_
 
-If you are using GitLab on a custom domain, you should add this to your user settings file. Example: `"gitlab.instanceUrl": "https://my-gitlab-domain.com"`
+If you are using GitLab on a custom domain, you must add this to your user settings file. Example: `"gitlab.instanceUrl": "https://my-gitlab-domain.com"`
 
 To enable Gitlab Workflow extension to work with different Gitlab instances, each token is assigned to a Gitlab instance URL. For the extension to selected the correct token for a specific workspace, the option [`gitlab.instanceUrl`](#configuration-options) can be used. This option can be set in the current workspace's `.vscode/settings.json` file.
 
