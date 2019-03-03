@@ -42,7 +42,7 @@ Experimental features are behind a feature flag. To enable them, you can set `gi
 
 GitLab Workflow allows you to view issue details and comments right in the VSCode. Click an issue link from the sidebar and VSCode will open a new tab to show the issue details. You can also commment to the issue from VSCode. Currently, replying to discussions are not supported.
 
-Updating assingees and labels are also not implemented. However, you can use [GitLab Slash Commands](https://docs.gitlab.com/ee/integration/slash_commands.html) to perform actions directly from VSCode. For example, to assign an issue to `@fatihacet`, simply add a comment `/assing @fatihacet` inside VSCode.
+Updating assignees and labels are also not implemented. However, you can use [GitLab Slash Commands](https://docs.gitlab.com/ee/integration/slash_commands.html) to perform actions directly from VSCode. For example, to assign an issue to `@fatihacet`, simply add a comment `/assign @fatihacet` inside VSCode.
 
 
 ## Setup
