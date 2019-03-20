@@ -227,7 +227,7 @@ Using this command, you can quickly validate GitLab CI configuration.
 
 
 ### Caveats and known issues
-- The current version of the extension doesn't support multi-root workspaces. It's planned for the 1.0 major version.
+- The current version of the extension doesn't support multi-root workspaces. If you want to know more about limitations and read recent developments, please check [multi-root-workspace](https://gitlab.com/fatihacet/gitlab-vscode-extension/issues?scope=all&utf8=%E2%9C%93&state=all&label_name[]=multi-root-workspace) labeled issues.
 
 
 -----
