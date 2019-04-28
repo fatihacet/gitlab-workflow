@@ -352,12 +352,10 @@ async function fetchMRIssues(mrId) {
 
 async function createSnippet(data) {
   let snippet;
-  let path;
+  let path = '/snippets';
 
-  if(data.id) {
-    path = `/projects/${data.id}/snippets`
-  } else {
-    path = `/snippets`
+  if (data.id) {
+    path = `/projects/${data.id}/snippets`;
   }
 
   try {
