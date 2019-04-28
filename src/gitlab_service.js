@@ -352,9 +352,16 @@ async function fetchMRIssues(mrId) {
 
 async function createSnippet(data) {
   let snippet;
+  let path;
+
+  if(data.id) {
+    path = `/projects/${data.id}/snippets`
+  } else {
+    path = `/snippets`
+  }
 
   try {
-    snippet = await fetch(`/projects/${data.id}/snippets`, 'POST', data);
+    snippet = await fetch(path, 'POST', data);
   } catch (e) {
     vscode.window.showInformationMessage('GitLab Workflow: Failed to create your snippet.');
   }

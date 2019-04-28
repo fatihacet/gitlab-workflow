@@ -43,13 +43,20 @@ async function createSnippet(project, editor, visibility, context) {
     content = editor.document.getText();
   }
 
-  const snippet = await gitLabService.createSnippet({
-    id: project.id,
+  let data = {
     title: fileName,
     file_name: fileName,
-    code: content,
-    visibility,
-  });
+    visibility, 
+  }
+
+  if (project) {
+    data.id = project.id;
+    data.code = content;
+  } else {
+    data.content = content;
+  }
+
+  const snippet = await gitLabService.createSnippet(data);
 
   openers.openUrl(snippet.web_url);
 }
@@ -59,18 +66,14 @@ async function showPicker() {
   const project = await gitLabService.fetchCurrentProject();
 
   if (editor) {
-    if (project) {
-      const visibility = await vscode.window.showQuickPick(visibilityOptions);
+    const visibility = await vscode.window.showQuickPick(visibilityOptions);
 
-      if (visibility) {
-        const context = await vscode.window.showQuickPick(contextOptions);
+    if (visibility) {
+      const context = await vscode.window.showQuickPick(contextOptions);
 
-        if (context) {
-          createSnippet(project, editor, visibility.type, context.type);
-        }
+      if (context) {
+        createSnippet(project, editor, visibility.type, context.type);
       }
-    } else {
-      vscode.window.showInformationMessage('GitLab Workflow: No GitLab project found.');
     }
   } else {
     vscode.window.showInformationMessage('GitLab Workflow: No open file.');
