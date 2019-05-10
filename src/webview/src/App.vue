@@ -50,6 +50,10 @@ export default {
         note.markdownRenderedOnServer = true;
       }
     });
+
+    window.vsCodeApi.postMessage({
+      command: 'appReady',
+    });
   },
 }
 </script>
