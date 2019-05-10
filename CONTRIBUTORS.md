@@ -15,4 +15,7 @@
 - Tuomo Ala-Vannesluoma [@tuomoa](https://gitlab.com/tuomoa)
 - Jason Dufair [@jkdufair](https://gitlab.com/jkdufair)
 - Frank [@ffes](https://gitlab.com/ffes)
-- René Stalder[renestalder](https://gitlab.com/renestalder)
+- René Stalder [@renestalder](https://gitlab.com/renestalder)
+- Justin Parker [@jparkrr](https://gitlab.com/jparkrr)
+- Tim Tilberg [@ttilberg](https://gitlab.com/ttilberg)
+- Ivan [@Grafexy](https://gitlab.com/Grafexy)
