@@ -64,10 +64,20 @@ const createPanel = issuable => {
   });
 };
 
-async function handleCreate(panel, issuable) {
-  const discussions = await gitLabService.fetchDiscussions(issuable);
+function sendIssuableAndDiscussions(panel, issuable, discussions, appIsReady) {
+  if (!discussions || !appIsReady) return;
   panel.webview.postMessage({ type: 'issuableFetch', issuable, discussions });
+}
+
+async function handleCreate(panel, issuable) {
+  let discussions = false;
+  let appIsReady = false;
   panel.webview.onDidReceiveMessage(async message => {
+    if (message.command === 'appReady') {
+      appIsReady = true;
+      sendIssuableAndDiscussions(panel, issuable, discussions, appIsReady);
+    }
+
     if (message.command === 'renderMarkdown') {
       let rendered = await gitLabService.renderMarkdown(message.markdown);
       rendered = (rendered || '')
@@ -97,6 +107,9 @@ async function handleCreate(panel, issuable) {
       }
     }
   });
+
+  discussions = await gitLabService.fetchDiscussions(issuable);
+  sendIssuableAndDiscussions(panel, issuable, discussions, appIsReady);
 }
 
 async function create(issuable) {
