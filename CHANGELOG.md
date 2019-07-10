@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v2.1.1 - 2019-07-10
+
+### Fixed
+- Showing issue details and discussions in VSCode was not working properly. Extension was only showing loading screen.
+
+
 ## v2.1.0 - 2019-05-10
 
 ### Fixed
